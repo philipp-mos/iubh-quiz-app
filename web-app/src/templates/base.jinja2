@@ -15,6 +15,11 @@
         {% block content %} {% endblock %}
 
 
+        {% if config['FLASK_ENV'] == 'development' %}
+            {% include 'debug/debuginfo.jinja2' %}
+        {% endif %}
+
+
         <script src="{{ url_for('static', filename='main.bundle.js') }}"></script>
     </body>
 </html>
