@@ -10,7 +10,7 @@ def create_app():
     app = Flask(
         __name__,
         instance_relative_config=False,
-        template_folder = "views",
+        template_folder = "templates",
         static_folder = "static"
     )
 
