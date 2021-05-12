@@ -12,6 +12,8 @@ def create_app():
     app.config.from_object('config.Config')
 
     with app.app_context():
-        from . import routes
+        from .modules.home import home
+
+        app.register_blueprint(home.home_controller)
 
         return app
