@@ -5,4 +5,4 @@ from flask import render_template
 
 @app.route('/')
 def index():
-    return render_template('pages/index.html')
+    return render_template('pages/index.jinja2')
