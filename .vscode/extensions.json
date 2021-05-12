@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "mrmlnc.vscode-scss",
+        "visualstudioexptteam.vscodeintellicode",
+        "ckolkman.vscode-postgres",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "samuelcolvin.jinjahtml",
+        "ms-azure-devops.azure-pipelines",
+        "ms-azuretools.vscode-azureappservice"
+    ]
+}
