@@ -4,7 +4,7 @@ secret_key=
 sqlalchemy_database_uri=
 
 
-cd web-app
+cd ../web-app
 
 if [ -d "env" ]
 then
