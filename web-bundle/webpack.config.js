@@ -6,7 +6,7 @@ module.exports = {
         main: './src/main/scripts/scripts.js'
     },
     output: {
-        path: path.resolve(__dirname, '../web-app/static'),
+        path: path.resolve(__dirname, '../web-app/src/static'),
         filename: '[name].bundle.js'
     },
 
