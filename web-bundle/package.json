@@ -1,0 +1,16 @@
+{
+  "name": "@iubh-quiz-app/web-bundle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "iubh-quiz-app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IUBH-Quiz-App/iubh-quiz-app.git"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/IUBH-Quiz-App/iubh-quiz-app#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
