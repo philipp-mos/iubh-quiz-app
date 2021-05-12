@@ -9,7 +9,7 @@ def create_app():
         static_folder = "static"
     )
 
-    app.config.from_object('config.Config')
+    app.config.from_object('config.DevConfig')
 
     with app.app_context():
         from .modules.home import home
