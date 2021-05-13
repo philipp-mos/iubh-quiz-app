@@ -1,16 +1,8 @@
 {% extends 'base.jinja2' %}
-{% block title %} Dashboard {% endblock %}
+{% set page_title = 'Dashboard' %}
+{% set active_page = 'home_controller.index' %}
+{% set bundle_name = 'home.bundle' %}
 
 {% block content %}
 
-{% endblock %}
-
-
-
-{% block modulestyles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='home.bundle.css') }}">
-{% endblock %}
-
-{% block modulescripts %}
-  <script src="{{ url_for('static', filename='home.bundle.js') }}"></script>
 {% endblock %}

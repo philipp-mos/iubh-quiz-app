@@ -1,3 +1,7 @@
+{% set navigation_items = [
+  ('home_controller.index')
+] -%}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ url_for('home_controller.index') }}">IUBH-Quiz-App</a>
@@ -6,9 +10,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('home_controller.index') }}">Dashboard</a>
-        </li>
+        {% for nav_path in navigation_items %}
+          <li class="nav-item">
+            <a class="nav-link {% if nav_path == active_page %} active {% endif %}" 
+               aria-current="page" 
+               href="{{ url_for(nav_path) }}">
+                {{ page_title }}
+            </a>
+          </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
