@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ../web-bundle
-npm run build
+npm run dev:build
 
 
 cd ../web-app

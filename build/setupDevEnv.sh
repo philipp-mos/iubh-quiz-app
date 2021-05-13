@@ -26,4 +26,4 @@ pip install -r requirements.txt
 
 cd ../web-bundle
 npm install
-npm run build
+npm run dev:build
