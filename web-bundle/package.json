@@ -11,7 +11,8 @@
   "license": "ISC",
   "homepage": "https://github.com/IUBH-Quiz-App/iubh-quiz-app#readme",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "dev:build": "webpack --config webpack.config.js",
+    "prod:build": "webpack --config webpack.production.js"
   },
   "dependencies": {
     "bootstrap": "^4.6.0",
@@ -25,6 +26,7 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
+    "merge": "^2.1.0",
     "mini-css-extract-plugin": "^1.3.4",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",

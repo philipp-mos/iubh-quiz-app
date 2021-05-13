@@ -2,6 +2,7 @@ const path =  require('path');
 const extract = require("mini-css-extract-plugin");
 
 module.exports = {
+    mode: 'development',
     entry: {
         main: './src/main/scripts/scripts.js'
     },
@@ -45,7 +46,5 @@ module.exports = {
         new extract({
             filename: '[name].bundle.css'
         })
-    ],
-
-    mode: 'development'
+    ]
 }
