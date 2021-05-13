@@ -6,6 +6,7 @@ load_dotenv(path.join(basedir, "env"))
 
 
 class Config:
+    FLASK_APP = 'wsgi.py'
 
     SECRET_KEY = environ.get("SECRET_KEY")
     FLASK_APP = environ.get("FLASK_APP")
