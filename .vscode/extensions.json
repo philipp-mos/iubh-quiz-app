@@ -1,7 +1,6 @@
 {
     "recommendations": [
         "ms-python.python",
-        "ms-python.vscode-pylance",
         "mrmlnc.vscode-scss",
         "visualstudioexptteam.vscodeintellicode",
         "ckolkman.vscode-postgres",
