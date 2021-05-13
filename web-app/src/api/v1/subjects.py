@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify
+
+from ...repositories.SubjectRepository import SubjectRepository
 from ...models.subject import Subject
 
 
@@ -19,6 +21,10 @@ api_v1__subjects_controller = Blueprint(
 
 @api_v1__subjects_controller.route('', methods=['GET'])
 def get_all():
+
+    all_subjects = SubjectRepository.get_all()
+
+
     return jsonify(
-        {'subjects': list(map(lambda x: x.json(), subjects))}
+        {'subjects': list(map(lambda x: x.json(), all_subjects))}
     )
