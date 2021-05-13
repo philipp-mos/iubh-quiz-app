@@ -22,5 +22,6 @@ class Config:
     if FLASK_ENV == 'development' :
         DEBUG = True
         TESTING = True
+        SQLALCHEMY_ECHO = True
     elif FLASK_ENV == 'staging' :
         TESTING = True
