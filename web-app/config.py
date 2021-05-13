@@ -16,21 +16,11 @@ class Config:
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-
-
-
-class ProdConfig(Config):
-    FLASK_ENV = 'production'
     DEBUG = False
     TESTING = False
 
-class StageConfig(Config):
-    FLASK_ENV = 'staging'
-    DEBUG = False
-    TESTING = True
-
-
-class DevConfig(Config):
-    FLASK_ENV = 'development'
-    DEBUG = True
-    TESTING = True
+    if FLASK_ENV == 'development' :
+        DEBUG = True
+        TESTING = True
+    elif FLASK_ENV == 'staging' :
+        TESTING = True
