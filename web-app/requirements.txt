@@ -1,5 +1,5 @@
 Flask==1.1.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
-python-dotenv==0.15.0
+python-dotenv==0.17.1
 Flask-SQLalchemy==2.4.4; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 psycopg2==2.8.6
 Flask-Script==2.0.6
