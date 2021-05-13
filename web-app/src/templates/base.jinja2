@@ -6,7 +6,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.bundle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='base.bundle.css') }}">
+        {% block modulestyles %} {% endblock %}
     </head>
     <body class="d-flex flex-column h-100">
         <header>
@@ -21,6 +22,7 @@
             {% endif %}
         </main>
 
-        <script async src="{{ url_for('static', filename='main.bundle.js') }}"></script>
+        <script async src="{{ url_for('static', filename='base.bundle.js') }}"></script>
+        {% block modulescripts %} {% endblock %}
     </body>
 </html>

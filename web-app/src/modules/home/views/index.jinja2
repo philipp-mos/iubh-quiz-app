@@ -4,3 +4,13 @@
 {% block content %}
 
 {% endblock %}
+
+
+
+{% block modulestyles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.bundle.css') }}">
+{% endblock %}
+
+{% block modulescripts %}
+  <script src="{{ url_for('static', filename='home.bundle.js') }}"></script>
+{% endblock %}
