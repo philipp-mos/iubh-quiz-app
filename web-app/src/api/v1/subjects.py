@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from ...models.subject import Subject
 
 subjects = [
     'Requirements Engineering',
