@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify
-from flask import current_app as app
 
 subjects = [
     'Requirements Engineering',
@@ -9,13 +8,13 @@ subjects = [
     'Mathematik II'
 ]
 
-api_v1_controller = Blueprint(
-    'api_v1_controller',
+api_v1__subjects_controller = Blueprint(
+    'api_v1__subjects_controller',
     __name__,
-    url_prefix='/api/v1/'
+    url_prefix='/api/v1/subjects/'
 )
 
 
-@api_v1_controller.route('getAllSubjects', methods=['GET'])
-def get_all_subjects():
+@api_v1__subjects_controller.route('', methods=['GET'])
+def get_all():
     return jsonify(subjects)

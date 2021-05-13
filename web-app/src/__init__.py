@@ -23,8 +23,8 @@ def create_app():
 
 
     with app.app_context():
-        from .api.v1 import api
-        app.register_blueprint(api.api_v1_controller)
+        from .api.v1 import subjects
+        app.register_blueprint(subjects.api_v1__subjects_controller)
         
         from .modules.home import home
         app.register_blueprint(home.home_controller)
