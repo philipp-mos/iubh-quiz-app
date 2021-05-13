@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{% block title %} {% endblock %} | IUBH-Quiz-App</title>
+        <title>{{ page_title }} | IUBH-Quiz-App</title>
 
+        <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='base.bundle.css') }}">
-        {% block modulestyles %} {% endblock %}
+        {% include 'layout/styleincludes.jinja2' %}
+
     </head>
     <body class="d-flex flex-column h-100">
         <header>
@@ -22,7 +23,6 @@
             {% endif %}
         </main>
 
-        <script async src="{{ url_for('static', filename='base.bundle.js') }}"></script>
-        {% block modulescripts %} {% endblock %}
+        {% include 'layout/scriptincludes.jinja2' %}
     </body>
 </html>
