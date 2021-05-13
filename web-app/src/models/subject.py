@@ -16,3 +16,12 @@ class Subject(db.Model):
         unique=True,
         nullable=False
     )
+
+
+
+
+    def __init__(self, name):
+        self.name = name
+
+    def json(self):
+        return {'id': self.id, 'name': self.name}
