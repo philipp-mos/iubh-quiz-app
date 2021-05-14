@@ -15,7 +15,7 @@ def create_app():
         static_folder = "static"
     )
 
-    app.config.from_object('config.DevConfig')
+    app.config.from_object('config.Config')
 
     db.init_app(app)
 
@@ -23,8 +23,10 @@ def create_app():
 
 
     with app.app_context():
+        from .api.v1 import subjects
+        app.register_blueprint(subjects.api_v1__subjects_controller)
+        
         from .modules.home import home
-
         app.register_blueprint(home.home_controller)
 
         return app
