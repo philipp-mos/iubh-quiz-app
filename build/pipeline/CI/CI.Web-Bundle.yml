@@ -15,5 +15,5 @@ steps:
 - script: |
     cd web-bundle
     npm install
-    npm run prod:build
+    npm run dev:build
   displayName: 'npm install and build'
