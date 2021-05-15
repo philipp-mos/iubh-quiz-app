@@ -1,0 +1,19 @@
+trigger:
+- main
+- release
+- feature/*
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    cd web-bundle
+    npm install
+    npm run prod:build
+  displayName: 'npm install and build'
