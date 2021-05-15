@@ -14,9 +14,10 @@ See [Setup Python Virtual Environment](.github/documentation/python-venv-setup.m
 
 ## Python Scripts
 Requires current location in /web-app and virtual environment set up
-### Start Application locally
+### Start Application
+workers = number of cores
 ```
-python wsgi.py runserver
+gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
 ```
 
 ### Migrate / Update Database
