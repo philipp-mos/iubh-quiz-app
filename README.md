@@ -3,3 +3,41 @@
 | CI.Web-App | CI.Web-Bundle |
 | :--- | :--- |
 | [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-App?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=64&branchName=main) | [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-Bundle?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=65&branchName=main) |
+
+
+---
+
+## Setup Development Environment
+See [Setup Python Virtual Environment](.github/documentation/python-venv-setup.md)
+
+---
+
+## Python Scripts
+Requires current location in /web-app and virtual environment set up
+### Start Application locally
+```
+python wsgi.py runserver
+```
+
+### Migrate / Update Database
+```
+python wsgi.py db upgrade
+```
+
+### Generate new Migration
+```
+python wsgi.py db migrate -m "Migration xyz"
+```
+
+---
+
+## NPM Scripts
+### Install
+```
+npm install
+```
+
+### Build
+```
+npm run dev:build
+```
