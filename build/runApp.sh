@@ -6,4 +6,6 @@ npm run dev:build
 
 cd ../web-app
 source env/bin/activate
-python wsgi.py runserver
+
+gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
+# python app.py runserver
