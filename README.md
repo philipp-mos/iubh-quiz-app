@@ -27,12 +27,12 @@ gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
 
 ### Migrate / Update Database
 ```
-python wsgi.py db upgrade
+python app.py db upgrade
 ```
 
 ### Generate new Migration
 ```
-python wsgi.py db migrate -m "Migration xyz"
+python app.py db migrate -m "Migration xyz"
 ```
 
 ---
