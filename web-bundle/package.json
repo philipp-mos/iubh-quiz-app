@@ -6,10 +6,10 @@
   "author": "iubh-quiz-app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IUBH-Quiz-App/iubh-quiz-app.git"
+    "url": "git+https://github.com/philipp-mos/iubh-quiz-app.git"
   },
-  "license": "ISC",
-  "homepage": "https://github.com/IUBH-Quiz-App/iubh-quiz-app#readme",
+  "license": "MIT",
+  "homepage": "https://github.com/philipp-mos/iubh-quiz-app.git#readme",
   "scripts": {
     "dev:build": "webpack --config webpack.config.js",
     "prod:build": "webpack --config webpack.production.js"
