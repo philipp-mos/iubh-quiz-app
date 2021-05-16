@@ -1,5 +1,3 @@
-# iu quiz
-
 <img src="./.github/documentation/images/readme_title.png" style="width: 100%;">
 
 
