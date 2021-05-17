@@ -23,23 +23,14 @@ def create_app():
 
 
 
-
-    @app.context_processor
-    def inject_bundle_version():
-
-        with app.open_resource('static/bundle-version.txt', 'r') as version_file:
-            version_number = version_file.read()
-
-        return dict(bundle_version=version_number)
-
-
-
     with app.app_context():
+        from .template_extensions import context_preprocessors
 
         from .api.v1 import subjects
         app.register_blueprint(subjects.api_v1__subjects_controller)
-        
+
         from .modules.home import home
         app.register_blueprint(home.home_controller)
+
 
         return app

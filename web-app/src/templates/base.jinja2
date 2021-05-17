@@ -16,10 +16,18 @@
         </header>
 
         <main role="main" class="container">
-            {% block content %} {% endblock %}
+            <div class="row">
+                <div class="col-12">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
 
             {% if config['FLASK_ENV'] == 'development' %}
-                {% include 'debug/debuginfo.jinja2' %}
+                <div class="row">
+                    <div class="col-12">
+                        {% include 'debug/debuginfo.jinja2' %}
+                    </div>
+                </div>
             {% endif %}
         </main>
 
