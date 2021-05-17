@@ -21,9 +21,18 @@ def create_app():
 
     migrate = Migrate(app, db)
 
+
+
+
     @app.context_processor
     def inject_bundle_version():
-        return dict(bundle_version='')
+
+        with app.open_resource('static/bundle-version.txt', 'r') as version_file:
+            version_number = version_file.read()
+
+        return dict(bundle_version=version_number)
+
+
 
     with app.app_context():
 
