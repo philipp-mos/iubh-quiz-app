@@ -21,8 +21,12 @@ def create_app():
 
     migrate = Migrate(app, db)
 
+    @app.context_processor
+    def inject_bundle_version():
+        return dict(bundle_version='')
 
     with app.app_context():
+
         from .api.v1 import subjects
         app.register_blueprint(subjects.api_v1__subjects_controller)
         
