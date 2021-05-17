@@ -12,7 +12,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         {% for nav_path, nav_title in navigation_items %}
           <li class="nav-item">
-            <a class="nav-link {% if nav_path == active_page %} active {% endif %}" 
+            <a class="nav-link {% if nav_path == request.endpoint %} active {% endif %}" 
                aria-current="page" 
                href="{{ url_for(nav_path) }}">
                 {{ nav_title }}
