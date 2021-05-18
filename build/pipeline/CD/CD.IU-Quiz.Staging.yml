@@ -1,0 +1,29 @@
+trigger:
+- release
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+  displayName: 'Use Python 3.7'
+
+- script: |
+    cd web-app
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install pip dependencies'
+
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    cd web-bundle
+    npm install
+    npm run dev:build
+  displayName: 'npm install and build'
