@@ -1,0 +1,52 @@
+trigger:
+- release
+
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+  displayName: 'Use Python 3.7'
+
+- script: |
+    cd web-app
+    python -m venv antenv
+    source antenv/bin/activate
+    python -m pip install --upgrade pip
+    export FLASK_ENV=staging
+    export LDFLAGS=-L/usr/local/opt/openssl/lib
+    export CPPFLAGS=-I/usr/local/opt/openssl/include
+    pip install setup
+    pip install -r requirements.txt
+  displayName: 'Install pip dependencies'
+
+
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    cd web-bundle
+    npm install
+    npm run dev:build
+  displayName: 'npm install and build'
+
+
+
+- task: ArchiveFiles@2
+  inputs:
+     rootFolderOrFile: '$(Build.SourcesDirectory)/web-app'
+     includeRootFolder: false
+     archiveType: 'zip'
+     archiveFile: '$(Build.ArtifactStagingDirectory)/iuqizapp_artifact.zip'
+     replaceExistingArchive: true
+- publish: $(Build.ArtifactStagingDirectory)/iuqizapp_artifact.zip
+  displayName: 'Upload Artifact'
+  artifact: drop
