@@ -1,9 +1,9 @@
 <img src="./.github/documentation/images/readme_title.png" style="width: 100%;">
 
 
-| CI.Web-App | CI.Web-Bundle | CD.Staging |
+| CI.Web-App | CI.Web-Bundle | CD.IU-Quiz.Staging |
 | :--- | :--- | :--- |
-| [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-App?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=64&branchName=main) | [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-Bundle?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=65&branchName=main) | |
+| [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-App?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=64&branchName=main) | [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CI/CI.Web-Bundle?branchName=main)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=65&branchName=main) | [![Build Status](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_apis/build/status/CD/CD.IU-Quiz.Staging?branchName=devops%2FIQA-38-CD-Pipeline)](https://dev.azure.com/philipp-c-moser/IUBH-Quiz-App/_build/latest?definitionId=66&branchName=devops%2FIQA-38-CD-Pipeline) |
 
 ---
 
