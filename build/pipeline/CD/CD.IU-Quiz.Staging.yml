@@ -17,10 +17,10 @@ steps:
     cd web-app
     python -m venv antenv
     source antenv/bin/activate
+    python -m pip install --upgrade pip
     export FLASK_ENV=staging
     export LDFLAGS=-L/usr/local/opt/openssl/lib
     export CPPFLAGS=-I/usr/local/opt/openssl/include
-    python -m pip install --upgrade pip
     pip install setup
     pip install -r requirements.txt
   displayName: 'Install pip dependencies'
