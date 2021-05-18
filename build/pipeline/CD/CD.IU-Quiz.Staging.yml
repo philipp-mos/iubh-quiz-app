@@ -15,8 +15,8 @@ steps:
 
 - script: |
     cd web-app
-    python -m venv env
-    source env/bin/activate
+    python -m venv antenv
+    source antenv/bin/activate
     export FLASK_ENV=staging
     python -m pip install --upgrade pip
     pip install setup
