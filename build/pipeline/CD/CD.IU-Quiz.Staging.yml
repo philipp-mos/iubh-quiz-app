@@ -1,6 +1,8 @@
 trigger:
 - release
 
+pr: none
+
 pool:
   vmImage: ubuntu-latest
 
