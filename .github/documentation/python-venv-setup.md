@@ -5,13 +5,13 @@ See [setupDevEnv.sh](../../build/setupDevEnv.sh) for whole installation routine.
 ## Add new Virtual Environment
 Create new Virtual Environment
 ```
-python3 -m venv env
+python3 -m venv antenv
 ```
 
 ## Activate new Environment
 This activates the environment
 ```
-source env/bin/activate
+source antenv/bin/activate
 ```
 
 ## Add required Environment Variables
