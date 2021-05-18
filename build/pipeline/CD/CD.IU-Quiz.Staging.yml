@@ -45,6 +45,6 @@ steps:
      archiveType: 'zip'
      archiveFile: '$(Build.ArtifactStagingDirectory)/iuqizapp_artifact.zip'
      replaceExistingArchive: true
-- publish: $(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip
+- publish: $(Build.ArtifactStagingDirectory)/iuqizapp_artifact.zip
   displayName: 'Upload Artifact'
   artifact: drop
