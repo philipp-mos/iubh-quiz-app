@@ -7,6 +7,12 @@
 
 ---
 
+| Production | Staging |
+| :--- | :--- |
+| - | https://iuquiz-staging.azurewebsites.net/ |
+
+---
+
 ## Python Naming Conventions
 See [Python Naming Conventions](.github/documentation/python-naming-conventions.md)
 
