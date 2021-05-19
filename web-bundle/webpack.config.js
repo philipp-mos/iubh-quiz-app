@@ -1,6 +1,7 @@
 const path =  require('path');
 const extract = require('mini-css-extract-plugin');
 const CreateFileWepack = require('create-file-webpack');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode: 'development',
@@ -63,6 +64,11 @@ module.exports = {
             path: '../web-app/src/static',
             fileName: 'bundle-version.txt',
             content: Math.random().toString(36).replace(/[^a-z]+/g, '')
+        }),
+        new CopyPlugin({
+            patterns: [
+              { from: "./src/assets", to: "assets" }
+            ]
         })
     ]
 }
