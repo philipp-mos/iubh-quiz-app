@@ -14,26 +14,30 @@
         {% include 'layout/styleincludes.jinja2' %}
 
     </head>
-    <body class="d-flex flex-column h-100">
-        <header>
-            {% include 'layout/navigation.jinja2' %}
-        </header>
+    <body class="d-flex flex-column h-100 body--full-height">
+        
+        {% include 'layout/navigation.jinja2' %}
 
-        <main role="main" class="container">
-            <div class="row">
-                <div class="col-12 pt-5">
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-
-            {% if config['FLASK_ENV'] == 'development' %}
+        <main role="main" class="flex-shrink-0">
+            <div class="container">
                 <div class="row">
-                    <div class="col-12">
-                        {% include 'debug/debuginfo.jinja2' %}
+                    <div class="col-12 pt-5">
+                        {% block content %}{% endblock %}
                     </div>
                 </div>
-            {% endif %}
+
+                {% if config['FLASK_ENV'] == 'development' %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% include 'debug/debuginfo.jinja2' %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
         </main>
+
+        {% include 'layout/footer.jinja2' %}
 
         {% include 'layout/scriptincludes.jinja2' %}
     </body>
