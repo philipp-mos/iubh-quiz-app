@@ -30,7 +30,9 @@
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ url_for('static', filename='assets/icons/user-icon-circle-white.svg') }}" alt="user-icon" width="35" height="35">
+            <img class="d-none d-sm-inline-block" src="{{ url_for('static', filename='assets/icons/user-icon-circle-white.svg') }}" alt="user-icon" width="35" height="35">
+            <div class="d-sm-none mt-4"></div>
+            <span class="d-sm-none">vorname.nachname@iubh-fernstudium.de</span>
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="user-menu">
             <li><a class="dropdown-item" href="#">Neues Quiz</a></li>
