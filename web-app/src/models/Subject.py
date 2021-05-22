@@ -19,9 +19,5 @@ class Subject(db.Model):
 
 
 
-
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         self.name = name
-
-    def json(self):
-        return {'id': self.id, 'name': self.name}
