@@ -23,6 +23,11 @@ See [Setup Python Virtual Environment](.github/documentation/python-venv-setup.m
 
 ---
 
+## Use Docker for local Setup
+See [Setup Docker](.github/documentation/python-docker-setup.md)
+
+---
+
 ## Python Scripts
 Requires current location in /web-app and virtual environment set up
 ### Start Application
