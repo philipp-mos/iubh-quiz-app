@@ -5,7 +5,7 @@ npm run dev:build
 
 
 cd ../web-app
-source env/bin/activate
+source antenv/bin/activate
 
 gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
 # python app.py runserver

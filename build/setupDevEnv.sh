@@ -4,12 +4,12 @@ sqlalchemy_database_uri=
 
 cd ../web-app
 
-if [ -d "env" ]
+if [ -d "antenv" ]
 then
-    source env/bin/activate
+    source antenv/bin/activate
 else
-    python3 -m venv env
-    source env/bin/activate
+    python3 -m venv antenv
+    source antenv/bin/activate
 fi
 
 export FLASK_ENV='development'

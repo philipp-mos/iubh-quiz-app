@@ -7,6 +7,12 @@
 
 ---
 
+| Production | Staging |
+| :--- | :--- |
+| - | https://iuquiz-staging.azurewebsites.net/ |
+
+---
+
 ## Python Naming Conventions
 See [Python Naming Conventions](.github/documentation/python-naming-conventions.md)
 
@@ -14,6 +20,11 @@ See [Python Naming Conventions](.github/documentation/python-naming-conventions.
 
 ## Setup Development Environment
 See [Setup Python Virtual Environment](.github/documentation/python-venv-setup.md)
+
+---
+
+## Use Docker for local Setup
+See [Setup Docker](.github/documentation/python-docker-setup.md)
 
 ---
 

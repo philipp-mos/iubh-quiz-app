@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web-app
+    command: gunicorn --workers 4 --bind 127.0.0.1:5000 app:app
+    volumes:
+      - ./web-app/:/usr/src/app/
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env.dev
+    depends_on:
+    - db
+
+  db:
+    image: postgres:13-alpine
+    ports:
+        - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=local
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_DB=iuquizdb
+
+volumes:
+  postgres_data:
