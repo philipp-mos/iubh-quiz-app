@@ -20,6 +20,15 @@ steps:
 
 
 - script: |
-    cd tests
-    pytest
-  displayName: 'Run PyTests'
+    cd web-app/tests
+    pip install coverage
+    coverage run -m pytest --junitxml=test-report.xml
+    coverage report
+  displayName: 'Run PyTests and create test-report file'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: 'web-app/tests/test-report.xml'
+    testRunTitle: '$(Agent.OS) - $(Build.BuildNumber)[$(Agent.JobName)] - Python $(python.version)'
+  condition: succeededOrFailed()
+  displayName: 'Publish PyTest Results'
