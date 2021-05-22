@@ -5,8 +5,8 @@ updates:
   - package-ecosystem: "pip"
     directory: "web-app"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+      interval: "monthly"
+    open-pull-requests-limit: 4
     reviewers:
       - "philipp-mos"
     target-branch: "dependency-update"
@@ -14,8 +14,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "web-bundle"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+      interval: "monthly"
+    open-pull-requests-limit: 4
     reviewers:
       - "philipp-mos"
     target-branch: "dependency-update"

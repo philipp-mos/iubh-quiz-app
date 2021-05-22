@@ -26,11 +26,9 @@ def create_app():
     with app.app_context():
         from .template_extensions import context_preprocessors
 
-        from .api.v1 import subjects
-        app.register_blueprint(subjects.api_v1__subjects_controller)
+        from .api.v1 import api_routing_configuration
 
-        from .modules.home import home
-        app.register_blueprint(home.home_controller)
+        from .modules import routing_configuration
 
 
         return app
