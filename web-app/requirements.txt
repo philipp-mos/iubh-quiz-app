@@ -1,4 +1,4 @@
-Flask==2.0.1
+Flask==1.1.2
 python-dotenv==0.17.1
 psycopg2-binary==2.8.6
 Flask-SQLalchemy==2.5.1
