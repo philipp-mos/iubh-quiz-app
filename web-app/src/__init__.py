@@ -29,8 +29,7 @@ def create_app():
         from .api.v1 import subjects
         app.register_blueprint(subjects.api_v1__subjects_controller)
 
-        from .modules.home import home
-        app.register_blueprint(home.home_controller)
+        from .modules import routing_configuration
 
 
         return app
