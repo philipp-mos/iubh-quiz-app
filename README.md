@@ -9,7 +9,7 @@
 
 | Production | Staging |
 | :--- | :--- |
-| - | https://iuquiz-staging.azurewebsites.net/ |
+| https://iuquiz.azurewebsites.net | https://iuquiz-staging.azurewebsites.net |
 
 ---
 
