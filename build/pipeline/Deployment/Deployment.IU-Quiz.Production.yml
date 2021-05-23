@@ -34,6 +34,17 @@ steps:
   displayName: 'npm install and build'
 
 
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      requirements.txt
+      Dockerfile
+      .gitignore
+      .env.example
+      tests/*
+  displayName: 'Remove not required files / folders'
+
 
 - task: ArchiveFiles@2
   inputs:
