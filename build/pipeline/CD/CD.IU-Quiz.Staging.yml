@@ -40,12 +40,14 @@ steps:
 
 
 - task: DownloadSecureFile@1
+  name: environmentFile
+  displayName: 'Download Secret Environment File'
   inputs:
-    secureFile: '.env-staging'
+    secureFile: '.env'
 
 - task: CopyFiles@2
   inputs:
-    contents: '$(Agent.TempDirectory)/.env-staging'
+    contents: '$(environmentFile.secureFilePath)'
     targetFolder: '$(Build.SourcesDirectory)/web-app'
 
 
