@@ -16,14 +16,14 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRESQLCONNSTR_APPDB")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-    if FLASK_ENV == 'development' :
+    if FLASK_ENV == 'development':
         DEBUG = True
         TESTING = True
         SQLALCHEMY_ECHO = True
-    elif FLASK_ENV == 'staging' :
+    elif FLASK_ENV == 'staging':
         TESTING = True
