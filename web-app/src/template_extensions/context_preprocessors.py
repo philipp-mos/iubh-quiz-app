@@ -10,7 +10,7 @@ def inject_app_version():
 
     try:
         with app.open_resource(version_file_path, 'r') as version_file:
-            version_number = version_file.read()
+            version_number = version_file.readline().rstrip()
     except FileNotFoundError:
         print(version_file_path + ' does not exist')
 
