@@ -15,7 +15,7 @@ def create_app():
         static_folder = "static"
     )
 
-    app.config.from_object('config.ConfigLocal')
+    app.config.from_object('config.Config')
 
     db.init_app(app)
 
