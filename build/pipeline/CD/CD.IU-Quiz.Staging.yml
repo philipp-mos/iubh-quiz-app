@@ -43,6 +43,10 @@ steps:
   inputs:
     secureFile: '.env-staging'
 
+- task: CopyFiles@2
+  inputs:
+    contents: '.env-staging'
+    targetFolder: '$(Build.SourcesDirectory)/web-app'
 
 
 - task: ArchiveFiles@2
