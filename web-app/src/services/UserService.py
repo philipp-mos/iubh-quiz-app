@@ -1,6 +1,8 @@
 from .. import login_manager
 
-class UserService:
+from .abstracts.AbcUserService import AbcUserService
+
+class UserService(AbcUserService):
 
     @login_manager.user_loader
     def load_user(user_id):
