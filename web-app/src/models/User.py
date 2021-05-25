@@ -22,7 +22,7 @@ class User(UserMixin, db.Model):
         primary_key=False,
         unique=False,
         nullable=False
-	)
+    )
 
     creation_date = db.Column(
         db.DateTime,
