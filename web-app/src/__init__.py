@@ -28,6 +28,8 @@ def create_app():
 
 
     with app.app_context():
+        from .services.UserService import UserService
+
         from .template_extensions import error_handlers
         from .template_extensions import context_preprocessors
 
@@ -37,9 +39,3 @@ def create_app():
 
 
         return app
-
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
