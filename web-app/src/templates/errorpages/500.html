@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>500 - Server Error | iuquiz</title>
+
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" href="/static/assets/images/favicon.ico"/>
+
+        <style>
+            
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .errorpage_wrapper {
+                position: relative;
+                height: 100vh;
+            }
+
+            .errorpage_wrapper .errorpage_container {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+            .errorpage_container {
+                max-width: 520px;
+                width: 100%;
+                line-height: 1.4;
+                text-align: center;
+            }
+
+            .errorpage_container .errorpage_content {
+                position: relative;
+                height: 200px;
+                margin: 0 auto 20px;
+                z-index: -1;
+            }
+
+            .errorpage_container .errorpage_content h1 {
+                font-family: Arial;
+                font-size: 236px;
+                font-weight: 200;
+                margin: 0;
+                color: #211B19;
+                text-transform: uppercase;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .errorpage_container .errorpage_content h2 {
+                font-family: Arial;
+                font-size: 28px;
+                font-weight: 400;
+                text-transform: uppercase;
+                color: #211B19;
+                background: #FFFFFF;
+                padding: 10px 5px;
+                margin: auto;
+                display: inline-block;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            .errorpage_container a {
+                font-family: Arial;
+                display: inline-block;
+                font-weight: 700;
+                text-decoration: none;
+                color: #FFFFFF;
+                text-transform: uppercase;
+                padding: 13px 23px;
+                background: #48B1C2;
+                font-size: 18px;
+                transition: 0.2s all;
+            }
+
+            .errorpage_container a:hover {
+                color: #46AABC;
+                background: #211B19;
+            }
+
+            @media (max-width: 480px) {
+                .errorpage_container .errorpage_content {
+                    height: 148px;
+                    margin: 0 auto 10px;
+                }
+
+                .errorpage_container .errorpage_content h1 {
+                    font-size: 86px;
+                }
+
+                .errorpage_container .errorpage_content h2 {
+                    font-size: 16px;
+                }
+
+                .errorpage_container a {
+                    padding: 7px 15px;
+                    font-size: 14px;
+                }
+            }
+                    
+        </style>
+    </head>
+    <body>
+        <div class="errorpage_wrapper">
+            <div class="errorpage_container">
+                <div class="errorpage_content">
+                    <h1>Ops!</h1>
+                    <h2>500 - Server Error</h2>
+                </div>
+                <a href="/">Back</a>
+            </div>
+        </div>
+    </body>
+</html>

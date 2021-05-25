@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{{ page_title }} | IUBH-Quiz-App</title>
+        <title>{{ page_title }} | iuquiz</title>
 
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/images/apple-touch-icon.png') }}">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.ico') }}"/>
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/images/apple-touch-icon.png') }}{{ '?v=' + bundle_version }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.ico') }}{{ '?v=' + bundle_version }}"/>
 
 
         {% include 'layout/styleincludes.jinja2' %}
