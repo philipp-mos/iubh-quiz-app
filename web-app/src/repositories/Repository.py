@@ -4,7 +4,7 @@ from .abstracts.AbcRepository import AbcRepository
 class Repository(AbcRepository):
 
     def get_all():
-        return NotImplementedError
+        raise NotImplementedError
 
     def find_by_id(id):
-        return NotImplementedError
+        raise NotImplementedError

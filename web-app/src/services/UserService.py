@@ -13,4 +13,4 @@ class UserService(AbcUserService):
     @login_manager.unauthorized_handler
     def unauthorized():
         # return redirect(url_for('auth_controller.login'))
-        return NotImplementedError
+        raise NotImplementedError

@@ -6,4 +6,4 @@ class AbcUserRepository(AbcRepository):
 
     @abstractmethod
     def find_by_email(user_email):
-        return NotImplementedError
+        raise NotImplementedError
