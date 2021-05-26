@@ -6,7 +6,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('home_controller.index') }}">
-        <img src="{{ url_for('static', filename='assets/images/logo-iuquiz-white.svg') }}" height="45" />
+        <img src="{{ url_for('static', filename='assets/images/logo-iuquiz-white.svg') }}{{ '?v=' + bundle_version }}" height="45" />
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
-            <img class="d-none d-sm-inline-block" src="{{ url_for('static', filename='assets/icons/user-icon-circle-white.svg') }}" alt="user-icon" width="35" height="35">
+            <img class="d-none d-sm-inline-block" src="{{ url_for('static', filename='assets/icons/user-icon-circle-white.svg') }}{{ '?v=' + bundle_version }}" alt="user-icon" width="35" height="35">
             <div class="d-sm-none mt-4"></div>
             <span class="d-sm-none">vorname.nachname@iubh-fernstudium.de</span>
           </a>

@@ -10,15 +10,14 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.7'
-  displayName: 'Use Python 3.7'
+    versionSpec: '3.8'
+  displayName: 'Use Python 3.8'
 
 - script: |
     cd web-app
     python -m venv antenv
     source antenv/bin/activate
     python -m pip install --upgrade pip
-    export FLASK_ENV=staging
     export LDFLAGS=-L/usr/local/opt/openssl/lib
     export CPPFLAGS=-I/usr/local/opt/openssl/include
     pip install setup
@@ -38,6 +37,17 @@ steps:
     npm run dev:build
   displayName: 'npm install and build'
 
+
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      requirements.txt
+      Dockerfile
+      .gitignore
+      .env.example
+      tests/*
+  displayName: 'Remove not required files / folders'
 
 
 - task: ArchiveFiles@2

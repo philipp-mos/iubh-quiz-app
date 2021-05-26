@@ -15,7 +15,7 @@ def create_app():
         static_folder = "static"
     )
 
-    app.config.from_object('config.ConfigLocal')
+    app.config.from_object('config.Config')
 
     db.init_app(app)
 
@@ -24,6 +24,7 @@ def create_app():
 
 
     with app.app_context():
+        from .template_extensions import error_handlers
         from .template_extensions import context_preprocessors
 
         from .api.v1 import api_routing_configuration
