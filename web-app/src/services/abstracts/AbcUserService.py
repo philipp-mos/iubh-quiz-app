@@ -5,3 +5,7 @@ class AbcUserService(ABC):
     @abstractmethod
     def load_user(user_id):
         raise NotImplementedError
+
+    @abstractmethod
+    def unauthorized():
+        raise NotImplementedError
