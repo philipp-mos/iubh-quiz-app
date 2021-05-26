@@ -12,5 +12,6 @@ class UserService(AbcUserService):
 
     @login_manager.unauthorized_handler
     def unauthorized():
+        # TODO: Needs to be enabled once we implemented Login-Action on Friday
         # return redirect(url_for('auth_controller.login'))
         raise NotImplementedError
