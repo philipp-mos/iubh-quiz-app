@@ -4,4 +4,9 @@ from ..models.Subject import Subject
 
 
 class SubjectRepository(Repository, AbcSubjectRepository):
-    pass
+    
+    def get_all():
+        return Subject.query.all()
+
+    def find_by_id(id):
+        return Subject.query.get(id)
