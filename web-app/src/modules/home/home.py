@@ -13,6 +13,6 @@ home_controller = Blueprint(
 
 ## Home/Index ##
 @home_controller.route('/', methods=['GET'])
-@login_required
+# @login_required
 def index():
     return render_template('index.jinja2')
