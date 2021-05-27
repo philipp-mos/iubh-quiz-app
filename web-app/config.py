@@ -13,6 +13,8 @@ class Config(object):
 
     FLASK_ENV = os.environ.get("FLASK_ENV")
 
+    MIGRATION_KEY = os.environ.get("MIGRATION_KEY")
+
     DEBUG = False
     TESTING = False
 
