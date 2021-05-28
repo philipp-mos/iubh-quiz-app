@@ -7,6 +7,7 @@ module.exports = {
     mode: 'development',
     entry: {
         base: './src/base/scripts/scripts.js',
+        auth: './src/auth/scripts/scripts.js',
         home: './src/home/scripts/scripts.js'
     },
     output: {
