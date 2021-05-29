@@ -1,0 +1,9 @@
+@use '../../../utilities/helpers';
+
+
+.form-signin {
+    width: 100%;
+    max-width: helpers.px2rem(330px);
+    padding: helpers.px2rem(15px);
+    margin: auto;
+}
