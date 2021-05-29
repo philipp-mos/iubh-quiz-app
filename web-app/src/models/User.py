@@ -31,3 +31,7 @@ class User(UserMixin, db.Model):
         nullable=True
     )
 
+    is_active = db.Column(
+        db.Boolean()
+    )
+
