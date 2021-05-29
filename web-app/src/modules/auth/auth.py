@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import render_template
-from flask_login import current_user
+from flask_login import current_user, login_user, login_required, logout_user
 
 from .viewmodels.LoginViewModel import LoginViewModel
 from ...repositories.UserRepository import UserRepository
@@ -38,3 +38,11 @@ def login():
         'login.jinja2',
         form=login_viewmodel
     )
+
+
+
+@auth_controller.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth_controller.login'))
