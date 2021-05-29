@@ -4,7 +4,7 @@ from ..models.user.User import User
 
 
 class UserRepository(Repository, AbcUserRepository):
-    
+
     def get_all():
         return User.query.all()
 
@@ -13,3 +13,6 @@ class UserRepository(Repository, AbcUserRepository):
 
     def find_by_email(user_email):
         return User.query.filter_by(email=user_email).first()
+
+    def is_tutor_by_userid(user_id):
+        raise NotImplementedError

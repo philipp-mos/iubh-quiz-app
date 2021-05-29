@@ -4,7 +4,7 @@ from ..models.Subject import Subject
 
 
 class SubjectRepository(Repository, AbcSubjectRepository):
-    
+
     def get_all():
         return Subject.query.all()
 
