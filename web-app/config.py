@@ -22,6 +22,9 @@ class Config(object):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    GOOGLE_TAGMANAGER_ACTIVE = True
+    GOOGLE_TAGMANAGER_KEY = os.environ.get("GOOGLE_TAGMANAGER_KEY")
+
 
     if FLASK_ENV == 'development':
         DEBUG = True
