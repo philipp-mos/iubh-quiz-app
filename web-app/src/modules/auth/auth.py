@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import render_template
-from flask_login import login_required
 
+from .viewmodels.LoginViewModel import LoginViewModel
 
 auth_controller = Blueprint(
     'auth_controller',
@@ -12,6 +12,10 @@ auth_controller = Blueprint(
 
 
 ## Auth/Login ##
-@auth_controller.route('/login', methods=['GET'])
+@auth_controller.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.jinja2')
+
+    return render_template(
+        'login.jinja2',
+        form=LoginViewModel()
+    )
