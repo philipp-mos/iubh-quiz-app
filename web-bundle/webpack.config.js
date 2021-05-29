@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         base: './src/base/scripts/scripts.js',
         auth: './src/auth/scripts/scripts.js',
+        legal: './src/legal/scripts/scripts.js',
         home: './src/home/scripts/scripts.js'
     },
     output: {
