@@ -7,11 +7,11 @@ from flask_migrate import upgrade
 api_v1__admin_controller = Blueprint(
     'api_v1__admin_controller',
     __name__,
-    url_prefix='/api/v1/admin/'
+    url_prefix='/api/v1/admin'
 )
 
 
-@api_v1__admin_controller.route('run-migrations', methods=['GET'])
+@api_v1__admin_controller.route('/run-migrations', methods=['GET'])
 def run_migrations():
 
     if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
