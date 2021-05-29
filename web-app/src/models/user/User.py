@@ -35,3 +35,10 @@ class User(UserMixin, db.Model):
         db.Boolean()
     )
 
+
+    # Relations
+    roles = db.relationship(
+        'UserRole',
+        secondary='user_userroles' 
+    )
+
