@@ -11,9 +11,15 @@ home_controller = Blueprint(
 )
 
 
+@home_controller.before_request
+@login_required
+def before_request():
+    pass
+
+
+
 ## Home/Index ##
 @home_controller.route('/', methods=['GET'])
-@login_required
 def index():
     """
     User Dashboard
