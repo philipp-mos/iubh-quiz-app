@@ -1,4 +1,5 @@
 from .abstracts.AbcSubjectRepository import AbcSubjectRepository
+from typing import List
 from .Repository import Repository
 from ..models.Subject import Subject
 
@@ -6,7 +7,7 @@ from ..models.Subject import Subject
 class SubjectRepository(Repository, AbcSubjectRepository):
 
     @staticmethod
-    def get_all():
+    def get_all() -> List[Subject]:
         """
         Returns all available Items
         """
@@ -14,7 +15,7 @@ class SubjectRepository(Repository, AbcSubjectRepository):
 
 
     @staticmethod
-    def find_by_id(id):
+    def find_by_id(id) -> Subject:
         """
         Get a specific Item by ID
         """

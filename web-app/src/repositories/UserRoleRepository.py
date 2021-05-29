@@ -1,4 +1,5 @@
 from .abstracts.AbcUserRoleRepository import AbcUserRoleRepository
+from typing import List
 from .Repository import Repository
 from ..models.user.UserRole import UserRole
 
@@ -6,7 +7,7 @@ from ..models.user.UserRole import UserRole
 class UserRoleRepository(Repository, AbcUserRoleRepository):
 
     @staticmethod
-    def get_all():
+    def get_all() -> List[UserRole]:
         """
         Returns all available Items
         """
@@ -14,7 +15,7 @@ class UserRoleRepository(Repository, AbcUserRoleRepository):
 
 
     @staticmethod
-    def find_by_id(id):
+    def find_by_id(id) -> UserRole:
         """
         Get a specific Item by ID
         """
@@ -22,7 +23,7 @@ class UserRoleRepository(Repository, AbcUserRoleRepository):
 
 
     @staticmethod
-    def find_by_name(name):
+    def find_by_name(name) -> UserRole:
         """
         Get a specific Item by Name
         """

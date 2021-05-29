@@ -6,7 +6,7 @@ from .. import db
 class Repository(AbcRepository):
     
     @staticmethod
-    def add(item):
+    def add(item) -> None:
         """
         Adds a new Item and Commit the Changes to Database
         """
@@ -19,7 +19,7 @@ class Repository(AbcRepository):
 
 
     @staticmethod
-    def delete(item):
+    def delete(item) -> None:
         """
         Deletes a existing Item and Commit the Changes to Database
         """
@@ -32,7 +32,7 @@ class Repository(AbcRepository):
 
 
     @staticmethod
-    def update(item):
+    def update(item) -> None:
         """
         Updates a defined Record with new Values
         """

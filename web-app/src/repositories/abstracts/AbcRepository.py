@@ -11,13 +11,13 @@ class AbcRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def add(item):
+    def add(item) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    def update(item):
+    def update(item) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    def delete(item):
+    def delete(item) -> None:
         raise NotImplementedError
