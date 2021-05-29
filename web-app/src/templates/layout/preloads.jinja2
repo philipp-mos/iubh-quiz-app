@@ -1,0 +1,5 @@
+<link rel="preload" href="{{ url_for('static', filename='base.bundle.css') }}{{ '?v=' + bundle_version }}" as="style">
+<link rel="stylesheet" href="{{ url_for('static', filename='base.bundle.css') }}{{ '?v=' + bundle_version }}">
+
+<link as="script" href="{{ url_for('static', filename='base.bundle.js') }}{{ '?v=' + bundle_version }}" rel="preload">
+<script src="{{ url_for('static', filename='base.bundle.js') }}{{ '?v=' + bundle_version }}"></script>
