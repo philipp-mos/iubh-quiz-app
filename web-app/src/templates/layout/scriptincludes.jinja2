@@ -1,5 +1,3 @@
-<script async src="{{ url_for('static', filename='base.bundle.js') }}{{ '?v=' + bundle_version }}"></script>
-
 {% if bundle_name != '' %}
     <script async src="{{ url_for('static', filename=bundle_name + '.js') }}{{ '?v=' + bundle_version }}"></script>
 {% endif %}

@@ -6,9 +6,10 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     mode: 'development',
     entry: {
-        base: './src/base/scripts/scripts.js',
-        auth: './src/auth/scripts/scripts.js',
-        home: './src/home/scripts/scripts.js'
+        base: './src/modules/base/scripts/scripts.js',
+        auth: './src/modules/auth/scripts/scripts.js',
+        legal: './src/modules/legal/scripts/scripts.js',
+        home: './src/modules/home/scripts/scripts.js'
     },
     output: {
         path: path.resolve(__dirname, '../web-app/src/static'),

@@ -30,12 +30,11 @@ def create_app():
     with app.app_context():
         from .services.UserService import UserService
 
-        from .template_extensions import error_handlers
-        from .template_extensions import context_preprocessors
+        from .template_extensions import error_handlers, context_preprocessors
 
         from .models import model_registration
 
-        from .api.v1 import api_routing_configuration
+        from .api import api_routing_configuration
 
         from .modules import routing_configuration
 
