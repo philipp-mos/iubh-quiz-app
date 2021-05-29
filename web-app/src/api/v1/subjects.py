@@ -7,11 +7,11 @@ from ...repositories.SubjectRepository import SubjectRepository
 api_v1__subjects_controller = Blueprint(
     'api_v1__subjects_controller',
     __name__,
-    url_prefix='/api/v1/subjects/'
+    url_prefix='/api/v1/subjects'
 )
 
 
-@api_v1__subjects_controller.route('', methods=['GET'])
+@api_v1__subjects_controller.route('/', methods=['GET'])
 def get_all():
 
     all_subjects = SubjectRepository.get_all()
