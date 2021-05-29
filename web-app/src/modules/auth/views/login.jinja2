@@ -10,14 +10,14 @@
             <img class="mb-4" src="{{ url_for('static', filename='assets/images/logo-iuquiz-dark.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
             <h1 class="h3 mb-3 fw-normal">Login</h1>
 
-            <div class="form-floating">                
+            <div class="form-floating">
                 {{ form.email(class_="form-control") }}
                 {{ form.email.label }}
             </div>
 
             <div class="mb-2"></div>
 
-            <div class="form-floating">                
+            <div class="form-floating">
                 {{ form.password(class_="form-control") }}
                 {{ form.password.label }}
             </div>
