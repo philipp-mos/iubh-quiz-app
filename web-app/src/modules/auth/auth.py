@@ -30,6 +30,7 @@ def login():
 
         if user and UserService().check_password(user, form.password.data):
             login_user(user)
+            return redirect(url_for('home_controller.index'))
 
            
 
