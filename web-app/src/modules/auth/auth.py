@@ -19,6 +19,9 @@ auth_controller = Blueprint(
 ## Auth/Login ##
 @auth_controller.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Login View to handle logins via Form
+    """
 
     if current_user.is_authenticated:
         return redirect(url_for('home_controller.index'))
@@ -26,13 +29,13 @@ def login():
     login_viewmodel = LoginViewModel()
 
     if request.method == 'POST' and login_viewmodel.validate():
+
         user = UserRepository().find_by_email(login_viewmodel.email.data)
 
         if user and UserService().check_password(user, form.password.data):
             login_user(user)
             return redirect(url_for('home_controller.index'))
 
-           
 
     return render_template(
         'login.jinja2',
@@ -41,8 +44,14 @@ def login():
 
 
 
+## Auth/Logout ##
 @auth_controller.route('/logout', methods=['GET'])
 @login_required
 def logout():
+    """
+    Logout Action
+    """
+
     logout_user()
+
     return redirect(url_for('auth_controller.login'))
