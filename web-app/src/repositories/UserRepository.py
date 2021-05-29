@@ -1,6 +1,6 @@
 from .abstracts.AbcUserRepository import AbcUserRepository
 from .Repository import Repository
-from ..models.User import User
+from ..models.user.User import User
 
 
 class UserRepository(Repository, AbcUserRepository):
