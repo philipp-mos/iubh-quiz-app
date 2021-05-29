@@ -1,6 +1,6 @@
 from abc import abstractmethod
-from ...models.user import User
 
+from ...models.user import User
 from .AbcRepository import AbcRepository
 
 class AbcUserRepository(AbcRepository):

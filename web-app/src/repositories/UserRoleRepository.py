@@ -1,5 +1,6 @@
-from .abstracts.AbcUserRoleRepository import AbcUserRoleRepository
 from typing import List
+
+from .abstracts.AbcUserRoleRepository import AbcUserRoleRepository
 from .Repository import Repository
 from ..models.user.UserRole import UserRole
 
