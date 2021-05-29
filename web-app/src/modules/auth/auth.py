@@ -5,7 +5,7 @@ from .viewmodels.LoginViewModel import LoginViewModel
 from ...repositories.UserRepository import UserRepository
 from ...services.UserService import UserService
 
-from ...models.User import User
+from ...models.user.User import User
 
 
 auth_controller = Blueprint(

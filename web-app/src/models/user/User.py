@@ -1,4 +1,4 @@
-from .. import db
+from ... import db
 from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
@@ -29,5 +29,16 @@ class User(UserMixin, db.Model):
         index=False,
         unique=False,
         nullable=True
+    )
+
+    is_active = db.Column(
+        db.Boolean()
+    )
+
+
+    # Relations
+    roles = db.relationship(
+        'UserRole',
+        secondary='user_userroles' 
     )
 

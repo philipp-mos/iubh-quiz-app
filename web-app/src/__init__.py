@@ -32,6 +32,8 @@ def create_app():
 
         from .template_extensions import error_handlers, context_preprocessors
 
+        from .models import model_registration
+
         from .api import api_routing_configuration
 
         from .modules import routing_configuration
