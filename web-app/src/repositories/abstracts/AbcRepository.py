@@ -10,6 +10,14 @@ class AbcRepository(ABC):
     def find_by_id(id):
         raise NotImplementedError
 
-    # def add()
-    # def update()
-    # def remove()
+    @abstractmethod
+    def add(item):
+        raise NotImplementedError
+
+    @abstractmethod
+    def update(item):
+        raise NotImplementedError
+
+    @abstractmethod
+    def delete(item):
+        raise NotImplementedError
