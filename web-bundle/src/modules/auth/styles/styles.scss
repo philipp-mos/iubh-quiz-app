@@ -1,5 +1,4 @@
 @use '../../../utilities/helpers';
-@use '../../../utilities/colors';
 
 
 .auth-form {
@@ -8,12 +7,12 @@
         max-width: helpers.px2rem(500px);
         padding: helpers.px2rem(50px);
         margin: auto;
-        background-color: colors.$color-gray;
+        background-color: var(--bs-gray-dark);
         border-radius: helpers.px2rem(10px);
     }
 
     &__title {
-        color: colors.$color-white;
+        color: var(--bs-white);
     }
 }
 
@@ -21,11 +20,11 @@
 @media only screen and (max-width: 500px) {
     .auth-form {
         &__container {
-            background-color: colors.$color-white;
+            background-color: var(--bs-white);
         }
 
         &__title {
-            color: colors.$color-black;
+            color: var(--bs-dark);
         }
     }
 }
