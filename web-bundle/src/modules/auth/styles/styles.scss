@@ -1,9 +1,30 @@
 @use '../../../utilities/helpers';
 
 
-.form-signin {
-    width: 100%;
-    max-width: helpers.px2rem(330px);
-    padding: helpers.px2rem(15px);
-    margin: auto;
+.auth-form {
+    &__container {
+        width: 100%;
+        max-width: helpers.px2rem(500px);
+        padding: helpers.px2rem(50px);
+        margin: auto;
+        background-color: #212529;
+        border-radius: helpers.px2rem(10px);
+    }
+
+    &__title {
+        color: #ffffff;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .auth-form {
+        &__container {
+            background-color: #ffffff;
+        }
+
+        &__title {
+            color: #000000;
+        }
+    }
 }
