@@ -1,4 +1,4 @@
-from wtforms import Form, PasswordField, StringField, SubmitField
+from wtforms import Form, PasswordField, StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -25,6 +25,13 @@ class SignupViewModel(Form):
         validators=[
             DataRequired(),
             EqualTo('password', message='Passwörter müssen übereinstimmen.')
+        ]
+    )
+
+    privacypolicy_accepted = BooleanField(
+        'Ich akzeptiere die Datenschutzerklärung',
+        validators=[
+            DataRequired()
         ]
     )
 
