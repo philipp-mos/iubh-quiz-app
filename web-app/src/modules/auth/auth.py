@@ -58,15 +58,27 @@ def signup():
         existing_user = UserRepository().find_by_email(signup_viewmodel.email.data)
 
         if existing_user is None:
-            
-            new_user = User(email=signup_viewmodel.email.data)
+
+            is_signup_email_validation_inactive = not config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
+
+            new_user = User(
+                email=signup_viewmodel.email.data,
+                is_active=is_signup_email_validation_inactive
+            )
+
             UserService().set_password(new_user, signup_viewmodel.password.data)
 
             UserRepository().add(new_user)
 
-            login_user(new_user)
-            redirect(url_for('home_controller.index'))
-        
+            if is_signup_email_validation_inactive:
+                login_user(new_user)
+                redirect(url_for('home_controller.index'))
+
+            else:
+                flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
+                redirect(url_for('auth_controller.login'))
+
+
         flash('Du bist bereits registriert')
     
     return render_template(
