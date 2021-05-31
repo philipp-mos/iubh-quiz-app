@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, login_required, logout_user
 
 from .viewmodels.LoginViewModel import LoginViewModel
@@ -28,13 +28,19 @@ def login():
 
     login_viewmodel = LoginViewModel()
 
-    if request.method == 'POST' and login_viewmodel.validate():
+    if request.method == 'POST':
 
-        user = UserRepository().find_by_email(login_viewmodel.email.data)
+        if login_viewmodel.validate():
 
-        if user and UserService().check_password(user, form.password.data):
-            login_user(user)
-            return redirect(url_for('home_controller.index'))
+            user = UserRepository().find_by_email(login_viewmodel.email.data)
+
+            if user and UserService().check_password(user, form.password.data):
+                login_user(user)
+                return redirect(url_for('home_controller.index'))
+
+
+        flash('Email-Adresse oder Passwort ungültig')
+        return redirect(url_for('auth_controller.login'))
 
 
     return render_template(

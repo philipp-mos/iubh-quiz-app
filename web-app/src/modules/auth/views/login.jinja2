@@ -16,6 +16,16 @@
 
                     <h1 class="h3 mb-4 fw-normal auth-form__title">Login</h1>
 
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-warning">
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif%}
+                    {% endwith %}
+
                     <div class="form-floating">
                         {{ form.email(class_="form-control", placeholder="email@domain.com") }}
                         {{ form.email.label }}
