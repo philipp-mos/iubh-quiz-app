@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
+from datetime import datetime
 
 from .viewmodels.LoginViewModel import LoginViewModel
 from .viewmodels.SignupViewModel import SignupViewModel
@@ -63,6 +64,7 @@ def signup():
 
             new_user = User(
                 email=signup_viewmodel.email.data,
+                creation_date=datetime.now(),
                 is_active=is_signup_email_validation_inactive
             )
 
