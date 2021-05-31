@@ -1,6 +1,6 @@
 from typing import List
 
-from .abstracts.AbcUserRoleRepository import AbcUserUserRoleRepository
+from .abstracts.AbcUserUserRoleRepository import AbcUserUserRoleRepository
 from .Repository import Repository
 from ..models.user import UserUserRole
 
@@ -8,7 +8,7 @@ from ..models.user import UserUserRole
 class UserUserRoleRepository(Repository, AbcUserUserRoleRepository):
 
     @staticmethod
-    def get_all() -> List[UserUserRole]:
+    def get_all():
         """
         Returns all available Items
         """

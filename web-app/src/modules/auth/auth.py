@@ -2,13 +2,12 @@ from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from datetime import datetime
 
-from .viewmodels.LoginViewModel import LoginViewModel
-from .viewmodels.SignupViewModel import SignupViewModel
+from .viewmodels import LoginViewModel, SignupViewModel
 
-from ...repositories.UserRepository import UserRepository
-from ...services.UserService import UserService
+from ...repositories import UserRepository, UserUserRoleRepository
+from ...services import UserService
 
-from ...models.user.User import User
+from ...models.user import User, UserRole, UserUserRole
 
 
 auth_controller = Blueprint(
@@ -69,8 +68,11 @@ def signup():
             )
 
             UserService().set_password(new_user, signup_viewmodel.password.data)
-
             UserRepository().add(new_user)
+
+            user_to_role = UserUserRole(user_id=new_user.id, userrole_id=config['USERROLE_STUDENT'])
+            UserUserRoleRepository().add(user_to_role)
+
 
             if is_signup_email_validation_inactive:
                 login_user(new_user)
