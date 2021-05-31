@@ -10,5 +10,9 @@ class AbcUserRepository(AbcRepository):
         raise NotImplementedError
 
     @abstractmethod
+    def find_active_by_email(user_email) -> User:
+        raise NotImplementedError
+
+    @abstractmethod
     def is_tutor_by_userid(user_id) -> User:
         raise NotImplementedError
