@@ -28,6 +28,11 @@ class Config(object):
     IS_SIGNUP_EMAIL_VALIDATION_ACTIVE= (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')
 
 
+    # UserRoles
+    USERROLE_STUDENT = 1
+    USERROLE_TUTOR = 2
+
+
     if FLASK_ENV == 'development':
         DEBUG = True
         TESTING = True
