@@ -1,0 +1,30 @@
+@use '../../../utilities/helpers';
+
+
+.register-form {
+    &__container {
+        width: 100%;
+        max-width: helpers.px2rem(500px);
+        padding: helpers.px2rem(50px);
+        margin: auto;
+        background-color: var(--bs-gray-dark);
+        border-radius: helpers.px2rem(10px);
+    }
+
+    &__title {
+        color: var(--bs-white);
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .register-form {
+        &__container {
+            background-color: var(--bs-white);
+        }
+
+        &__title {
+            color: var(--bs-dark);
+        }
+    }
+}
