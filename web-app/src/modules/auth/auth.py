@@ -5,7 +5,7 @@ from datetime import datetime
 from .viewmodels import LoginViewModel, SignupViewModel
 
 from ...repositories import UserRepository, UserUserRoleRepository
-from ...services import UserService
+from ...services import UserService, NotificationService
 
 from ...models.user import User, UserRole, UserUserRole
 
@@ -79,6 +79,7 @@ def signup():
                 redirect(url_for('home_controller.index'))
 
             else:
+                NotificationService().send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
                 flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
                 redirect(url_for('auth_controller.login'))
 
