@@ -26,9 +26,17 @@ class UserRepository(Repository, AbcUserRepository):
     @staticmethod
     def find_by_email(user_email) -> User:
         """
-        Get a specific Item by Email
+        Get a specific User by Email
         """
         return User.query.filter_by(email=user_email).first()
+
+
+    @staticmethod
+    def find_active_by_email(user_email) -> User:
+        """
+        Get a active User by Email 
+        """ 
+        return User.query.filter_by(is_active==True,email==user_email).first()
 
 
     @staticmethod

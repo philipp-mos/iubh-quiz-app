@@ -32,7 +32,7 @@ def login():
 
         if login_viewmodel.validate():
 
-            user = UserRepository().find_by_email(login_viewmodel.email.data)
+            user = UserRepository().find_active_by_email(login_viewmodel.email.data)
 
             if user and UserService().check_password(user, form.password.data):
                 login_user(user)
