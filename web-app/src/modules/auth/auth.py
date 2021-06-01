@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, login_required, logout_user
 from datetime import datetime
 
-from .viewmodels import LoginViewModel, SignupViewModel
+from .viewmodels.LoginViewModel import LoginViewModel
+from .viewmodels.SignupViewModel import SignupViewModel
 
 from ...repositories import UserRepository, UserUserRoleRepository
 from ...services import UserService, NotificationService
