@@ -13,12 +13,17 @@ class Config(object):
 
     FLASK_ENV = os.environ.get("FLASK_ENV")
 
+    MIGRATION_KEY = os.environ.get("MIGRATION_KEY")
+
     DEBUG = False
     TESTING = False
 
     SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRESQLCONNSTR_APPDB")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    GOOGLE_TAGMANAGER_ACTIVE = (os.environ.get("GOOGLE_TAGMANAGER_ACTIVE") == 'True')
+    GOOGLE_TAGMANAGER_KEY = os.environ.get("GOOGLE_TAGMANAGER_KEY")
 
 
     if FLASK_ENV == 'development':

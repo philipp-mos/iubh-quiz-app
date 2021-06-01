@@ -1,0 +1,53 @@
+{% extends 'auth_layout.jinja2' %}
+{% set page_title = 'Login' %}
+{% set bundle_name = 'auth.bundle' %}
+
+{% block content %}
+    <main class="auth-form__container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" action="/auth/login">
+                    {{ form.csrf_token }}
+
+                    <a href="{{ url_for('home_controller.index') }}">
+                        <img class="mb-4 d-none d-sm-block" src="{{ url_for('static', filename='assets/images/logo-iuquiz-white.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
+                        <img class="mb-4 d-block d-sm-none" src="{{ url_for('static', filename='assets/images/logo-iuquiz-dark.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
+                    </a>
+
+                    <h1 class="h3 mb-4 fw-normal auth-form__title">Login</h1>
+
+                    <div class="form-floating">
+                        {{ form.email(class_="form-control", placeholder="email@domain.com") }}
+                        {{ form.email.label }}
+                    </div>
+
+                    <div class="mb-2"></div>
+
+                    <div class="form-floating">
+                        {{ form.password(class_="form-control", placeholder="*******") }}
+                        {{ form.password.label }}
+                    </div>
+
+                    <div class="mb-5"></div>
+
+                    {{ form.submit(class_="w-100 btn btn-lg btn-primary") }}
+                </form>
+            </div>
+        </div>
+        <div class="d-block d-sm-none mt-5"></div>
+        <div class="row mt-4">
+            <div class="col-sm-6 col-xs-12">
+                <a href="#" class="btn btn-secondary w-100">
+                    Registrieren
+                </a>
+            </div>
+            <div class="d-block d-sm-none mt-1"></div>
+            <div class="col-sm-6 col-xs-12">
+                <a href="#" class="btn btn-secondary w-100">
+                    Passwort vergessen
+                </a>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

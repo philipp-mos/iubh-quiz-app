@@ -1,0 +1,16 @@
+{% extends 'base_layout.jinja2' %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block main %}
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 pt-5">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
