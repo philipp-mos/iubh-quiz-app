@@ -15,3 +15,7 @@ class AbcUserService(ABC):
     @abstractmethod
     def check_password(User, password):
         raise NotImplementedError
+
+    @abstractmethod
+    def set_password(User, password):
+        raise NotImplementedError

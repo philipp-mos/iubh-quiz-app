@@ -25,6 +25,13 @@ class Config(object):
     GOOGLE_TAGMANAGER_ACTIVE = (os.environ.get("GOOGLE_TAGMANAGER_ACTIVE") == 'True')
     GOOGLE_TAGMANAGER_KEY = os.environ.get("GOOGLE_TAGMANAGER_KEY")
 
+    IS_SIGNUP_EMAIL_VALIDATION_ACTIVE= (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')
+
+
+    # UserRoles
+    USERROLE_STUDENT = 1
+    USERROLE_TUTOR = 2
+
 
     if FLASK_ENV == 'development':
         DEBUG = True
