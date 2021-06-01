@@ -1,5 +1,5 @@
 from .. import login_manager
-from flask import redirect, url_for
+from flask import redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from .abstracts.AbcUserService import AbcUserService
@@ -15,6 +15,7 @@ class UserService(AbcUserService):
     @staticmethod
     @login_manager.unauthorized_handler
     def unauthorized():
+        flash('Bitte melde dich an, um die Seite aufzurufen')
         return redirect(url_for('auth_controller.login'))
 
 
