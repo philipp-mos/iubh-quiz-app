@@ -16,9 +16,11 @@ def run_migrations():
 
     if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
         upgrade(directory="./migrations")
-        
+
+        app.logger.info('Migration successfully executed')
         return jsonify({ 'status': 'success' }), 200
 
+    app.logger.warning('Failed Authentication due to wrong Migration-Key')
     return jsonify({ 'status': 'denied' }), 403
 
 
