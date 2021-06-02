@@ -1,5 +1,5 @@
-from wtforms import Form, PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from wtforms import Form, PasswordField, StringField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
 class SignupViewModel(Form):
@@ -13,8 +13,26 @@ class SignupViewModel(Form):
     )
 
     password = PasswordField(
-        'Passwort',
-        validators=[DataRequired()]
+        'Passwort',        
+        validators=[
+            DataRequired(),
+            Length(min=8, message='Bitte wähle ein längeres Passwort.')
+        ]
+    )
+
+    password_confirm = PasswordField(
+        'Passwort wiederholen',
+        validators=[
+            DataRequired(),
+            EqualTo('password', message='Passwörter müssen übereinstimmen.')
+        ]
+    )
+
+    privacypolicy_accepted = BooleanField(
+        'Ich akzeptiere die Datenschutzerklärung',
+        validators=[
+            DataRequired()
+        ]
     )
 
     submit = SubmitField('Registrieren')

@@ -1,5 +1,5 @@
 from wtforms import Form, PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from wtforms.validators import DataRequired, Email
 
 
 class LoginViewModel(Form):
