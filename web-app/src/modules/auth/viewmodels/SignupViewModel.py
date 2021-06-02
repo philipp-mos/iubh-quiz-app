@@ -1,8 +1,9 @@
-from wtforms import Form, PasswordField, StringField, SubmitField, BooleanField
+from flask_wtf import FlaskForm
+from wtforms import PasswordField, StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
-class SignupViewModel(Form):
+class SignupViewModel(FlaskForm):
 
     email = StringField(
         'Email',

@@ -26,7 +26,4 @@ class UserService(AbcUserService):
 
     @staticmethod
     def set_password(User, password):
-        User.password = generate_password_hash(
-            password,
-            method='sha256'
-        )
+        User.password = generate_password_hash(password)

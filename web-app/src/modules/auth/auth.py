@@ -1,3 +1,4 @@
+from flask import current_app as app
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, login_required, logout_user
 from datetime import datetime
@@ -5,10 +6,15 @@ from datetime import datetime
 from .viewmodels.LoginViewModel import LoginViewModel
 from .viewmodels.SignupViewModel import SignupViewModel
 
-from ...repositories import UserRepository, UserUserRoleRepository
-from ...services import UserService, NotificationService
+from ...repositories.UserRepository import UserRepository
+from ...repositories.UserUserRoleRepository import UserUserRoleRepository
 
-from ...models.user import User, UserRole, UserUserRole
+from ...services.UserService import UserService
+from ...services.NotificationService import NotificationService
+
+from ...models.user.User import User
+from ...models.user.UserRole import UserRole
+from ...models.user.UserUserRole import UserUserRole
 
 
 auth_controller = Blueprint(
@@ -60,13 +66,13 @@ def signup():
     """
     signup_viewmodel = SignupViewModel()
 
-    if request.method == 'POST' and signup_viewmodel.validate():
+    if request.method == 'POST':
 
         existing_user = UserRepository().find_by_email(signup_viewmodel.email.data)
 
         if existing_user is None:
 
-            is_signup_email_validation_inactive = not config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
+            is_signup_email_validation_inactive = not app.config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
 
             new_user = User(
                 email=signup_viewmodel.email.data,
@@ -77,7 +83,7 @@ def signup():
             UserService().set_password(new_user, signup_viewmodel.password.data)
             UserRepository().add(new_user)
 
-            user_to_role = UserUserRole(user_id=new_user.id, userrole_id=config['USERROLE_STUDENT'])
+            user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
             UserUserRoleRepository().add(user_to_role)
 
 
