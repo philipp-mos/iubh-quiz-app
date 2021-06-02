@@ -35,6 +35,6 @@ def get_appversion():
         with app.open_resource(version_file_path, 'r') as version_file:
             version_number = version_file.read()
     except FileNotFoundError:
-        print(version_file_path + ' does not exist')
+        app.logger.error('version.txt does not exist')
 
     return jsonify({ 'version': version_number })
