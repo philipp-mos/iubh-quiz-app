@@ -1,3 +1,5 @@
+import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -17,6 +19,10 @@ def create_app():
         template_folder = "templates",
         static_folder = "static"
     )
+
+    logging_handler = RotatingFileHandler('app.log')
+    logging_handler.setLevel(logging.INFO)
+    app.logger.addHandler(logging_handler)
 
     app.config.from_object('config.Config')
 
