@@ -43,7 +43,7 @@ def login():
 
             user = UserRepository().find_active_by_email(login_viewmodel.email.data)
 
-            if user and UserService().check_password(user, form.password.data):
+            if user and UserService().check_password(user, login_viewmodel.password.data):
                 login_user(user)
                 return redirect(url_for('home_controller.index'))
 
@@ -64,6 +64,11 @@ def signup():
     """
     Creates new Users if valid data was sent
     """
+
+    if current_user.is_authenticated:
+        return redirect(url_for('home_controller.index'))
+
+
     signup_viewmodel = SignupViewModel()
 
     if request.method == 'POST':
@@ -89,12 +94,12 @@ def signup():
 
             if is_signup_email_validation_inactive:
                 login_user(new_user)
-                redirect(url_for('home_controller.index'))
+                return redirect(url_for('home_controller.index'))
 
             else:
                 NotificationService().send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
                 flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
-                redirect(url_for('auth_controller.login'))
+                return redirect(url_for('auth_controller.login'))
 
 
         flash('Du bist bereits registriert')
