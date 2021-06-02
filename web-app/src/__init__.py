@@ -24,7 +24,7 @@ def create_app():
 
     logging_handler = RotatingFileHandler('logs/app.log', backupCount=15, maxBytes=10000000)
     logging_handler.setLevel(logging.INFO)
-    logging_formatter = logging.Formatter("[%(levelname)s] [%(asctime)s] {%(pathname)s:%(lineno)d} - %(message)s")
+    logging_formatter = logging.Formatter("[%(levelname)s] [%(asctime)s] %(message)s {%(pathname)s:%(lineno)d}")
     logging_handler.setFormatter(logging_formatter)
     app.logger.addHandler(logging_handler)
 
