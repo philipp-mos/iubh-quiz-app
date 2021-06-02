@@ -18,3 +18,20 @@ class LoginViewModel(Form):
     )
 
     submit = SubmitField('Anmelden')
+
+class SignupViewModel(Form):
+
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(),
+            Email(message='Bitte geben Sie eine gültige Email an')
+        ]
+    )
+
+    password = PasswordField(
+        'Passwort',
+        validators=[DataRequired()]
+    )
+
+    submit = SubmitField('Anmelden')

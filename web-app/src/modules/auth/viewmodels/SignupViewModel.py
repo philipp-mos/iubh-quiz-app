@@ -2,7 +2,7 @@ from wtforms import Form, PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
 
-class RegisterViewModel(Form):
+class SignupViewModel(Form):
 
     email = StringField(
         'Email',

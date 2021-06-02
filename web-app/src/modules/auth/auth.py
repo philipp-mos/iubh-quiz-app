@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 
 from .viewmodels.LoginViewModel import LoginViewModel
+from .viewmodels.SignupViewModel import SignupViewModel
 from ...repositories.UserRepository import UserRepository
 from ...services.UserService import UserService
 
@@ -55,3 +56,30 @@ def logout():
     logout_user()
 
     return redirect(url_for('auth_controller.login'))
+
+
+## /auth/signup ##
+@auth_controller.route('/signup', methods=['GET', 'POST'])
+def signup():
+    """
+    Register View to handle Registrations via Form
+    """
+
+    if current_user.is_authenticated:
+        return redirect(url_for('home_controller.index'))
+
+    signup_viewmodel = SignupViewModel()
+
+    if request.method == 'POST' and signup_viewmodel.validate():
+
+        user = UserRepository().find_by_email(signup_viewmodel.email.data)
+
+        if user and UserService().check_password(user, form.password.data):
+            signup_user(user)
+            return redirect(url_for('home_controller.index'))
+
+
+    return render_template(
+        'signup.jinja2',
+        form=signup_viewmodel
+    )
