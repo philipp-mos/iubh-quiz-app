@@ -33,6 +33,7 @@ def create_app():
     migrate = Migrate(app, db)
 
     login_manager.init_app(app)
+    login_manager.session_protection = "strong"
 
 
     with app.app_context():
