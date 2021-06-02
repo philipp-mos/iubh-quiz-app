@@ -1,3 +1,4 @@
+from flask import current_app as app
 from .abstracts.AbcRepository import AbcRepository
 
 from .. import db
@@ -14,7 +15,7 @@ class Repository(AbcRepository):
             db.session.add(item)
             db.session.commit()
         except Exception as e:
-            print(e)
+            app.logger.critical(e)
             db.session.rollback()
 
 
@@ -27,7 +28,7 @@ class Repository(AbcRepository):
             db.session.delete(item)
             db.session.commit()
         except Exception as e:
-            print(e)
+            app.logger.critical(e)
             db.session.rollback()
 
 
