@@ -52,6 +52,7 @@
                     <div class="form-check">
                         {{ form.privacypolicy_accepted(class_="form-check-input") }}
                         {{ form.privacypolicy_accepted.label(class_="text-light") }}
+                        <a href="{{ url_for('legal_controller.privacy_policy') }}" class="text-light" target="_blank">(öffnen)</a>
                     </div>
 
                     <div class="mb-5"></div>
