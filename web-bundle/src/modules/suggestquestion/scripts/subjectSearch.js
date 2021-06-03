@@ -29,9 +29,9 @@ function showSubjectSearchResults() {
     setTimeout(function() {
 
         getAndBuildSubjectSearchResults();
-
         subjectSelectionGroup.classList.remove('visually-hidden');
         subjectSelectionLoader.classList.add('visually-hidden');
+        setSelectingSubjectItemEventListeners();
 
     }, 1000);
 }
@@ -79,8 +79,10 @@ document.querySelector('#subject-search-mask').addEventListener('input', functio
 /*
  * EventListeners for Selecting Subject Item
  */
-document.querySelectorAll('.subject-selection-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-        selectSubjectSearchItem(item);
+function setSelectingSubjectItemEventListeners() {
+    document.querySelectorAll('.subject-selection-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            selectSubjectSearchItem(item);
+        });
     });
-});
+}
