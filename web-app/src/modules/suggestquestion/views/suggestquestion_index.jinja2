@@ -20,30 +20,32 @@
   </div>
 </div>
 
+<input type="hidden" name="subject-id" id="storage-subject-id" value="" />
+
 <div class="row mt-5">
   <div class="col-12">
     <div class="form-floating">
-      <input type="module-search-mask" class="form-control" id="module-search-mask" placeholder="#">
-      <label for="module-search-mask"><i class="fas fa-bullseye"></i> Tippe um Module zu durchsuchen...</label>
+      <input type="text" class="form-control" id="subject-search-mask" placeholder="#">
+      <label for="subject-search-mask"><i class="fas fa-bullseye"></i> Tippe um Module zu durchsuchen...</label>
     </div>
   </div>
 </div>
 
-<div class="row">
+<div class="row visually-hidden" id="subject-selection-group">
   <div class="col-12">
     <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action">Materialwissenschaften</a>
-      <a href="#" class="list-group-item list-group-item-action">Mathematik I</a>
-      <a href="#" class="list-group-item list-group-item-action">Mathematik II</a>
+      <a href="#" class="list-group-item list-group-item-action subject-selection-item" data-name="Materialwissenschaften" data-id="5">Materialwissenschaften</a>
+      <a href="#" class="list-group-item list-group-item-action subject-selection-item" data-name="Mathematik I" data-id="2">Mathematik I</a>
+      <a href="#" class="list-group-item list-group-item-action subject-selection-item" data-name="Mathematik II" data-id="3">Mathematik II</a>
     </div>
   </div>
 </div>
 
-<div class="row mt-5">
+<div class="row mt-5 visually-hidden" id="subject-selection-loader">
   <div class="col-12">
     <div class="d-flex justify-content-center">
       <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden">Lädt...</span>
       </div>
     </div>
   </div>
@@ -57,7 +59,7 @@
         <button type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i> Abbrechen</button>
       </div>
       <div class="position-absolute bottom-0 end-0">
-        <button type="button" class="btn btn-success disabled">Nächster Schritt <i class="fas fa-chevron-right"></i></button>
+        <button type="button" class="btn btn-success disabled" id="button-next-step">Nächster Schritt <i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
