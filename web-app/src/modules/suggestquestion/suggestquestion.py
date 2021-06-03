@@ -19,7 +19,7 @@ def before_request():
 
 
 ## QuestionSuggest/Index ##
-@suggestquestion_controller.route('/overview', methods=['GET'])
+@suggestquestion_controller.route('/', methods=['GET'])
 def index():
     """
     Question-Suggest First Page
