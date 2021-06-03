@@ -18,7 +18,7 @@ def before_request():
 
 
 
-## QuestionSuggest/Index ##
+## SuggestQuestion/Index ##
 @suggestquestion_controller.route('/', methods=['GET'])
 def index():
     """

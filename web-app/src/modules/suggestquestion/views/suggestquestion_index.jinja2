@@ -1,7 +1,67 @@
 {% extends 'base_layout.jinja2' %}
 {% set page_title = 'Frage vorschlagen' %}
-{% set bundle_name = '' %}
+{% set bundle_name = 'suggestquestion.bundle' %}
 
 {% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <nav class="nav nav-pills nav-fill">
+      <a class="nav-link active" href="#">Modulauswahl</a>
+      <a class="nav-link" href="#">Frage / Antworten</a>
+      <a class="nav-link disabled" href="#">Danke</a>
+    </nav>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    Für welches Modul möchtest du eine Quiz-Frage einreichen?
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="form-floating">
+      <input type="module-search-mask" class="form-control" id="module-search-mask" placeholder="#">
+      <label for="module-search-mask"><i class="fas fa-bullseye"></i> Tippe um Module zu durchsuchen...</label>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action">Materialwissenschaften</a>
+      <a href="#" class="list-group-item list-group-item-action">Mathematik I</a>
+      <a href="#" class="list-group-item list-group-item-action">Mathematik II</a>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="position-relative">
+      <div class="position-absolute bottom-0 start-0">
+        <button type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i> Abbrechen</button>
+      </div>
+      <div class="position-absolute bottom-0 end-0">
+        <button type="button" class="btn btn-success disabled">Nächster Schritt <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
