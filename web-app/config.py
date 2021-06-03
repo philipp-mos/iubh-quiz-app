@@ -26,6 +26,7 @@ class Config(object):
     GOOGLE_TAGMANAGER_KEY = os.environ.get("GOOGLE_TAGMANAGER_KEY")
 
     IS_SIGNUP_EMAIL_VALIDATION_ACTIVE = (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')
+    USER_SIGNUP_EMAIL_LIMITATION = os.environ.get("USER_SIGNUP_EMAIL_LIMITATION")
 
 
     # UserRoles
