@@ -1,8 +1,17 @@
 @use "~bootstrap/scss/bootstrap";
+@use '../../../utilities/helpers';
 
 
 .body {
     &--full-height {
         height: 100vh !important;
     }
+}
+
+
+.icon-circle {
+    display: inline-block;
+    border-radius: helpers.px2rem(60px);
+    border: solid helpers.px2rem(2px) var(--bs-white);
+    padding: helpers.px2rem(8px) helpers.px2rem(11.2px);
 }
