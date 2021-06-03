@@ -50,6 +50,7 @@ function getAndBuildSubjectSearchResults() {
     for (const [key, value] of Object.entries(subjectItems)) {
         let linkElement = document.createElement('a');
         linkElement.classList.add('list-group-item', 'list-group-item-action', 'subject-selection-item');
+        linkElement.href = '#';
         linkElement.setAttribute('data-name', value);
         linkElement.setAttribute('data-id', key);
         linkElement.textContent = value;
