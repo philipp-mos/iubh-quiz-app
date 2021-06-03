@@ -36,3 +36,13 @@ def questionandanswer():
     """
 
     return render_template('questionandanswer.jinja2')
+
+
+## SuggestQuestion/Thanks ##
+@suggestquestion_controller.route('/thanks', methods=['GET'])
+def thanks():
+    """
+    Question-Suggest Third Page
+    """
+
+    return render_template('thanks.jinja2')
