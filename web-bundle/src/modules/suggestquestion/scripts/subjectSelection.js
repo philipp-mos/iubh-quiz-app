@@ -1,4 +1,8 @@
-const subjectItems = { 1: 'Mathematik I', 2: 'Mathematik II', 3: 'Materialwissenschaften' };
+const subjectItems = { 
+    5: 'Mathematik I', 
+    6: 'Mathematik II', 
+    14: 'Materialwissenschaften' 
+};
 
 
 /*
