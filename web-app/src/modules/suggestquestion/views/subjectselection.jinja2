@@ -8,7 +8,7 @@
   <div class="col-12">
     <nav class="nav nav-pills nav-fill">
       <a class="nav-link active" href="#">Modulauswahl</a>
-      <a class="nav-link" href="#">Frage / Antworten</a>
+      <a class="nav-link disabled" href="#">Frage / Antworten</a>
       <a class="nav-link disabled" href="#">Danke</a>
     </nav>
   </div>
@@ -55,7 +55,7 @@
         <button type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i> Abbrechen</button>
       </div>
       <div class="position-absolute bottom-0 end-0">
-        <button type="button" class="btn btn-success disabled" id="button-next-step">Nächster Schritt <i class="fas fa-chevron-right"></i></button>
+        <a href="{{ url_for('suggestquestion_controller.questionandanswer') }}" class="btn btn-success disabled" id="button-next-step">Nächster Schritt <i class="fas fa-chevron-right"></i></a>
       </div>
     </div>
   </div>

@@ -18,11 +18,21 @@ def before_request():
 
 
 
-## SuggestQuestion/Index ##
-@suggestquestion_controller.route('/', methods=['GET'])
-def index():
+## SuggestQuestion/SubjectSelection ##
+@suggestquestion_controller.route('/subject-selection', methods=['GET'])
+def subjectselection():
     """
     Question-Suggest First Page
     """
 
-    return render_template('suggestquestion_index.jinja2')
+    return render_template('subjectselection.jinja2')
+
+
+## SuggestQuestion/QuestionAndAnswer ##
+@suggestquestion_controller.route('/question-and-answer', methods=['GET'])
+def questionandanswer():
+    """
+    Question-Suggest Second Page
+    """
+
+    return render_template('questionandanswer.jinja2')
