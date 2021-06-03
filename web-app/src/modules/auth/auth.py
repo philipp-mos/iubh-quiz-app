@@ -37,7 +37,7 @@ def login():
 
     login_viewmodel = LoginViewModel()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and login_viewmodel.validate_on_submit():
 
         if login_viewmodel.validate():
 
@@ -71,7 +71,7 @@ def signup():
 
     signup_viewmodel = SignupViewModel()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and signup_viewmodel.validate_on_submit():
 
         existing_user = UserRepository().find_by_email(signup_viewmodel.email.data)
 
