@@ -4,5 +4,8 @@
         <li><strong>Blueprint:</strong> {{request.blueprint}}</li>
         <li><strong>View:</strong> {{request.endpoint}}</li>
         <li><strong>Route:</strong> {{request.path}}</li>
+        {% if current_user.is_authenticated %}
+            <li><strong>Current-User:</strong> [{{ current_user.id }}] {{ current_user.email }}</li>
+        {% endif %}
     </ul>
 </div>

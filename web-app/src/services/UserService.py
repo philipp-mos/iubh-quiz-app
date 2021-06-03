@@ -3,6 +3,8 @@ from flask import current_app as app
 from flask import redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from ..repositories.UserRepository import UserRepository
+
 from .abstracts.AbcUserService import AbcUserService
 
 class UserService(AbcUserService):
@@ -10,7 +12,7 @@ class UserService(AbcUserService):
     @staticmethod
     @login_manager.user_loader
     def load_user(user_id):
-        return User.get(user_id)
+        return UserRepository().find_by_id(user_id)
 
 
     @staticmethod
@@ -28,7 +30,4 @@ class UserService(AbcUserService):
 
     @staticmethod
     def set_password(User, password):
-        User.password = generate_password_hash(
-            password,
-            method='sha256'
-        )
+        User.password = generate_password_hash(password)
