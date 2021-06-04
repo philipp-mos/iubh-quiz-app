@@ -1,0 +1,40 @@
+{% extends 'base_layout.jinja2' %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block main %}
+    <main role="main" class="flex-shrink-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <a class="btn btn-link" href="{{ url_for('home_controller.index') }}">
+                        <i class="fas fa-angle-left"></i> Zurück
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <a href="{{ url_for('home_controller.index') }}" >
+                        <img class="mb-4" src="{{ url_for('static', filename='assets/images/logo-iuquiz-dark.svg') }}{{ '?v=' + bundle_version }}" alt="" height="70" width="140">
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-2">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+            {% if config['FLASK_ENV'] == 'development' %}
+                <div class="row">
+                    <div class="col-12">
+                        {% include 'debug/debuginfo.jinja2' %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </main>
+{% endblock %}

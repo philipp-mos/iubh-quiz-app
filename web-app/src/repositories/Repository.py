@@ -1,11 +1,40 @@
+from flask import current_app as app
 from .abstracts.AbcRepository import AbcRepository
-from ..models.Subject import Subject
 
-# TODO: Switch to usage of Generics
+from .. import db
+
+# TODO: Switch to usage of Generics and implement get_all, get_by_id
 class Repository(AbcRepository):
+    
+    @staticmethod
+    def add(item) -> None:
+        """
+        Adds a new Item and Commit the Changes to Database
+        """
+        try:
+            db.session.add(item)
+            db.session.commit()
+        except Exception as e:
+            app.logger.critical(e)
+            db.session.rollback()
 
-    def get_all():
-        return Subject.query.all()
 
-    def find_by_id(id):
-        return Subject.query.get(id)
+    @staticmethod
+    def delete(item) -> None:
+        """
+        Deletes a existing Item and Commit the Changes to Database
+        """
+        try:
+            db.session.delete(item)
+            db.session.commit()
+        except Exception as e:
+            app.logger.critical(e)
+            db.session.rollback()
+
+
+    @staticmethod
+    def update(item) -> None:
+        """
+        Updates a defined Record with new Values
+        """
+        raise NotImplementedError

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='base.bundle.css') }}{{ '?v=' + bundle_version }}">
-
 {% if bundle_name != '' %}
     <link rel="stylesheet" href="{{ url_for('static', filename=bundle_name + '.css') }}{{ '?v=' + bundle_version }}">
 {% endif %}
