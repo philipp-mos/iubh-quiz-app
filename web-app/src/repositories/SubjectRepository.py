@@ -7,6 +7,7 @@ from ..models.Subject import Subject
 
 
 class SubjectRepository(Repository, AbcSubjectRepository):
+    DEFAULT_RESULT_ITEM_MAX_COUNT = app.config['DEFAULT_RESULT_ITEM_MAX_COUNT']
 
     @staticmethod
     def get_all(limit = DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[Subject]:
