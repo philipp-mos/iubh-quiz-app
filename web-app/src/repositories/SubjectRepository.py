@@ -1,3 +1,4 @@
+from flask import current_app as app
 from typing import List
 
 from .abstracts.AbcSubjectRepository import AbcSubjectRepository
@@ -8,11 +9,11 @@ from ..models.Subject import Subject
 class SubjectRepository(Repository, AbcSubjectRepository):
 
     @staticmethod
-    def get_all() -> List[Subject]:
+    def get_all(limit = DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[Subject]:
         """
         Returns all available Items
         """
-        return Subject.query.all()
+        return Subject.query.all()[:limit]
 
 
     @staticmethod
@@ -21,3 +22,11 @@ class SubjectRepository(Repository, AbcSubjectRepository):
         Get a specific Item by ID
         """
         return Subject.query.get(id)
+
+
+    @staticmethod
+    def search_by_query(query, limit = DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[Subject]:
+        """
+        Search Subjects based on given Query-String
+        """
+        return Subject.query.filter(Subject.name.contains(query))[:limit]
