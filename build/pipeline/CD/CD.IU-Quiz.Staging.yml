@@ -49,6 +49,13 @@ steps:
       tests/*
   displayName: 'Remove not required files / folders'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/build/Scripts'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
+  displayName: 'Copy Scripts Folder'
+
 
 - task: ArchiveFiles@2
   inputs:
