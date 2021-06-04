@@ -1,6 +1,6 @@
 export class IuHttpRequest {
 
-    static apiUrl = '/api/v1';
+    static apiBasePath = '/api/v1';
 
 
     /*
@@ -13,7 +13,7 @@ export class IuHttpRequest {
     static getHttpRequest = (requestMethod, callback, httpMethod = 'GET', responseType = 'json') => {
         var xhr = new XMLHttpRequest();
 
-        xhr.open(httpMethod, this.apiUrl + requestMethod, true);
+        xhr.open(httpMethod, this.apiBasePath + requestMethod, true);
         xhr.responseType = responseType;
 
         xhr.onload = () => {
