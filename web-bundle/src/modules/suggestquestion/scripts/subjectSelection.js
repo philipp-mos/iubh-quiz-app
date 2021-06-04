@@ -1,9 +1,19 @@
 // TODO: Will be replaced by API Calls later
-const subjectItems = { 
-    5: 'Mathematik I', 
-    6: 'Mathematik II', 
-    14: 'Materialwissenschaften' 
-};
+const subjectItems = [
+    {
+        "id": 5,
+        "name": "Mathematik I"
+    },
+    {
+        "id": 6,
+        "name": "Mathematik II"
+    },
+    {
+        "id": 14,
+        "name": "Materialwissenschaften"
+    },
+];
+
 
 /*
  * Input Element that captures the Search-String
@@ -57,16 +67,16 @@ function getAndBuildSubjectSearchResults() {
 
     subjectSelectionContainer.innerHTML = '';
 
-    for (const [key, value] of Object.entries(subjectItems)) {
+    subjectItems.forEach(function(subjectItem) {
         let linkElement = document.createElement('a');
         linkElement.classList.add('list-group-item', 'list-group-item-action', 'subject-selection-item');
         linkElement.href = '#';
-        linkElement.setAttribute('data-name', value);
-        linkElement.setAttribute('data-id', key);
-        linkElement.textContent = value;
+        linkElement.setAttribute('data-name', subjectItem.name);
+        linkElement.setAttribute('data-id', subjectItem.id);
+        linkElement.textContent = subjectItem.name;
 
         subjectSelectionContainer.appendChild(linkElement);
-    }
+    });
 }
 
 
