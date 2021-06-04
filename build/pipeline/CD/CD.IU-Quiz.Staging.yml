@@ -38,6 +38,14 @@ steps:
   displayName: 'npm install and build'
 
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/build/pipeline/Scripts'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
+  displayName: 'Copy Deployment-Scripts Folder'
+
+
 - task: DeleteFiles@1
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
@@ -48,13 +56,6 @@ steps:
       .env.example
       tests/*
   displayName: 'Remove not required files / folders'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/build/Scripts'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
-  displayName: 'Copy Scripts Folder'
 
 
 - task: ArchiveFiles@2
