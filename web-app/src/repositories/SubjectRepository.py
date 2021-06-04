@@ -21,3 +21,11 @@ class SubjectRepository(Repository, AbcSubjectRepository):
         Get a specific Item by ID
         """
         return Subject.query.get(id)
+
+
+    @staticmethod
+    def search_by_query(query) -> List[Subject]:
+        """
+        Search Subjects based on given Query-String
+        """
+        return Subject.query.filter(Subject.name.contains(query))
