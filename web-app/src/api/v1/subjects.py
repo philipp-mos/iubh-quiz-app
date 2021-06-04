@@ -34,7 +34,7 @@ def search():
 
 
     subject_dto_list = SubjectService().subjectlist_to_subjectdtolist_mapping(
-        SubjectRepository.search_by_query(query)
+        SubjectRepository.search_by_query(query, limit = 5)
     )
 
     return jsonify(
