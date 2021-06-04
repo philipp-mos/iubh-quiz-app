@@ -14,15 +14,9 @@ api_v1__subjects_controller = Blueprint(
 @api_v1__subjects_controller.route('/', methods=['GET'])
 def get():
 
-    all_subjects = SubjectRepository.get_all()
-
-    subject_dto_list = []
-
-    for subject in all_subjects:
-        subject_dto_list.append(
-            SubjectDto(subject.id, subject.name)
-        )
-
+    subject_dto_list = subjectlist_to_subjectdtolist_mapping(
+        SubjectRepository.get_all()
+    )
 
     return jsonify(
         {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
@@ -38,16 +32,21 @@ def search():
         query = search_arguments['query']
 
 
-    subject_search_result = SubjectRepository.search_by_query(query)
-
-    subject_dto_list = []
-
-    for subject in subject_search_result:
-        subject_dto_list.append(
-            SubjectDto(subject.id, subject.name)
-        )
-
+    subject_dto_list = subjectlist_to_subjectdtolist_mapping(
+        SubjectRepository.search_by_query(query)
+    )
 
     return jsonify(
         {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
     ), 200
+
+
+def subjectlist_to_subjectdtolist_mapping(list_of_subjects):
+    subject_dto_list = []
+
+    for subject in list_of_subjects:
+        subject_dto_list.append(
+            SubjectDto(subject.id, subject.name)
+        )
+
+    return subject_dto_list
