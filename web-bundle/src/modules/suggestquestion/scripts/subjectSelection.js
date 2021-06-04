@@ -1,8 +1,14 @@
+// TODO: Will be replaced by API Calls later
 const subjectItems = { 
     5: 'Mathematik I', 
     6: 'Mathematik II', 
     14: 'Materialwissenschaften' 
 };
+
+/*
+ * Input Element that captures the Search-String
+ */
+const subjectSearchMask = document.querySelector('#subject-search-mask');
 
 
 /*
@@ -10,7 +16,7 @@ const subjectItems = {
  * Updates all UI Elements
  */
 function selectSubjectSearchItem(subjectSelectionItem) {
-    document.querySelector('#subject-search-mask').value = subjectSelectionItem.getAttribute('data-name');
+    subjectSearchMask.value = subjectSelectionItem.getAttribute('data-name');
     document.querySelector('#storage-subject-id').value = subjectSelectionItem.getAttribute('data-id');
     document.querySelector('#button-next-step').classList.remove('disabled');
 
@@ -46,7 +52,7 @@ function showSubjectSearchResults() {
  */
 function getAndBuildSubjectSearchResults() {
     // TODO: Implement Ajax Request
-    // const searchString = document.querySelector('#subject-search-mask').value;
+    // const searchString = subjectSearchMask.value;
     const subjectSelectionContainer = document.querySelector('#subject-selection-container');
 
     subjectSelectionContainer.innerHTML = '';
@@ -64,22 +70,6 @@ function getAndBuildSubjectSearchResults() {
 }
 
 
-
-
-/*
- * EventListener for Triggering Search by Type
- */
-document.querySelector('#subject-search-mask').addEventListener('input', function() {
-
-    if(this.value.length >= 3) {
-        showSubjectSearchResults();
-    }
-    else {
-        document.querySelector('#subject-selection-group').classList.add('visually-hidden');
-    }
-});
-
-
 /*
  * EventListeners for Selecting Subject Item
  */
@@ -88,5 +78,21 @@ function setSelectingSubjectItemEventListeners() {
         item.addEventListener('click', function() {
             selectSubjectSearchItem(item);
         });
+    });
+}
+
+
+/*
+ * EventListener for Triggering Search by Type
+ */
+if(subjectSearchMask) {
+    subjectSearchMask.addEventListener('input', function() {
+
+        if(this.value.length >= 3) {
+            showSubjectSearchResults();
+        }
+        else {
+            document.querySelector('#subject-selection-group').classList.add('visually-hidden');
+        }
     });
 }
