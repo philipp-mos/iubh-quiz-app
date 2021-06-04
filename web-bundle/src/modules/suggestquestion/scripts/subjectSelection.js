@@ -25,7 +25,7 @@ const subjectSearchMask = document.querySelector('#subject-search-mask');
  * Is triggered when selecting a specific Subject from Search results
  * Updates all UI Elements
  */
-function selectSubjectSearchItem(subjectSelectionItem) {
+selectSubjectSearchItem = (subjectSelectionItem) => {
     subjectSearchMask.value = subjectSelectionItem.getAttribute('data-name');
     document.querySelector('#storage-subject-id').value = subjectSelectionItem.getAttribute('data-id');
     document.querySelector('#button-next-step').classList.remove('disabled');
@@ -39,7 +39,7 @@ function selectSubjectSearchItem(subjectSelectionItem) {
 /*
  * Show Search Results and handle Loader Icon during request-time
  */
-function showSubjectSearchResults() {
+showSubjectSearchResults = () => {
     const subjectSelectionLoader = document.querySelector('#subject-selection-loader');
     const subjectSelectionGroup = document.querySelector('#subject-selection-group');
 
@@ -60,7 +60,7 @@ function showSubjectSearchResults() {
 /*
  * Build DOM-Elements for all Searchresult Items
  */
-function getAndBuildSubjectSearchResults() {
+getAndBuildSubjectSearchResults = () => {
     // TODO: Implement Ajax Request
     // const searchString = subjectSearchMask.value;
     const subjectSelectionContainer = document.querySelector('#subject-selection-container');
@@ -83,7 +83,7 @@ function getAndBuildSubjectSearchResults() {
 /*
  * EventListeners for Selecting Subject Item
  */
-function setSelectingSubjectItemEventListeners() {
+setSelectingSubjectItemEventListeners = () => {
     document.querySelectorAll('.subject-selection-item').forEach(function(item) {
         item.addEventListener('click', function() {
             selectSubjectSearchItem(item);
