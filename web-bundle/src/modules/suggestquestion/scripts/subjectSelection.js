@@ -1,19 +1,6 @@
-// TODO: Will be replaced by API Calls later
-const subjectItems = [
-    {
-        "id": 5,
-        "name": "Mathematik I"
-    },
-    {
-        "id": 6,
-        "name": "Mathematik II"
-    },
-    {
-        "id": 14,
-        "name": "Materialwissenschaften"
-    },
-];
+const IuHttpRequest = require('../../../utilities/scripts/IuHttpRequest').IuHttpRequest;
 
+const searchApiMethod = '/subjects/search?query=';
 
 /*
  * Input Element that captures the Search-String
@@ -46,14 +33,11 @@ showSubjectSearchResults = () => {
     subjectSelectionGroup.classList.add('visually-hidden');
     subjectSelectionLoader.classList.remove('visually-hidden');
 
-    setTimeout(function() {
 
-        getAndBuildSubjectSearchResults();
-        subjectSelectionGroup.classList.remove('visually-hidden');
-        subjectSelectionLoader.classList.add('visually-hidden');
-        setSelectingSubjectItemEventListeners();
-
-    }, 1000);
+    getAndBuildSubjectSearchResults();
+    subjectSelectionGroup.classList.remove('visually-hidden');
+    subjectSelectionLoader.classList.add('visually-hidden');
+    setSelectingSubjectItemEventListeners();
 }
 
 
@@ -61,21 +45,33 @@ showSubjectSearchResults = () => {
  * Build DOM-Elements for all Searchresult Items
  */
 getAndBuildSubjectSearchResults = () => {
-    // TODO: Implement Ajax Request
-    // const searchString = subjectSearchMask.value;
+    const searchString = subjectSearchMask.value;
     const subjectSelectionContainer = document.querySelector('#subject-selection-container');
+    const subjectSearchError = document.querySelector('#subject-search-error');
 
     subjectSelectionContainer.innerHTML = '';
+    if(!subjectSearchError.classList.contains('visually-hidden')) {
+        subjectSearchError.classList.add('visually-hidden');
+    }
 
-    subjectItems.forEach(function(subjectItem) {
-        let linkElement = document.createElement('a');
-        linkElement.classList.add('list-group-item', 'list-group-item-action', 'subject-selection-item');
-        linkElement.href = '#';
-        linkElement.setAttribute('data-name', subjectItem.name);
-        linkElement.setAttribute('data-id', subjectItem.id);
-        linkElement.textContent = subjectItem.name;
 
-        subjectSelectionContainer.appendChild(linkElement);
+    IuHttpRequest.getHttpRequest(searchApiMethod + searchString, (error, requestData) => {
+        let searchResult = requestData.subjects;
+        if (error !== null || searchResult.length === 0) {
+            subjectSearchError.classList.remove('visually-hidden');
+        }
+        else {
+            searchResult.forEach(function(subjectItem) {
+                let linkElement = document.createElement('a');
+                linkElement.classList.add('list-group-item', 'list-group-item-action', 'subject-selection-item');
+                linkElement.href = '#';
+                linkElement.setAttribute('data-name', subjectItem.name);
+                linkElement.setAttribute('data-id', subjectItem.id);
+                linkElement.textContent = subjectItem.name;
+        
+                subjectSelectionContainer.appendChild(linkElement);
+            });
+        }
     });
 }
 
