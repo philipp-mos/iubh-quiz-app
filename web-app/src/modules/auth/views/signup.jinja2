@@ -16,6 +16,16 @@
 
                     <h1 class="h3 mb-4 fw-normal auth-form__title">Registrierung</h1>
 
+                    {% if form.errors.items()|length > 0 %}
+                        <div class="alert alert-warning">
+                            {% for key, value in form.errors.items() %}
+                                {% if value|length > 0 %}
+                                    <p>{{ value[0] }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
                     {% with messages = get_flashed_messages() %}
                         {% if messages %}
                             <div class="alert alert-warning">

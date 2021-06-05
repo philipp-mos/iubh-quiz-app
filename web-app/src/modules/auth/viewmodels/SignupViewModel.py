@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Regexp
 
 
 class SignupViewModel(FlaskForm):
@@ -17,7 +17,10 @@ class SignupViewModel(FlaskForm):
         'Passwort',        
         validators=[
             DataRequired(),
-            Length(min=8, message='Bitte wähle ein längeres Passwort.')
+            Regexp(
+                regex='^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{12,}$',
+                message='Bitte wähle ein stärkeres Passwort. Dein Passwort muss mindestens 12 Zeichen, davon mindestens 1 Sonderzeichen und eine Zahl, enthalten.'
+            )
         ]
     )
 
