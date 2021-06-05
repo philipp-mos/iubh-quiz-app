@@ -46,3 +46,9 @@ class QuizSuggestion(db.Model):
         db.ForeignKey('subjects.id'),
         nullable=False
     )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+        nullable=False
+    )
