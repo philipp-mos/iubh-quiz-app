@@ -40,3 +40,9 @@ class QuizSuggestion(db.Model):
         lazy=True
     )
     
+
+    subject_id = db.Column(
+        db.Integer,
+        db.ForeignKey('subjects.id'),
+        nullable=False
+    )
