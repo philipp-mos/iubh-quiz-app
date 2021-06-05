@@ -9,3 +9,6 @@ app.register_blueprint(legal.legal_controller)
 
 from .home import home
 app.register_blueprint(home.home_controller)
+
+from .suggestquestion import suggestquestion
+app.register_blueprint(suggestquestion.suggestquestion_controller)

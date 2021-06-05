@@ -1,0 +1,48 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Frage vorschlagen' %}
+{% set bundle_name = 'suggestquestion.bundle' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <nav class="nav nav-pills nav-fill">
+      <a class="nav-link disabled" href="#">Modulauswahl</a>
+      <a class="nav-link disabled" href="#">Frage / Antworten</a>
+      <a class="nav-link active" href="#">Danke</a>
+    </nav>
+  </div>
+</div>
+
+
+<div class="row mt-5">
+  <div class="col-12">
+    <i class="far fa-check-circle fa-5x text-success"></i>
+  </div>
+</div>
+
+
+<div class="row mt-5">
+  <div class="col-12">
+    <h1 class="h2 mb-3">Vielen Dank,</h1>
+    <p>dass du uns hilfst, unser Angebot an Quiz-Fragen zu verbessern. Das finden alle Nutzer toll!</p>
+    <p>Wir werden nun deine Fragen prüfen.</p>
+    <p>Mit etwas Glück kannst du deine eigene Fragen schon bald selbst beantworten.</p>
+  </div>
+</div>
+
+
+
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="position-relative">
+      <div class="position-absolute bottom-0 end-0">
+        <a href="{{ url_for('home_controller.index') }}" class="btn btn-primary" id="button-next-step">Zum Dashboard <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
