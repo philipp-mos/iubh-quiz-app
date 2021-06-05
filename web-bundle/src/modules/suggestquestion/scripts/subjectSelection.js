@@ -37,7 +37,10 @@ showSubjectSearchResults = () => {
     getAndBuildSubjectSearchResults();
     subjectSelectionGroup.classList.remove('visually-hidden');
     subjectSelectionLoader.classList.add('visually-hidden');
-    setSelectingSubjectItemEventListeners();
+
+    setTimeout(() => {
+        setSelectingSubjectItemEventListeners();
+    }, 100);    
 }
 
 
