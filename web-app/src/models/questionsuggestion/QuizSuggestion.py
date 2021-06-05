@@ -31,3 +31,12 @@ class QuizSuggestion(db.Model):
     is_declined = db.Column(
         db.Boolean()
     )
+
+
+
+    answers = db.relationship(
+        'QuizSuggestionAnswer',
+        backref='quiz_suggestions',
+        lazy=True
+    )
+    

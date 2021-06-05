@@ -20,3 +20,10 @@ class QuizSuggestionAnswer(db.Model):
     is_correct = db.Column(
         db.Boolean()
     )
+
+
+    quiz_suggestion_id = db.Column(
+        db.Integer,
+        db.ForeignKey('quiz_suggestions.id'),
+        nullable=False
+    )
