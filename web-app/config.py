@@ -18,17 +18,24 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
+    # Database Settings
     SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRESQLCONNSTR_APPDB")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DEFAULT_RESULT_ITEM_MAX_COUNT = 100
 
+    # Google Tag Manager
     GOOGLE_TAGMANAGER_ACTIVE = (os.environ.get("GOOGLE_TAGMANAGER_ACTIVE") == 'True')
     GOOGLE_TAGMANAGER_KEY = os.environ.get("GOOGLE_TAGMANAGER_KEY")
 
+    # Google ReCaptcha v3
+    IS_GOOGLE_RECAPTCHA_ACTIVE = (os.environ.get("IS_GOOGLE_RECAPTCHA_ACTIVE") == 'True')
+    GOOGLE_RECAPTCHA_SITEKEY = os.environ.get("GOOGLE_RECAPTCHA_SITEKEY")
+    GOOGLE_RECAPTCHA_SECRETKEY = os.environ.get("GOOGLE_RECAPTCHA_SECRETKEY")
+
+    # Signup Process
     IS_SIGNUP_EMAIL_VALIDATION_ACTIVE = (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')
     USER_SIGNUP_EMAIL_LIMITATION = os.environ.get("USER_SIGNUP_EMAIL_LIMITATION")
-
-    DEFAULT_RESULT_ITEM_MAX_COUNT = 100
 
     # UserRoles
     USERROLE_STUDENT = 1
