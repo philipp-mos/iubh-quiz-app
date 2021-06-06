@@ -32,6 +32,7 @@ class Config(object):
     IS_GOOGLE_RECAPTCHA_ACTIVE = (os.environ.get("IS_GOOGLE_RECAPTCHA_ACTIVE") == 'True')
     GOOGLE_RECAPTCHA_SITEKEY = os.environ.get("GOOGLE_RECAPTCHA_SITEKEY")
     GOOGLE_RECAPTCHA_SECRETKEY = os.environ.get("GOOGLE_RECAPTCHA_SECRETKEY")
+    GOOGLE_RECAPTCHA_SITEVERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
 
     # Signup Process
     IS_SIGNUP_EMAIL_VALIDATION_ACTIVE = (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')

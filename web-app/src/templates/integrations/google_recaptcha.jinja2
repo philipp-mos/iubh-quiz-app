@@ -1,3 +1,15 @@
 {% if config['IS_GOOGLE_RECAPTCHA_ACTIVE'] %}
     <script src="https://www.google.com/recaptcha/api.js?render={{ config['GOOGLE_RECAPTCHA_SITEKEY'] }}"></script>
+
+    <script>
+        grecaptcha.ready(() => {
+            grecaptcha.execute(
+                '{{ config['GOOGLE_RECAPTCHA_SITEKEY'] }}',
+                { action: 'iuquiz'}
+            )
+            .then((token) => {
+                document.querySelector('#recaptcha-token').value = token;
+            });
+        });
+    </script>
 {% endif %}
