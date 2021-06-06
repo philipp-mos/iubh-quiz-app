@@ -37,6 +37,10 @@ class UserService(AbcUserService):
 
     @staticmethod
     def verify_recaptcha(captcha_response, user_remote_ip):
+
+        if not app.config['IS_GOOGLE_RECAPTCHA_ACTIVE']:
+            return True
+
         request_payload = {
             'response': captcha_response, 
             'secret': app.config['GOOGLE_RECAPTCHA_SECRETKEY'],
