@@ -1,6 +1,6 @@
 from .. import login_manager
 from flask import current_app as app
-from flask import redirect, url_for, flash
+from flask import redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from ..repositories.UserRepository import UserRepository
@@ -20,7 +20,7 @@ class UserService(AbcUserService):
     def unauthorized():
         flash('Bitte melde dich an, um die Seite aufzurufen')
         app.logger.info('This Route needs Authentication')
-        return redirect(url_for('auth_controller.login'))
+        return redirect(url_for('auth_controller.login', redirect_url=request.endpoint))
 
 
     @staticmethod
