@@ -3,11 +3,16 @@
 {% set bundle_name = 'auth.bundle' %}
 
 {% block content %}
+    
+    {% include 'integrations/google_recaptcha.jinja2' %}
+
     <main class="auth-form__container">
         <div class="row">
             <div class="col-12">
                 <form method="POST" action="{{ url_for('auth_controller.signup') }}">
                     {{ form.csrf_token }}
+
+                    <input type="hidden" id="recaptcha-token" class="recaptcha-token" name="recaptcha-token" />
 
                     <a href="{{ url_for('home_controller.index') }}">
                         <img class="mb-4 d-none d-sm-block" src="{{ url_for('static', filename='assets/images/logo-iuquiz-white.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
@@ -68,6 +73,7 @@
                     <div class="mb-5"></div>
 
                     {{ form.submit(class_="w-100 btn btn-lg btn-primary") }}
+
                 </form>
             </div>
         </div>

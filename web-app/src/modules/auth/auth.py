@@ -73,17 +73,22 @@ def signup():
 
     if request.method == 'POST' and signup_viewmodel.validate_on_submit():
 
-        if not signup_viewmodel.email.data.endswith(app.config['USER_SIGNUP_EMAIL_LIMITATION']):
-            flash('Diese Email Adresse ist nicht erlaubt')
-            app.logger.info('Email-Domain is not allowed')
-            return render_template(
-                'signup.jinja2',
-                form=signup_viewmodel
-            )
-
         existing_user = UserRepository().find_by_email(signup_viewmodel.email.data)
 
         if existing_user is None:
+
+            if not UserService().verify_recaptcha(request.form['recaptcha-token'], request.remote_addr):
+                flash('Das hat leider nicht geklappt.')
+                return redirect(url_for('auth_controller.signup'))
+
+
+            if not signup_viewmodel.email.data.endswith(app.config['USER_SIGNUP_EMAIL_LIMITATION']):
+                flash('Diese Email Adresse ist nicht erlaubt')
+                app.logger.info('Email-Domain is not allowed')
+                return render_template(
+                    'signup.jinja2',
+                    form=signup_viewmodel
+                )
 
             is_signup_email_validation_inactive = not app.config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
 
