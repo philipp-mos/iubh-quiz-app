@@ -17,7 +17,16 @@ class Subject(db.Model):
         nullable=False
     )
 
-
+    short = db.Column(
+        db.String(20),
+        unique=True,
+        nullable=False
+    )
+    
+    tutor = db.relationship(
+        'Tutor',
+        backref='subject',
+        lazy=True)
 
     def __init__(self, name) -> None:
         self.name = name
