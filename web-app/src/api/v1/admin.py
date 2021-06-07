@@ -16,9 +16,11 @@ def run_migrations():
 
     if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
         upgrade(directory="./migrations")
-        
+
+        app.logger.info('Migration successfully executed')
         return jsonify({ 'status': 'success' }), 200
 
+    app.logger.warning('Failed Authentication due to wrong Migration-Key')
     return jsonify({ 'status': 'denied' }), 403
 
 
@@ -33,6 +35,6 @@ def get_appversion():
         with app.open_resource(version_file_path, 'r') as version_file:
             version_number = version_file.read()
     except FileNotFoundError:
-        print(version_file_path + ' does not exist')
+        app.logger.error('version.txt does not exist')
 
     return jsonify({ 'version': version_number })

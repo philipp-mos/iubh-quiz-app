@@ -1,0 +1,17 @@
+@use '../../../utilities/styles/helpers';
+
+
+.form-floating.input-answer {
+    flex: 0 0 94.98%;
+}
+
+
+@media only screen and (max-width: 500px) {
+    .form-floating.input-answer {
+        flex: 0 0 80%;
+
+        & label {
+            font-size: helpers.px2rem(10px);
+        }
+    }
+}

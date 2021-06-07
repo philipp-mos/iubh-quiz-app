@@ -1,21 +1,91 @@
 {% extends 'auth_layout.jinja2' %}
-{% set page_title = 'Registrieren' %}
+{% set page_title = 'Registrierung' %}
 {% set bundle_name = 'auth.bundle' %}
 
 {% block content %}
+    
+    {% include 'integrations/google_recaptcha.jinja2' %}
+
     <main class="auth-form__container">
         <div class="row">
             <div class="col-12">
+                <form method="POST" action="{{ url_for('auth_controller.signup') }}">
+                    {{ form.csrf_token }}
+
+                    <input type="hidden" id="recaptcha-token" class="recaptcha-token" name="recaptcha-token" />
+
+                    <a href="{{ url_for('home_controller.index') }}">
+                        <img class="mb-4 d-none d-sm-block" src="{{ url_for('static', filename='assets/images/logo-iuquiz-white.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
+                        <img class="mb-4 d-block d-sm-none" src="{{ url_for('static', filename='assets/images/logo-iuquiz-dark.svg') }}{{ '?v=' + bundle_version }}" alt="" height="57">
+                    </a>
+
+                    <h1 class="h3 mb-4 fw-normal auth-form__title">Registrierung</h1>
+
+                    {% if form.errors.items()|length > 0 %}
+                        <div class="alert alert-warning">
+                            {% for key, value in form.errors.items() %}
+                                {% if value|length > 0 %}
+                                    <p>{{ value[0] }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-warning">
+                                {% for message in messages %}
+                                    <p>{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif%}
+                    {% endwith %}
+
+
+
+                    <div class="form-floating">
+                        {{ form.email(class_="form-control", placeholder="email@domain.com") }}
+                        {{ form.email.label }}
+                    </div>
+
+                    <div class="mb-4"></div>
+
+                    <div class="form-floating">
+                        {{ form.password(class_="form-control", placeholder="*******") }}
+                        {{ form.password.label }}
+                    </div>
+
+                    <div class="mb-2"></div>
+
+                    <div class="form-floating">
+                        {{ form.password_confirm(class_="form-control", placeholder="*******") }}
+                        {{ form.password_confirm.label }}
+                    </div>
+
+                    <div class="mb-3"></div>
+
+                    <div class="form-check">
+                        {{ form.privacypolicy_accepted(class_="form-check-input") }}
+                        {{ form.privacypolicy_accepted.label(class_="text-light") }}
+                        <a href="{{ url_for('legal_controller.privacy_policy') }}" class="text-light" target="_blank">(öffnen)</a>
+                    </div>
+
+                    <div class="mb-5"></div>
+
+                    {{ form.submit(class_="w-100 btn btn-lg btn-primary") }}
+
+                </form>
             </div>
         </div>
         <div class="d-block d-sm-none mt-5"></div>
         <div class="row mt-4">
-            <div class="col-12">
+            <div class="col-xs-12">
                 <a href="{{ url_for('auth_controller.login') }}" class="btn btn-secondary w-100">
                     Login
                 </a>
             </div>
         </div>
+       
 
     </main>
 {% endblock %}

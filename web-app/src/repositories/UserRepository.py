@@ -36,7 +36,7 @@ class UserRepository(Repository, AbcUserRepository):
         """
         Get a active User by Email 
         """ 
-        return User.query.filter_by(is_active==True,email==user_email).first()
+        return User.query.filter_by(is_active=True,email=user_email).first()
 
 
     @staticmethod

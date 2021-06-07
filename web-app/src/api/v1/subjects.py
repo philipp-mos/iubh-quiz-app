@@ -1,8 +1,9 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 from .dtos.SubjectDto import SubjectDto
 
 from ...repositories.SubjectRepository import SubjectRepository
+from ...services.SubjectService import SubjectService
 
 api_v1__subjects_controller = Blueprint(
     'api_v1__subjects_controller',
@@ -12,18 +13,30 @@ api_v1__subjects_controller = Blueprint(
 
 
 @api_v1__subjects_controller.route('/', methods=['GET'])
-def get_all():
+def get():
 
-    all_subjects = SubjectRepository.get_all()
-
-    subject_dto_list = []
-
-    for subject in all_subjects:
-        subject_dto_list.append(
-            SubjectDto(subject.id, subject.name)
-        )
-
+    subject_dto_list = SubjectService().subjectlist_to_subjectdtolist_mapping(
+        SubjectRepository.get_all()
+    )
 
     return jsonify(
         {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
     )
+
+
+@api_v1__subjects_controller.route('/search', methods=['GET'])
+def search():
+
+    search_arguments = request.args
+
+    if 'query' in search_arguments:
+        query = search_arguments['query']
+
+
+    subject_dto_list = SubjectService().subjectlist_to_subjectdtolist_mapping(
+        SubjectRepository.search_by_query(query, limit = 5)
+    )
+
+    return jsonify(
+        {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
+    ), 200
