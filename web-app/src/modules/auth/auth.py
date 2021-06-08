@@ -39,13 +39,12 @@ def login():
 
     if request.method == 'POST' and login_viewmodel.validate_on_submit():
 
-        if login_viewmodel.validate():
+        user = UserRepository().find_active_by_email(login_viewmodel.email.data)
 
-            user = UserRepository().find_active_by_email(login_viewmodel.email.data)
+        if user and UserService().check_password(user, login_viewmodel.password.data):
+            login_user(user)
 
-            if user and UserService().check_password(user, login_viewmodel.password.data):
-                login_user(user)
-                return redirect(url_for('home_controller.index'))
+            return redirect(url_for(request.args.get('redirect_url') or 'home_controller.index'))
 
 
         flash('Email-Adresse oder Passwort ungültig')

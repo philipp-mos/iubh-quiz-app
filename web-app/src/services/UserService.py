@@ -22,7 +22,7 @@ class UserService(AbcUserService):
     def unauthorized():
         flash('Bitte melde dich an, um die Seite aufzurufen')
         app.logger.info('This Route needs Authentication')
-        return redirect(url_for('auth_controller.login'))
+        return redirect(url_for('auth_controller.login', redirect_url=request.endpoint))
 
 
     @staticmethod
