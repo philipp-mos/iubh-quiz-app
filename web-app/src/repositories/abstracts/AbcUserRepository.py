@@ -14,5 +14,5 @@ class AbcUserRepository(AbcRepository):
         raise NotImplementedError
 
     @abstractmethod
-    def is_tutor_by_userid(user_id) -> User:
+    def is_tutor_by_userid(user_id) -> bool:
         raise NotImplementedError
