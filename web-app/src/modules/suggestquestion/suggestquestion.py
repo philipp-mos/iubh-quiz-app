@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, request
+from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import login_required
 
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
@@ -32,6 +32,7 @@ def subjectselection():
         
         session['subjectselection_id'] = subject_selection_viewmodel.subject_id.data
 
+        return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
 
 
