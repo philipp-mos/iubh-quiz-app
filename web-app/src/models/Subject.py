@@ -22,11 +22,16 @@ class Subject(db.Model):
         unique=True,
         nullable=False
     )
-    
-    tutor = db.relationship(
-        'Tutor',
-        backref='subject',
-        lazy=True)
 
+    image_path = db.Column(
+        db.String(255),
+        nullable=False
+    )
+    
+    tutor_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+        nullable=False )
+    
     def __init__(self, name) -> None:
         self.name = name
