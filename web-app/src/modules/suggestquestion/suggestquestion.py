@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import render_template
+from flask import Blueprint, render_template, session, request
 from flask_login import login_required
 
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
@@ -21,13 +20,20 @@ def before_request():
 
 
 ## SuggestQuestion/SubjectSelection ##
-@suggestquestion_controller.route('/subject-selection', methods=['GET'])
+@suggestquestion_controller.route('/subject-selection', methods=['GET', 'POST'])
 def subjectselection():
     """
     Question-Suggest First Page
     """
 
     subject_selection_viewmodel = SubjectSelectionViewModel()
+
+    if request.method == 'POST' and subject_selection_viewmodel.validate_on_submit():
+        
+        session['subjectselection_id'] = subject_selection_viewmodel.subject_id.data
+
+
+
 
     return render_template(
         'subjectselection.jinja2',
