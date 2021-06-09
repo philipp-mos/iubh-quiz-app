@@ -25,12 +25,16 @@ def subjectselection():
     """
     Question-Suggest First Page
     """
-
     subject_selection_viewmodel = SubjectSelectionViewModel()
 
+    if session.get('quizsuggest__subject_id') and session.get('quizsuggest__subject_name'):
+        subject_selection_viewmodel.subject_id.data = session.get('quizsuggest__subject_id')
+        subject_selection_viewmodel.subject_name.data = session.get('quizsuggest__subject_name')
+
+
     if request.method == 'POST' and subject_selection_viewmodel.validate_on_submit():
-        
-        session['subjectselection_id'] = subject_selection_viewmodel.subject_id.data
+        session['quizsuggest__subject_id'] = subject_selection_viewmodel.subject_id.data
+        session['quizsuggest__subject_name'] = subject_selection_viewmodel.subject_name.data
 
         return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
