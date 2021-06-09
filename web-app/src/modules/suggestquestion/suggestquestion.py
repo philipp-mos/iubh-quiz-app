@@ -2,6 +2,8 @@ from flask import Blueprint
 from flask import render_template
 from flask_login import login_required
 
+from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
+
 
 suggestquestion_controller = Blueprint(
     'suggestquestion_controller',
@@ -25,7 +27,12 @@ def subjectselection():
     Question-Suggest First Page
     """
 
-    return render_template('subjectselection.jinja2')
+    subject_selection_viewmodel = SubjectSelectionViewModel()
+
+    return render_template(
+        'subjectselection.jinja2',
+        form=subject_selection_viewmodel
+    )
 
 
 ## SuggestQuestion/QuestionAndAnswer ##

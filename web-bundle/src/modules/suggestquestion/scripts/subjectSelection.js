@@ -40,7 +40,7 @@ showSubjectSearchResults = () => {
 
     setTimeout(() => {
         setSelectingSubjectItemEventListeners();
-    }, 100);    
+    }, 200);    
 }
 
 
