@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 from flask_login import login_required
 
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
+from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 
 
 suggestquestion_controller = Blueprint(
@@ -52,8 +53,12 @@ def questionandanswer():
     """
     Question-Suggest Second Page
     """
+    questionandanswer_viewmodel = QuestionAndAnswerViewModel()
 
-    return render_template('questionandanswer.jinja2')
+    return render_template(
+        'questionandanswer.jinja2',
+        form=questionandanswer_viewmodel
+    )
 
 
 ## SuggestQuestion/Thanks ##

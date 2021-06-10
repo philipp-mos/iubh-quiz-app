@@ -22,80 +22,72 @@
   </div>
 </div>
 
+<form method="POST" action="{{ url_for('suggestquestion_controller.questionandanswer') }}">
+  {{ form.csrf_token }}
 
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="input-quiz-question" placeholder="Wie lautet deine Quiz-Frage?">
-      <label for="input-quiz-question">Wie lautet deine Quiz-Frage?</label>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-floating mb-3">
+        {{ form.question_text(id="input-quiz-question", class="form-control", placeholder="#") }}
+        {{ form.question_text.label }}
+      </div>
     </div>
   </div>
-</div>
 
 
-
-<div class="row mt-5">
-  <div class="col-12">
-    <h1 class="h3">Die Antwortmöglichkeiten</h1>
-    Bitte nenne uns drei Antwortmöglichkeiten und kennzeichne die korrekte!
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h3">Die Antwortmöglichkeiten</h1>
+      Bitte nenne uns drei Antwortmöglichkeiten und kennzeichne die korrekte!
+    </div>
   </div>
-</div>
 
 
-<div class="row mt-3">
-  <div class="col-12">
+  <div class="row mt-3">
+    <div class="col-12">
+      {% set i = namespace(value=0) %}
 
-    <div class="input-group mb-1">
-      <div class="input-group-text">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="radio" name="switch-correct-answer" id="switch-correct-answer-first">
+      {% for correct_answer in form.correct_answer_flag %}
+        <div class="input-group mb-1">
+          <div class="input-group-text">
+            <div class="form-check form-switch">
+              {{ correct_answer(class="form-check-input", id="switch-correct-answer-first") }}
+            </div>
+          </div>
+          <div class="form-floating input-answer">
+            {% if i.value == 0 %}
+              {{ form.answer_1_text(id="input-answer-first", class="form-control", placeholder="#") }}
+              {{ form.answer_1_text.label }}
+
+            {% elif i.value == 1 %}
+              {{ form.answer_2_text(id="input-answer-second", class="form-control", placeholder="#") }}
+              {{ form.answer_2_text.label }}
+
+            {% elif i.value == 2 %}
+              {{ form.answer_3_text(id="input-answer-third", class="form-control", placeholder="#") }}
+              {{ form.answer_3_text.label }}
+            {% endif %}
+
+          </div>
+        </div>
+        {% set i.value = i.value + 1 %}
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          {{ form.submit(class_="btn btn-success", id="button-next-step") }}
         </div>
       </div>
-      <div class="form-floating input-answer">
-        <input type="text" class="form-control" id="input-answer-first" placeholder="Bitte nenne uns deine erste Antwortmöglichkeit">
-        <label for="input-answer-first">Bitte nenne uns deine erste Antwortmöglichkeit</label>
-      </div>
-    </div>
-
-    <div class="input-group mb-1">
-      <div class="input-group-text">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="radio" name="switch-correct-answer" id="switch-correct-answer-first">
-        </div>
-      </div>
-      <div class="form-floating input-answer">
-        <input type="text" class="form-control" id="input-answer-second" placeholder="Bitte nenne uns deine zweite Antwortmöglichkeit">
-        <label for="input-answer-second">Bitte nenne uns deine zweite Antwortmöglichkeit</label>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <div class="input-group-text">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="radio" name="switch-correct-answer" id="switch-correct-answer-first">
-        </div>
-      </div>
-      <div class="form-floating input-answer">
-        <input type="text" class="form-control" id="input-answer-third" placeholder="Bitte nenne uns deine dritte Antwortmöglichkeit">
-        <label for="input-answer-third">Bitte nenne uns deine dritte Antwortmöglichkeit</label>
-      </div>
-    </div>
-
-
-  </div>
-</div>
-
-
-
-<div class="row mt-5">
-  <div class="col-12">
-    <div class="position-relative">
-      <div class="position-absolute bottom-0 end-0">
-        <a href="{{ url_for('suggestquestion_controller.thanks') }}" class="btn btn-success" id="button-next-step">Jetzt absenden <i class="fas fa-chevron-right"></i></a>
-      </div>
     </div>
   </div>
-</div>
 
+</form>
 
 {% endblock %}
