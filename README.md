@@ -31,9 +31,17 @@ See [Setup Docker](.github/documentation/python-docker-setup.md)
 ## Python Scripts
 Requires current location in /web-app and virtual environment set up
 ### Start Application
-workers = number of cores
+To start the application run one of the following commands
+```
+python app.py runserver -h 0.0.0.0
+```
 ```
 gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
+```
+### Run Unit Tests
+Run all Unit Tests in /tests
+```
+pytest
 ```
 
 ### Migrate / Update Database
