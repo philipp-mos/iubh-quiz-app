@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
+from datetime import datetime
+
+from ...models.suggestquestion.QuizSuggestion import QuizSuggestion
+from ...models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
 from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
@@ -48,12 +52,30 @@ def subjectselection():
 
 
 ## SuggestQuestion/QuestionAndAnswer ##
-@suggestquestion_controller.route('/question-and-answer', methods=['GET'])
+@suggestquestion_controller.route('/question-and-answer', methods=['GET', 'POST'])
 def questionandanswer():
     """
     Question-Suggest Second Page
     """
     questionandanswer_viewmodel = QuestionAndAnswerViewModel()
+
+    if session.get('quizsuggest__subject_id'):
+        questionandanswer_viewmodel.subject_id.data = session.get('quizsuggest__subject_id')
+    else:
+        return redirect(url_for('suggestquestion_controller.subjectselection'))
+
+    if request.method == 'POST' and questionandanswer_viewmodel.validate_on_submit():
+
+        new_quizsuggestion = QuizSuggestion()
+        new_quizsuggestion.question = questionandanswer_viewmodel.question_text.data
+        new_quizsuggestion.creation_date = datetime.now()
+        new_quizsuggestion.is_approved = False
+        new_quizsuggestion.is_declined = False
+        new_quizsuggestion.subject_id = questionandanswer_viewmodel.subject_id.data
+        new_quizsuggestion.user_id = current_user.id
+
+        answer_1 = QuizSuggestionAnswer()
+        answer_1.text = questionandanswer_viewmodel.answer_1_text.data
 
     return render_template(
         'questionandanswer.jinja2',

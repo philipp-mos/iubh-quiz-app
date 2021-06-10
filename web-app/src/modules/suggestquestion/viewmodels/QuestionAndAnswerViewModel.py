@@ -1,9 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, RadioField
+from wtforms import HiddenField, StringField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Length
 
 
 class QuestionAndAnswerViewModel(FlaskForm):
+
+    subject_id = HiddenField(
+        'subject-id',
+        validators=[
+            DataRequired()
+        ]
+    )
 
     question_text = StringField(
         'Wie lautet deine Quiz-Frage?',
