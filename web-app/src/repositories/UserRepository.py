@@ -1,3 +1,4 @@
+from flask import current_app as app
 from typing import List
 
 from .abstracts.AbcUserRepository import AbcUserRepository
@@ -41,4 +42,4 @@ class UserRepository(Repository, AbcUserRepository):
 
     @staticmethod
     def is_tutor_by_userid(user_id) -> bool:
-        raise NotImplementedError
+        return len(User.query.filter(User.roles.any(id=app.config['USERROLE_TUTOR'])).all()) > 0
