@@ -32,7 +32,7 @@ def before_request():
 @suggestquestion_controller.route('/subject-selection', methods=['GET', 'POST'])
 def subjectselection():
     """
-    Question-Suggest First Page
+    Provides Option to select Subject, validate Input and store Information in Session
     """
     subject_selection_viewmodel = SubjectSelectionViewModel()
 
@@ -59,7 +59,7 @@ def subjectselection():
 @suggestquestion_controller.route('/question-and-answer', methods=['GET', 'POST'])
 def questionandanswer():
     """
-    Question-Suggest Second Page
+    Validate User Input for Question and Answer, finalizes Requests and Create Database Entries
     """
     questionandanswer_viewmodel = QuestionAndAnswerViewModel()
 
@@ -129,7 +129,7 @@ def questionandanswer():
 @suggestquestion_controller.route('/thanks', methods=['GET'])
 def thanks():
     """
-    Question-Suggest Third Page
+    Final Success Page, that is called when every Operation worked fine
     """
 
     return render_template('thanks.jinja2')

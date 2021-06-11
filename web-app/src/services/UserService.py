@@ -27,16 +27,25 @@ class UserService(AbcUserService):
 
     @staticmethod
     def check_password(User, password):
+        """
+        Checks if the Users Password is equals to the given Password
+        """
         return check_password_hash(User.password, password)
 
 
     @staticmethod
     def set_password(User, password):
+        """
+        Creates the Hash-Value for the given Password and set it for Users Password
+        """
         User.password = generate_password_hash(password)
 
 
     @staticmethod
     def verify_recaptcha(captcha_response, user_remote_ip):
+        """
+        Proceeds the Backend-Handling for Google ReCaptcha Verification
+        """
 
         if not app.config['IS_GOOGLE_RECAPTCHA_ACTIVE']:
             return True

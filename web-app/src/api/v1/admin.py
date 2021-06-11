@@ -13,6 +13,10 @@ api_v1__admin_controller = Blueprint(
 
 @api_v1__admin_controller.route('/run-migrations', methods=['GET'])
 def run_migrations():
+    """
+    Run Migrations, if correct MigrationKey is transmitted
+    Returns Status
+    """
 
     if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
         upgrade(directory="./migrations")
@@ -26,6 +30,9 @@ def run_migrations():
 
 @api_v1__admin_controller.route('/app-version', methods=['GET'])
 def get_appversion():
+    """
+    Returns the current Application-Version as JSON
+    """
 
     version_number = '0.0.0'
 
@@ -37,4 +44,4 @@ def get_appversion():
     except FileNotFoundError:
         app.logger.error('version.txt does not exist')
 
-    return jsonify({ 'version': version_number })
+    return jsonify({ 'version': version_number }), 200

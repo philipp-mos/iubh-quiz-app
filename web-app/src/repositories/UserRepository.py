@@ -42,4 +42,7 @@ class UserRepository(Repository, AbcUserRepository):
 
     @staticmethod
     def is_tutor_by_userid(user_id) -> bool:
-        return len(User.query.filter(User.roles.any(id=app.config['USERROLE_TUTOR'])).all()) > 0
+        """
+        Checks, if a Tutor-Role is assigned to a specific user
+        """
+        return len(User.query.filter_by(id=user_id).filter(User.roles.any(id=app.config['USERROLE_TUTOR'])).all()) > 0
