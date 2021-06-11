@@ -1,17 +1,17 @@
 from flask import current_app as app
 from typing import List
 
-from .abstracts.AbcQuestionSuggestionService import AbcQuestionSuggestionService
+from .abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
 
 from ..repositories.QuizSuggestionAnswerRepository import QuizSuggestionAnswerRepository
 
 from ..models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 
 
-class QuestionSuggestionService(AbcQuestionSuggestionService):
+class QuizSuggestionService(AbcQuizSuggestionService):
 
     @staticmethod    
-    def add_answer_for_questionsuggestion(text, is_correct, quiz_suggestion_id) -> bool:
+    def add_answer_for_quizsuggestion(text, is_correct, quiz_suggestion_id) -> bool:
         """
         Adds Answer related to QuestionSuggestion to Database
         """

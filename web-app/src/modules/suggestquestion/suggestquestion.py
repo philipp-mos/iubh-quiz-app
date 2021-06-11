@@ -12,7 +12,7 @@ from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
 from ...repositories.QuizSuggestionAnswerRepository import QuizSuggestionAnswerRepository
 
-from ...services.QuestionSuggestionService import QuestionSuggestionService
+from ...services.QuizSuggestionService import QuizSuggestionService
 
 
 suggestquestion_controller = Blueprint(
@@ -88,7 +88,7 @@ def questionandanswer():
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
 
-        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_questionsuggestion(
             questionandanswer_viewmodel.answer_1_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
@@ -98,7 +98,7 @@ def questionandanswer():
 
 
 
-        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_questionsuggestion(
             questionandanswer_viewmodel.answer_2_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '2',
             new_quizsuggestion.id
@@ -108,7 +108,7 @@ def questionandanswer():
 
 
 
-        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_questionsuggestion(
             questionandanswer_viewmodel.answer_3_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
             new_quizsuggestion.id
