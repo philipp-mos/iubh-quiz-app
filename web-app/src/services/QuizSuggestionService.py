@@ -10,10 +10,10 @@ from ..models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 
 class QuizSuggestionService(AbcQuizSuggestionService):
 
-    @staticmethod    
+    @staticmethod
     def add_answer_for_quizsuggestion(text, is_correct, quiz_suggestion_id) -> bool:
         """
-        Adds Answer related to QuestionSuggestion to Database
+        Adds Answer related to QuizSuggestion to Database
         """
         new_answer = QuizSuggestionAnswer()
         new_answer.text = text
@@ -25,7 +25,7 @@ class QuizSuggestionService(AbcQuizSuggestionService):
         if new_answer.id:
             return True
         else:
-            app.logger.critical('New Answer for Questionsuggestion has not been created')
+            app.logger.critical('New Answer for Quizsuggestion has not been created')
             return False
 
 
