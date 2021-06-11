@@ -25,6 +25,26 @@
 <form method="POST" action="{{ url_for('suggestquestion_controller.questionandanswer') }}">
   {{ form.csrf_token }}
 
+    {% if form.errors.items()|length > 0 %}
+        <div class="alert alert-warning">
+            {% for key, value in form.errors.items() %}
+                {% if value|length > 0 %}
+                    <p>{{ value[0] }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif%}
+    {% endwith %}
+
 
   <div class="row mt-3">
     <div class="col-12">
