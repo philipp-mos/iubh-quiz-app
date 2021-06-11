@@ -1,5 +1,6 @@
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, session, request, redirect, url_for
+from flask import current_app as app
 from datetime import datetime
 
 from ...models.suggestquestion.QuizSuggestion import QuizSuggestion
@@ -9,6 +10,9 @@ from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
 from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 
 from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
+from ...repositories.QuizSuggestionAnswerRepository import QuizSuggestionAnswerRepository
+
+from ...services.QuestionSuggestionService import QuestionSuggestionService
 
 
 suggestquestion_controller = Blueprint(
@@ -78,11 +82,45 @@ def questionandanswer():
 
         QuizSuggestionRepository().add_and_commit(new_quizsuggestion)
 
-        if new_quizsuggestion.id:
-            session['quizsuggest__subject_id'] = None
-            session['quizsuggest__subject_name'] = None
+        app.logger.info(questionandanswer_viewmodel.correct_answer_flag.data)
 
-            return redirect(url_for('suggestquestion_controller.thanks'))
+        if not new_quizsuggestion.id:
+            return redirect(url_for('suggestquestion_controller.questionandanswer'))
+
+
+        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+            questionandanswer_viewmodel.answer_1_text.data,
+            questionandanswer_viewmodel.correct_answer_flag.data == '1',
+            new_quizsuggestion.id
+        ):
+            pass
+            # TODO: Do Error Handling
+
+
+
+        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+            questionandanswer_viewmodel.answer_2_text.data,
+            questionandanswer_viewmodel.correct_answer_flag.data == '2',
+            new_quizsuggestion.id
+        ):
+            pass
+            # TODO: Do Error Handling
+
+
+
+        if QuestionSuggestionService.add_answer_for_questionsuggestion(
+            questionandanswer_viewmodel.answer_3_text.data,
+            questionandanswer_viewmodel.correct_answer_flag.data == '3',
+            new_quizsuggestion.id
+        ):
+            pass
+            # TODO: Do Error Handling
+
+
+        session['quizsuggest__subject_id'] = None
+        session['quizsuggest__subject_name'] = None
+
+        return redirect(url_for('suggestquestion_controller.thanks'))
 
 
     return render_template(
