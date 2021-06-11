@@ -13,7 +13,6 @@ from ...services.UserService import UserService
 from ...services.NotificationService import NotificationService
 
 from ...models.user.User import User
-from ...models.user.UserRole import UserRole
 from ...models.user.UserUserRole import UserUserRole
 
 

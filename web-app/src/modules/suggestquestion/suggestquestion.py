@@ -4,13 +4,11 @@ from flask import current_app as app
 from datetime import datetime
 
 from ...models.suggestquestion.QuizSuggestion import QuizSuggestion
-from ...models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
 from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 
 from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
-from ...repositories.QuizSuggestionAnswerRepository import QuizSuggestionAnswerRepository
 
 from ...services.QuizSuggestionService import QuizSuggestionService
 

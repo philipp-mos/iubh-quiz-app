@@ -1,7 +1,5 @@
 from flask import Blueprint, jsonify, request
 
-from .dtos.SubjectDto import SubjectDto
-
 from ...repositories.SubjectRepository import SubjectRepository
 from ...services.SubjectService import SubjectService
 
