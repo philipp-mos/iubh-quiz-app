@@ -8,6 +8,8 @@ from ...models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
 from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 
+from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
+
 
 suggestquestion_controller = Blueprint(
     'suggestquestion_controller',
@@ -74,8 +76,14 @@ def questionandanswer():
         new_quizsuggestion.subject_id = questionandanswer_viewmodel.subject_id.data
         new_quizsuggestion.user_id = current_user.id
 
-        answer_1 = QuizSuggestionAnswer()
-        answer_1.text = questionandanswer_viewmodel.answer_1_text.data
+        QuizSuggestionRepository().add_and_commit(new_quizsuggestion)
+
+        if new_quizsuggestion.id:
+            session['quizsuggest__subject_id'] = None
+            session['quizsuggest__subject_name'] = None
+
+            return redirect(url_for('suggestquestion_controller.thanks'))
+
 
     return render_template(
         'questionandanswer.jinja2',
