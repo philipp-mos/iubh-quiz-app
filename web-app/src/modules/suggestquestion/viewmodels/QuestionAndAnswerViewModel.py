@@ -24,7 +24,6 @@ class QuestionAndAnswerViewModel(FlaskForm):
         'Bitte nenne uns eine Antwortmöglichkeit',
         validators=[
             DataRequired(),
-            Length(min=2, message="Deine Antwort sollte mindestens 2 Zeichen enthalten.")
         ]
     )
 
@@ -33,7 +32,6 @@ class QuestionAndAnswerViewModel(FlaskForm):
         'Bitte nenne uns eine Antwortmöglichkeit',
         validators=[
             DataRequired(),
-            Length(min=2, message="Deine Antwort sollte mindestens 2 Zeichen enthalten.")
         ]
     )
 
@@ -41,12 +39,11 @@ class QuestionAndAnswerViewModel(FlaskForm):
     answer_3_text = StringField(
         'Bitte nenne uns eine Antwortmöglichkeit',
         validators=[
-            DataRequired(),
-            Length(min=2, message="Deine Antwort sollte mindestens 2 Zeichen enthalten.")
-        ]
+            DataRequired()
+       ]
     )
 
     correct_answer_flag = RadioField(choices=[('1', 'first'),('2', 'second'),('3', 'third')])
 
 
-    submit = SubmitField('Nächster Schritt')
+    submit = SubmitField('Anfrage absenden')
