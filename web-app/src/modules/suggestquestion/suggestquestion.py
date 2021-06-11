@@ -82,8 +82,6 @@ def questionandanswer():
 
         QuizSuggestionRepository().add_and_commit(new_quizsuggestion)
 
-        app.logger.info(questionandanswer_viewmodel.correct_answer_flag.data)
-
         if not new_quizsuggestion.id:
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
