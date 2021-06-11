@@ -11,6 +11,19 @@ class AbcRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def add_and_commit(item) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update_and_commit(item) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def delete_and_commit(item) -> None:
+        raise NotImplementedError
+
+
+    @abstractmethod
     def add(item) -> None:
         raise NotImplementedError
 
@@ -20,4 +33,9 @@ class AbcRepository(ABC):
 
     @abstractmethod
     def delete(item) -> None:
+        raise NotImplementedError
+
+
+    @abstractmethod
+    def commit() -> None:
         raise NotImplementedError
