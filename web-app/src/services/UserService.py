@@ -72,6 +72,9 @@ class UserService(AbcUserService):
 
 
     def is_user_student(user: User) -> bool:
+        """
+        Checks, if given User has Student Role assigned
+        """
         for role in user.roles:
             if role.id == app.config['USERROLE_STUDENT']:
                 return True
@@ -80,6 +83,9 @@ class UserService(AbcUserService):
 
 
     def is_user_tutor(user: User) -> bool:
+        """
+        Checks, if given User has Tutor Role assigned
+        """
         for role in user.roles:
             if role.id == app.config['USERROLE_TUTOR']:
                 return True
