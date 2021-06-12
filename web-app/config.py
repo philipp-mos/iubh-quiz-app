@@ -38,6 +38,10 @@ class Config(object):
     IS_SIGNUP_EMAIL_VALIDATION_ACTIVE = (os.environ.get("IS_SIGNUP_EMAIL_VALIDATION_ACTIVE") == 'True')
     USER_SIGNUP_EMAIL_LIMITATION = os.environ.get("USER_SIGNUP_EMAIL_LIMITATION")
 
+    # Userlike
+    IS_USERLIKE_ACTIVE = (os.environ.get("IS_USERLIKE_ACTIVE") == 'True')
+    USERLIKE_SECRET = os.environ.get("USERLIKE_SECRET")
+
     # UserRoles
     USERROLE_STUDENT = 1
     USERROLE_TUTOR = 2
