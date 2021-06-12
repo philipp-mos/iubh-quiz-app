@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from ...models.user.User import User
+
 class AbcUserService(ABC):
 
     @abstractmethod
