@@ -1,7 +1,8 @@
 import json
+
 from .. import login_manager
 from flask import current_app as app
-from flask import redirect, url_for, flash, request
+from flask import redirect, url_for, flash, request, jsonify
 from requests import post
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -24,6 +25,10 @@ class UserService(AbcUserService):
     def unauthorized():
         flash('Bitte melde dich an, um die Seite aufzurufen')
         app.logger.info('This Route needs Authentication')
+
+        if request.path.startswith('/api'):
+            return jsonify({ 'status': 'access denied' }), 403
+
         return redirect(url_for('auth_controller.login', redirect_url=request.endpoint))
 
 
