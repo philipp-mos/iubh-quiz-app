@@ -98,10 +98,10 @@ def signup():
             )
 
             UserService().set_password(new_user, signup_viewmodel.password.data)
-            UserRepository().add(new_user)
+            UserRepository().add_and_commit(new_user)
 
             user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
-            UserUserRoleRepository().add(user_to_role)
+            UserUserRoleRepository().add_and_commit(user_to_role)
 
 
             if is_signup_email_validation_inactive:
