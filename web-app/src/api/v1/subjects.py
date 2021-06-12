@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_login import login_required
 
 from ...repositories.SubjectRepository import SubjectRepository
 from ...services.SubjectService import SubjectService
@@ -8,6 +9,13 @@ api_v1__subjects_controller = Blueprint(
     __name__,
     url_prefix='/api/v1/subjects'
 )
+
+
+@api_v1__subjects_controller.before_request
+@login_required
+def before_request():
+    pass
+
 
 
 @api_v1__subjects_controller.route('/', methods=['GET'])
