@@ -5,6 +5,8 @@ from flask import redirect, url_for, flash, request
 from requests import post
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from ..models.user.User import User
+
 from ..repositories.UserRepository import UserRepository
 
 from .abstracts.AbcUserService import AbcUserService
@@ -52,3 +54,20 @@ class UserService(AbcUserService):
         response_data = json.loads(request_response.text)
 
         return response_data['success']
+
+
+
+    def is_user_student(user: User) -> bool:
+        for role in user.roles:
+            if role.id == app.config['USERROLE_STUDENT']:
+                return True
+
+        return False
+
+
+    def is_user_tutor(user: User) -> bool:
+        for role in user.roles:
+            if role.id == app.config['USERROLE_TUTOR']:
+                return True
+                
+        return False
