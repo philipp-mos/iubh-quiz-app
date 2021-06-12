@@ -39,6 +39,7 @@ class Config(object):
     USER_SIGNUP_EMAIL_LIMITATION = os.environ.get("USER_SIGNUP_EMAIL_LIMITATION")
 
     # Userlike
+    IS_USERLIKE_ACTIVE = (os.environ.get("IS_USERLIKE_ACTIVE") == 'True')
     USERLIKE_SECRET = os.environ.get("USERLIKE_SECRET")
 
     # UserRoles
