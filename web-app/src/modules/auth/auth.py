@@ -121,6 +121,12 @@ def signup():
     )
 
 
+## Auth/Forgot-Password ##
+@auth_controller.route('/forgot-password', methods=['GET'])
+def forgot_password():
+    return render_template('forgot-password.jinja2')
+
+
 ## Auth/Logout ##
 @auth_controller.route('/logout', methods=['GET'])
 @login_required
