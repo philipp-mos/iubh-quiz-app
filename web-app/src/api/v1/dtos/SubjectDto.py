@@ -6,4 +6,7 @@ class SubjectDto:
 
 
     def json(self):
+        """
+        Return SubjectDto in JSON
+        """
         return {'id': self.id, 'name': self.name}
