@@ -2,10 +2,12 @@ from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 
 from ...repositories.UserRepository import UserRepository
+from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
 
 from ...services.UserService import UserService
 
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
+from .viewmodels.UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
 
 user_controller = Blueprint(
@@ -40,12 +42,19 @@ def profile():
         role_status = 'Student'
 
 
+    userprofile_quizsuggestion_viewmodel = UserProfileQuizSuggestionViewModel(
+        QuizSuggestionRepository().count_items_created_by_user_id(user.id),
+        QuizSuggestionRepository().count_approved_items_created_by_user_id(user.id)
+    )
+
+
     return render_template(
         'profile.jinja2',
         viewmodel=UserProfileViewModel(
             user.email,
             user.is_active,
             user.creation_date.strftime("%d.%m.%Y"),
-            role_status
+            role_status,
+            user_profile_quiz_suggestion=userprofile_quizsuggestion_viewmodel
         )
     )
