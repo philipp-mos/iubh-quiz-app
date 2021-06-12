@@ -24,7 +24,7 @@ def get():
     Return all Subjects via DTO in JSON
     """
 
-    subject_dto_list = SubjectService().subjectlist_to_subjectdtolist_mapping(
+    subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
         SubjectRepository.get_all()
     )
 
@@ -45,7 +45,7 @@ def search():
         query = search_arguments['query']
 
 
-    subject_dto_list = SubjectService().subjectlist_to_subjectdtolist_mapping(
+    subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
         SubjectRepository.search_by_query(query, limit = 5)
     )
 

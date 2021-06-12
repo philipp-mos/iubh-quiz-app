@@ -22,7 +22,7 @@ class QuizSuggestionService(AbcQuizSuggestionService):
         new_answer.is_correct = is_correct
         new_answer.quiz_suggestion_id = quiz_suggestion_id
 
-        QuizSuggestionAnswerRepository().add_and_commit(new_answer)
+        QuizSuggestionAnswerRepository.add_and_commit(new_answer)
 
         if new_answer.id:
             return True
@@ -34,7 +34,7 @@ class QuizSuggestionService(AbcQuizSuggestionService):
 
     @staticmethod
     def get_stat_values_for_user_profile_by_user_id(user_id) -> UserProfileQuizSuggestionViewModel:
-        quizsuggestions_by_user = QuizSuggestionRepository().get_items_created_by_user_id(user_id)
+        quizsuggestions_by_user = QuizSuggestionRepository.get_items_created_by_user_id(user_id)
 
         amount_approved = 0
 

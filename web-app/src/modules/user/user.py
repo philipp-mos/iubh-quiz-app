@@ -7,7 +7,6 @@ from ...services.UserService import UserService
 from ...services.QuizSuggestionService import QuizSuggestionService
 
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
-from .viewmodels.UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
 
 user_controller = Blueprint(
@@ -32,7 +31,7 @@ def profile():
     User Profile Overview Page
     """
 
-    user = UserRepository().find_by_id(current_user.id)
+    user = UserRepository.find_by_id(current_user.id)
     
     role_status = '-'
 
@@ -49,6 +48,6 @@ def profile():
             user.is_active,
             user.creation_date.strftime("%d.%m.%Y"),
             role_status,
-            user_profile_quiz_suggestion=QuizSuggestionService().get_stat_values_for_user_profile_by_user_id(user.id)
+            user_profile_quiz_suggestion=QuizSuggestionService.get_stat_values_for_user_profile_by_user_id(user.id)
         )
     )

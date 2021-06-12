@@ -17,7 +17,7 @@ class UserService(AbcUserService):
     @staticmethod
     @login_manager.user_loader
     def load_user(user_id):
-        return UserRepository().find_by_id(user_id)
+        return UserRepository.find_by_id(user_id)
 
 
     @staticmethod

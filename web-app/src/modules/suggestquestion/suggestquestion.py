@@ -78,13 +78,13 @@ def questionandanswer():
         new_quizsuggestion.subject_id = questionandanswer_viewmodel.subject_id.data
         new_quizsuggestion.user_id = current_user.id
 
-        QuizSuggestionRepository().add_and_commit(new_quizsuggestion)
+        QuizSuggestionRepository.add_and_commit(new_quizsuggestion)
 
         if not new_quizsuggestion.id:
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
 
-        if QuizSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_1_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
@@ -94,7 +94,7 @@ def questionandanswer():
 
 
 
-        if QuizSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_2_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '2',
             new_quizsuggestion.id
@@ -104,7 +104,7 @@ def questionandanswer():
 
 
 
-        if QuizSuggestionService.add_answer_for_questionsuggestion(
+        if QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_3_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
             new_quizsuggestion.id
