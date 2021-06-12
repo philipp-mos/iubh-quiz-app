@@ -84,33 +84,30 @@ def questionandanswer():
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
 
-        if QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_1_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
         ):
-            pass
-            # TODO: Do Error Handling
+            app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
 
 
-        if QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_2_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '2',
             new_quizsuggestion.id
         ):
-            pass
-            # TODO: Do Error Handling
+            app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
 
 
-        if QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_3_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
             new_quizsuggestion.id
         ):
-            pass
-            # TODO: Do Error Handling
+            app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
 
         session['quizsuggest__subject_id'] = None
