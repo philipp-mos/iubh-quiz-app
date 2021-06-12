@@ -15,7 +15,7 @@
                             <span class="badge bg-success float-end"><i class="far fa-check-circle"></i> Bestätigt</span>
                             <!--<span class="badge bg-warning text-dark float-end"><i class="far fa-at"></i> Nicht bestätigt</span>-->
                         </div>
-                        <input class="form-control" id="disabledInput" type="text" value="" disabled>
+                        <input class="form-control" id="disabledInput" type="text" value="{{ viewmodel.email }}" disabled>
                         <div class="form-text">
                             (Kann bald bearbeitet werden)
                         </div>
@@ -32,11 +32,11 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <strong>Registriert seit:</strong>
-                        <span class="float-end"></span>
+                        <span class="float-end">{{ viewmodel.registered_since }}</span>
                     </div>
                     <div>
                         <strong>Status:</strong>
-                        <span class="float-end"></span>
+                        <span class="float-end">{{ viewmodel.status }}</span>
                     </div>
                 </div>
             </div>
