@@ -32,19 +32,20 @@ def profile():
 
     user = UserRepository().find_by_id(current_user.id)
     
-    user_status = '-'
+    role_status = '-'
 
     if UserService.is_user_tutor(user):
-        user_status = 'Tutor'
+        role_status = 'Tutor'
     elif UserService.is_user_student(user):
-        user_status = 'Student'
+        role_status = 'Student'
 
 
     return render_template(
         'profile.jinja2',
         viewmodel=UserProfileViewModel(
             user.email,
+            user.is_active,
             user.creation_date.strftime("%d.%m.%Y"),
-            user_status
+            role_status
         )
     )

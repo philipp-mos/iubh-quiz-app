@@ -12,8 +12,11 @@
                     <div class="mb-4">
                         <div class="mb-2">
                             <strong>E-Mail</strong>
-                            <span class="badge bg-success float-end"><i class="far fa-check-circle"></i> Bestätigt</span>
-                            <!--<span class="badge bg-warning text-dark float-end"><i class="far fa-at"></i> Nicht bestätigt</span>-->
+                            {% if viewmodel.is_email_verified %}
+                                <span class="badge bg-success float-end"><i class="far fa-check-circle"></i> Bestätigt</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark float-end"><i class="far fa-at"></i> Nicht bestätigt</span>
+                            {% endif %}
                         </div>
                         <input class="form-control" id="disabledInput" type="text" value="{{ viewmodel.email }}" disabled>
                         <div class="form-text">
@@ -36,7 +39,7 @@
                     </div>
                     <div>
                         <strong>Status:</strong>
-                        <span class="float-end">{{ viewmodel.status }}</span>
+                        <span class="float-end">{{ viewmodel.role_status }}</span>
                     </div>
                 </div>
             </div>
