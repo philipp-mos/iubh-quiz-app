@@ -46,6 +46,9 @@ class Config(object):
     USERROLE_STUDENT = 1
     USERROLE_TUTOR = 2
 
+    # External Applications
+    QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
+
 
     if FLASK_ENV == 'development':
         DEBUG = True
