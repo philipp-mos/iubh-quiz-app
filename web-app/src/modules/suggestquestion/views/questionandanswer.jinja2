@@ -1,0 +1,113 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Frage vorschlagen' %}
+{% set bundle_name = 'suggestquestion.bundle' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <nav class="nav nav-pills nav-fill">
+      <a class="nav-link disabled" href="#">Modulauswahl</a>
+      <a class="nav-link active" href="#">Frage / Antworten</a>
+      <a class="nav-link disabled" href="#">Danke</a>
+    </nav>
+  </div>
+</div>
+
+
+
+<div class="row mt-5">
+  <div class="col-12">
+    <h1 class="h3">Die Quiz-Frage</h1>
+  </div>
+</div>
+
+<form method="POST" action="{{ url_for('suggestquestion_controller.questionandanswer') }}">
+  {{ form.csrf_token }}
+
+    {% if form.errors.items()|length > 0 %}
+        <div class="alert alert-warning">
+            {% for key, value in form.errors.items() %}
+                {% if value|length > 0 %}
+                    <p>{{ value[0] }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif%}
+    {% endwith %}
+
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-floating mb-3">
+        {{ form.question_text(id="input-quiz-question", class="form-control", placeholder="#") }}
+        {{ form.question_text.label }}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h3">Die Antwortmöglichkeiten</h1>
+      Bitte nenne uns drei Antwortmöglichkeiten und kennzeichne die korrekte!
+    </div>
+  </div>
+
+
+  <div class="row mt-3">
+    <div class="col-12">
+      {% set i = namespace(value=0) %}
+
+      {% for correct_answer in form.correct_answer_flag %}
+        <div class="input-group mb-1">
+          <div class="input-group-text">
+            <div class="form-check form-switch">
+              {{ correct_answer(class="form-check-input", id="switch-correct-answer-first") }}
+            </div>
+          </div>
+          <div class="form-floating input-answer">
+            {% if i.value == 0 %}
+              {{ form.answer_1_text(id="input-answer-first", class="form-control", placeholder="#") }}
+              {{ form.answer_1_text.label }}
+
+            {% elif i.value == 1 %}
+              {{ form.answer_2_text(id="input-answer-second", class="form-control", placeholder="#") }}
+              {{ form.answer_2_text.label }}
+
+            {% elif i.value == 2 %}
+              {{ form.answer_3_text(id="input-answer-third", class="form-control", placeholder="#") }}
+              {{ form.answer_3_text.label }}
+            {% endif %}
+
+          </div>
+        </div>
+        {% set i.value = i.value + 1 %}
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          {{ form.submit(class_="btn btn-success", id="button-next-step") }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+{% endblock %}

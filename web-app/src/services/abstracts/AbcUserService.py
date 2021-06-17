@@ -19,3 +19,16 @@ class AbcUserService(ABC):
     @abstractmethod
     def set_password(User, password):
         raise NotImplementedError
+
+    @abstractmethod
+    def verify_recaptcha(captcha_response, user_remote_ip):
+        raise NotImplementedError
+
+
+    @abstractmethod
+    def is_user_student(user: User) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
+    def is_user_tutor(user: User) -> bool:
+        raise NotImplementedError

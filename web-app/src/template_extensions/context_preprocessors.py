@@ -12,7 +12,7 @@ def inject_app_version():
         with app.open_resource(version_file_path, 'r') as version_file:
             version_number = version_file.read()
     except FileNotFoundError:
-        print(version_file_path + ' does not exist')
+        app.logger.error('version.txt does not exist')
 
     return dict(app_version=version_number)
 
@@ -29,6 +29,6 @@ def inject_bundle_version():
         with app.open_resource('static/bundle-version.txt', 'r') as version_file:
             version_number = version_file.read()
     except FileNotFoundError:
-        print('bundle-version.txt does not exist')
+        app.logger.error('bundle-version.txt does not exist')
 
     return dict(bundle_version=version_number)

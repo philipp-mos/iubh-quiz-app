@@ -1,0 +1,75 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Frage vorschlagen' %}
+{% set bundle_name = 'suggestquestion.bundle' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <nav class="nav nav-pills nav-fill">
+      <a class="nav-link active" href="#">Modulauswahl</a>
+      <a class="nav-link disabled" href="#">Frage / Antworten</a>
+      <a class="nav-link disabled" href="#">Danke</a>
+    </nav>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    Für welches Modul möchtest du eine Quiz-Frage einreichen?
+  </div>
+</div>
+
+<form method="POST" action="{{ url_for('suggestquestion_controller.subjectselection') }}">
+  {{ form.csrf_token }}
+
+  {{ form.subject_id(id="storage-subject-id") }}
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="form-floating">
+        {{ form.subject_name(id="subject-search-mask", class_="form-control", placeholder="#")}}
+        <label for="subject-search-mask"><i class="fas fa-bullseye"></i> Tippe um Module zu durchsuchen...</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-1 visually-hidden" id="subject-search-error">
+    <div class="col-12">
+      <div class="alert alert-warning" role="alert">
+        Dieses Modul konnten wir leider nicht finden.
+      </div>
+    </div>
+  </div>
+
+  <div class="row visually-hidden" id="subject-selection-group">
+    <div class="col-12">
+      <div class="list-group" id="subject-selection-container"></div>
+    </div>
+  </div>
+
+  <div class="row mt-5 visually-hidden" id="subject-selection-loader">
+    <div class="col-12">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Lädt...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          {{ form.submit(class_="btn btn-success disabled", id="button-next-step") }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+{% endblock %}
