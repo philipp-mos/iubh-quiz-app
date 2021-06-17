@@ -12,6 +12,7 @@ app.register_blueprint(home.home_controller)
 
 from .subjects import subjects
 app.register_blueprint(subjects.subjects_controller)
+
 from .suggestquestion import suggestquestion
 app.register_blueprint(suggestquestion.suggestquestion_controller)
 
