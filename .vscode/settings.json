@@ -1,0 +1,16 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore=E501" // Line too long
+    ],
+    "python.linting.ignorePatterns": [
+        ".github/**",
+        ".vscode/*.py",
+        "**/site-packages/**/*.py",
+        "build/**",
+        "web-bundle/**",
+        "web-app/logs/**",
+        "web-app/migrations/**"
+    ]
+}
