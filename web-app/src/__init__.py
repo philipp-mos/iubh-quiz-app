@@ -30,20 +30,20 @@ def create_app():
 
     db.init_app(app)
 
-    migrate = Migrate(app, db)
+    migrate = Migrate(app, db)  # noqa: F841
 
     login_manager.init_app(app)
     login_manager.session_protection = "basic"
 
     with app.app_context():
-        from .services.UserService import UserService
+        from .services.UserService import UserService  # noqa: F401
 
-        from .template_extensions import error_handlers, context_preprocessors
+        from .template_extensions import error_handlers, context_preprocessors  # noqa: F401
 
-        from .models import model_registration
+        from .models import model_registration  # noqa: F401
 
-        from .api import api_routing_configuration
+        from .api import api_routing_configuration  # noqa: F401
 
-        from .modules import routing_configuration
+        from .modules import routing_configuration  # noqa: F401
 
         return app

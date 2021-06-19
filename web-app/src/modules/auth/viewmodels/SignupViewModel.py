@@ -14,7 +14,7 @@ class SignupViewModel(FlaskForm):
     )
 
     password = PasswordField(
-        'Passwort',        
+        'Passwort',
         validators=[
             DataRequired(),
             Regexp(

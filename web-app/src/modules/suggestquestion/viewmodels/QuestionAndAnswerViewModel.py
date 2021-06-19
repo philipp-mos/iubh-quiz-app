@@ -27,7 +27,6 @@ class QuestionAndAnswerViewModel(FlaskForm):
         ]
     )
 
-
     answer_2_text = StringField(
         'Bitte nenne uns eine Antwortmöglichkeit',
         validators=[
@@ -35,15 +34,13 @@ class QuestionAndAnswerViewModel(FlaskForm):
         ]
     )
 
-
     answer_3_text = StringField(
         'Bitte nenne uns eine Antwortmöglichkeit',
         validators=[
             DataRequired()
-       ]
+        ]
     )
 
-    correct_answer_flag = RadioField(choices=[('1', 'first'),('2', 'second'),('3', 'third')])
-
+    correct_answer_flag = RadioField(choices=[('1', 'first'), ('2', 'second'), ('3', 'third')])
 
     submit = SubmitField('Anfrage absenden')

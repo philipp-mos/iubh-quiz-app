@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class SubjectSelectionViewModel(FlaskForm):
-    
+
     subject_id = HiddenField(
         'subject-id',
         validators=[
