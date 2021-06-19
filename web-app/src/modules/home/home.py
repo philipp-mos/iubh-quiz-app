@@ -16,8 +16,7 @@ def before_request():
     pass
 
 
-
-## Home/Index ##
+# Home/Index
 @home_controller.route('/', methods=['GET'])
 def index():
     """

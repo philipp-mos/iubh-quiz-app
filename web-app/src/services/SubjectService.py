@@ -5,9 +5,10 @@ from .abstracts.AbcSubjectService import AbcSubjectService
 from ..models.Subject import Subject
 from ..api.v1.dtos.SubjectDto import SubjectDto
 
+
 class SubjectService(AbcSubjectService):
 
-    @staticmethod    
+    @staticmethod
     def subjectlist_to_subjectdtolist_mapping(list_of_subjects: List[Subject]) -> List[SubjectDto]:
         """
         Mapps all Subjects in List to SubjectDto

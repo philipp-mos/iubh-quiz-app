@@ -1,9 +1,9 @@
 from ... import db
 
+
 class QuizSuggestion(db.Model):
 
     __tablename__ = 'quiz_suggestions'
-
 
     id = db.Column(
         db.Integer,
@@ -32,14 +32,11 @@ class QuizSuggestion(db.Model):
         db.Boolean()
     )
 
-
-
     answers = db.relationship(
         'QuizSuggestionAnswer',
         backref='quiz_suggestions',
         lazy=True
     )
-    
 
     subject_id = db.Column(
         db.Integer,

@@ -1,5 +1,6 @@
 from .abstracts.AbcNotificationService import AbcNotificationService
 
+
 class NotificationService(AbcNotificationService):
 
     @staticmethod

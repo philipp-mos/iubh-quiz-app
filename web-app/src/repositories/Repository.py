@@ -3,6 +3,7 @@ from .abstracts.AbcRepository import AbcRepository
 
 from .. import db
 
+
 # TODO: Switch to usage of Generics and implement get_all, get_by_id
 class Repository(AbcRepository):
 
@@ -18,7 +19,6 @@ class Repository(AbcRepository):
             app.logger.critical(e)
             db.session.rollback()
 
-
     @staticmethod
     def delete_and_commit(item) -> None:
         """
@@ -31,15 +31,12 @@ class Repository(AbcRepository):
             app.logger.critical(e)
             db.session.rollback()
 
-
     @staticmethod
     def update_and_commit(item) -> None:
         """
         Updates a defined Record with new Values and Commits to Database
         """
         raise NotImplementedError
-
-
 
     @staticmethod
     def add(item) -> None:
@@ -52,7 +49,6 @@ class Repository(AbcRepository):
             app.logger.critical(e)
             db.session.rollback()
 
-
     @staticmethod
     def delete(item) -> None:
         """
@@ -64,14 +60,12 @@ class Repository(AbcRepository):
             app.logger.critical(e)
             db.session.rollback()
 
-
     @staticmethod
     def update(item) -> None:
         """
         Updates a defined Record with new Values
         """
         raise NotImplementedError
-
 
     @staticmethod
     def commit() -> None:

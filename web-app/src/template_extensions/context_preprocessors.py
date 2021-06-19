@@ -1,6 +1,7 @@
 from flask import current_app as app
 from os import path
 
+
 @app.context_processor
 def inject_app_version():
     """Reads from version.txt to inject app_version to Views"""
@@ -15,9 +16,6 @@ def inject_app_version():
         app.logger.error('version.txt does not exist')
 
     return dict(app_version=version_number)
-
-
-
 
 
 @app.context_processor

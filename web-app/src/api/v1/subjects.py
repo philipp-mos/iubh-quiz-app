@@ -4,6 +4,7 @@ from flask_login import login_required
 from ...repositories.SubjectRepository import SubjectRepository
 from ...services.SubjectService import SubjectService
 
+
 api_v1__subjects_controller = Blueprint(
     'api_v1__subjects_controller',
     __name__,
@@ -15,7 +16,6 @@ api_v1__subjects_controller = Blueprint(
 @login_required
 def before_request():
     pass
-
 
 
 @api_v1__subjects_controller.route('/', methods=['GET'])
@@ -44,9 +44,8 @@ def search():
     if 'query' in search_arguments:
         query = search_arguments['query']
 
-
     subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
-        SubjectRepository.search_by_query(query, limit = 5)
+        SubjectRepository.search_by_query(query, limit=5)
     )
 
     return jsonify(

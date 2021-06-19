@@ -49,7 +49,6 @@ class Config(object):
     # External Applications
     QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
 
-
     if FLASK_ENV == 'development':
         DEBUG = True
         TESTING = True

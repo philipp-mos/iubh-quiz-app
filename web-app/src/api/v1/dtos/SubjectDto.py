@@ -4,7 +4,6 @@ class SubjectDto:
         self.id = id
         self.name = name
 
-
     def json(self):
         """
         Return SubjectDto in JSON

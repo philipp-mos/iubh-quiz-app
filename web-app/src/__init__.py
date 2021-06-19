@@ -16,8 +16,8 @@ def create_app():
     app = Flask(
         __name__,
         instance_relative_config=False,
-        template_folder = "templates",
-        static_folder = "static"
+        template_folder="templates",
+        static_folder="static"
     )
 
     app.config.from_object('config.Config')
@@ -35,7 +35,6 @@ def create_app():
     login_manager.init_app(app)
     login_manager.session_protection = "basic"
 
-
     with app.app_context():
         from .services.UserService import UserService
 
@@ -46,6 +45,5 @@ def create_app():
         from .api import api_routing_configuration
 
         from .modules import routing_configuration
-
 
         return app

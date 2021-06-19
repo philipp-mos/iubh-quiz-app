@@ -23,8 +23,7 @@ def before_request():
     pass
 
 
-
-## User/Profile ##
+# User/Profile
 @user_controller.route('/profile', methods=['GET'])
 def profile():
     """
@@ -32,14 +31,13 @@ def profile():
     """
 
     user = UserRepository.find_by_id(current_user.id)
-    
+
     role_status = '-'
 
     if UserService.is_user_tutor(user):
         role_status = 'Tutor'
     elif UserService.is_user_student(user):
         role_status = 'Student'
-
 
     return render_template(
         'profile.jinja2',

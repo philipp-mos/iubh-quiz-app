@@ -14,14 +14,12 @@ class UserRoleRepository(Repository, AbcUserRoleRepository):
         """
         return UserRole.query.all()
 
-
     @staticmethod
     def find_by_id(id) -> UserRole:
         """
         Get a specific Item by ID
         """
         return UserRole.query.get(id)
-
 
     @staticmethod
     def find_by_name(name) -> UserRole:

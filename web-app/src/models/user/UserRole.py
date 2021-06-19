@@ -1,9 +1,9 @@
 from ... import db
 
+
 class UserRole(db.Model):
 
     __tablename__ = 'userroles'
-
 
     id = db.Column(
         db.Integer,

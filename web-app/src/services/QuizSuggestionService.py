@@ -1,5 +1,4 @@
 from flask import current_app as app
-from typing import List
 
 from .abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
 
@@ -30,8 +29,6 @@ class QuizSuggestionService(AbcQuizSuggestionService):
             app.logger.critical('New Answer for Quizsuggestion has not been created')
             return False
 
-
-
     @staticmethod
     def get_stat_values_for_user_profile_by_user_id(user_id) -> UserProfileQuizSuggestionViewModel:
         quizsuggestions_by_user = QuizSuggestionRepository.get_items_created_by_user_id(user_id)
@@ -39,9 +36,8 @@ class QuizSuggestionService(AbcQuizSuggestionService):
         amount_approved = 0
 
         for quizsuggestion in quizsuggestions_by_user:
-            if quizsuggestion.is_approved == True:
+            if quizsuggestion.is_approved is True:
                 amount_approved = amount_approved + 1
-
 
         return UserProfileQuizSuggestionViewModel(
             len(quizsuggestions_by_user),

@@ -22,10 +22,10 @@ def run_migrations():
         upgrade(directory="./migrations")
 
         app.logger.info('Migration successfully executed')
-        return jsonify({ 'status': 'success' }), 200
+        return jsonify({'status': 'success'}), 200
 
     app.logger.warning('Failed Authentication due to wrong Migration-Key')
-    return jsonify({ 'status': 'denied' }), 403
+    return jsonify({'status': 'denied'}), 403
 
 
 @api_v1__admin_controller.route('/app-version', methods=['GET'])
@@ -44,4 +44,4 @@ def get_appversion():
     except FileNotFoundError:
         app.logger.error('version.txt does not exist')
 
-    return jsonify({ 'version': version_number }), 200
+    return jsonify({'version': version_number}), 200
