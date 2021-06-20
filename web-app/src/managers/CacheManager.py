@@ -9,6 +9,13 @@ class CacheManager(object):
     EXPIRES = 1
     VALUE = 0
 
+    # Caching Time Constants
+    _ONEDAY = 86400
+    _HALFDAY = 43200
+    _ONEHOUR = 3600
+    _TENMINUTE = 600
+    _ONEMINUTE = 60
+
     @classmethod
     def get_from_key(self, key: str):
         """
