@@ -6,8 +6,8 @@ from flask import current_app as app
 class CacheManager(object):
 
     _cache_ = {}
-    EXPIRES = 0
-    VALUE = 1
+    EXPIRES = 1
+    VALUE = 0
 
     @classmethod
     def get_from_key(self, key: str):
@@ -38,3 +38,6 @@ class CacheManager(object):
         self._cache_[key] = (value, expire_time)
 
         return self.get_from_key(key)
+
+    # Cache Keys
+    _APPVERSION = '_AppVersion'
