@@ -12,6 +12,8 @@ db = SQLAlchemy()
 
 login_manager = LoginManager()
 
+cache_manager = CacheManager()
+
 
 def create_app():
 
@@ -36,8 +38,6 @@ def create_app():
 
     login_manager.init_app(app)
     login_manager.session_protection = "basic"
-
-    cache_manager = CacheManager()  # noqa: F841
 
     with app.app_context():
         from .services.UserService import UserService  # noqa: F401
