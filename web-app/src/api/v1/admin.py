@@ -50,3 +50,19 @@ def get_appversion():
         app.logger.error('version.txt does not exist')
 
     return jsonify({'version': version_number}), 200
+
+
+@api_v1__admin_controller.route('/purge-app-cache', methods=['GET'])
+def purge_app_cache():
+    """
+    Deletes the App-Cache Value
+    """
+
+    if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
+        cache_manager.purge_cache()
+
+        app.logger.info('App Cache successfully purged')
+        return jsonify({'status': 'success'}), 200
+
+    app.logger.warning('Failed Authentication due to wrong Migration-Key')
+    return jsonify({'status': 'denied'}), 403
