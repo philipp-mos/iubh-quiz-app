@@ -49,6 +49,13 @@ class CacheManager(object):
 
         return self.get_from_key(key)
 
+    @classmethod
+    def purge_cache(self):
+        """
+        Empties the Cache
+        """
+        self._cache_ = {}
+
     # Cache Keys
     _APPVERSION = '_AppVersion'
     _GETALLSUBJECTSAPIDTO = '_GetAllSubjectsApiDto'
