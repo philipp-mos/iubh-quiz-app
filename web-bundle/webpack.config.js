@@ -10,7 +10,6 @@ module.exports = {
         auth: './src/modules/auth/scripts/scripts.js',
         legal: './src/modules/legal/scripts/scripts.js',
         home: './src/modules/home/scripts/scripts.js',
-        subjects: './src/modules/subjects/scripts/scripts.js',
         suggestquestion: './src/modules/suggestquestion/scripts/scripts.js'
     },
     output: {
