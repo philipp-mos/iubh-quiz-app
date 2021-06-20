@@ -48,7 +48,7 @@ class CacheManager(object):
 
         self._cache_[key] = (value, expire_time)
 
-        return self.get_from_key(key)
+        return value
 
     @classmethod
     def purge_cache(self):
