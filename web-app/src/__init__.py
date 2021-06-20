@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 
+from managers.CacheManager import CacheManager
+
 
 db = SQLAlchemy()
 
@@ -34,6 +36,8 @@ def create_app():
 
     login_manager.init_app(app)
     login_manager.session_protection = "basic"
+
+    cache_manager = CacheManager()  # noqa: F841
 
     with app.app_context():
         from .services.UserService import UserService  # noqa: F401
