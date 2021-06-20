@@ -5,10 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 
+from .managers.CacheManager import CacheManager
+
 
 db = SQLAlchemy()
 
 login_manager = LoginManager()
+
+cache_manager = CacheManager()
 
 
 def create_app():
