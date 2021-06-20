@@ -48,3 +48,4 @@ class CacheManager(object):
 
     # Cache Keys
     _APPVERSION = '_AppVersion'
+    _GETALLSUBJECTSAPIDTO = '_GetAllSubjectsApiDto'
