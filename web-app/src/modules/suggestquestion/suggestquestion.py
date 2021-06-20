@@ -27,8 +27,7 @@ def before_request():
     pass
 
 
-
-## SuggestQuestion/SubjectSelection ##
+# SuggestQuestion/SubjectSelection
 @suggestquestion_controller.route('/subject-selection', methods=['GET', 'POST'])
 def subjectselection():
     """
@@ -40,14 +39,11 @@ def subjectselection():
         subject_selection_viewmodel.subject_id.data = session.get('quizsuggest__subject_id')
         subject_selection_viewmodel.subject_name.data = session.get('quizsuggest__subject_name')
 
-
     if request.method == 'POST' and subject_selection_viewmodel.validate_on_submit():
         session['quizsuggest__subject_id'] = subject_selection_viewmodel.subject_id.data
         session['quizsuggest__subject_name'] = subject_selection_viewmodel.subject_name.data
 
         return redirect(url_for('suggestquestion_controller.questionandanswer'))
-
-
 
     return render_template(
         'subjectselection.jinja2',
@@ -55,7 +51,7 @@ def subjectselection():
     )
 
 
-## SuggestQuestion/QuestionAndAnswer ##
+# SuggestQuestion/QuestionAndAnswer
 @suggestquestion_controller.route('/question-and-answer', methods=['GET', 'POST'])
 def questionandanswer():
     """
@@ -83,15 +79,12 @@ def questionandanswer():
         if not new_quizsuggestion.id:
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
-
         if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_1_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
-
-
 
         if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_2_text.data,
@@ -100,8 +93,6 @@ def questionandanswer():
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
-
-
         if not QuizSuggestionService.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_3_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
@@ -109,12 +100,10 @@ def questionandanswer():
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
-
         session['quizsuggest__subject_id'] = None
         session['quizsuggest__subject_name'] = None
 
         return redirect(url_for('suggestquestion_controller.thanks'))
-
 
     return render_template(
         'questionandanswer.jinja2',
@@ -122,7 +111,7 @@ def questionandanswer():
     )
 
 
-## SuggestQuestion/Thanks ##
+# SuggestQuestion/Thanks
 @suggestquestion_controller.route('/thanks', methods=['GET'])
 def thanks():
     """

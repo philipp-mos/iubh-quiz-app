@@ -24,7 +24,7 @@ auth_controller = Blueprint(
 )
 
 
-## Auth/Login ##
+# Auth/Login
 @auth_controller.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -45,10 +45,8 @@ def login():
 
             return redirect(url_for(request.args.get('redirect_url') or 'home_controller.index'))
 
-
         flash('Email-Adresse oder Passwort ungültig')
         return redirect(url_for('auth_controller.login'))
-
 
     return render_template(
         'login.jinja2',
@@ -56,7 +54,7 @@ def login():
     )
 
 
-## Auth/Signup ##
+# Auth/Signup
 @auth_controller.route('/signup', methods=['GET', 'POST'])
 def signup():
     """
@@ -65,7 +63,6 @@ def signup():
 
     if current_user.is_authenticated:
         return redirect(url_for('home_controller.index'))
-
 
     signup_viewmodel = SignupViewModel()
 
@@ -78,7 +75,6 @@ def signup():
             if not UserService.verify_recaptcha(request.form['recaptcha-token'], request.remote_addr):
                 flash('Das hat leider nicht geklappt.')
                 return redirect(url_for('auth_controller.signup'))
-
 
             if not signup_viewmodel.email.data.endswith(app.config['USER_SIGNUP_EMAIL_LIMITATION']):
                 flash('Diese Email Adresse ist nicht erlaubt')
@@ -102,7 +98,6 @@ def signup():
             user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
             UserUserRoleRepository.add_and_commit(user_to_role)
 
-
             if is_signup_email_validation_inactive:
                 login_user(new_user)
                 return redirect(url_for('home_controller.index'))
@@ -112,22 +107,21 @@ def signup():
                 flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
                 return redirect(url_for('auth_controller.login'))
 
-
         flash('Du bist bereits registriert')
-    
+
     return render_template(
         'signup.jinja2',
         form=signup_viewmodel
     )
 
 
-## Auth/Forgot-Password ##
+# Auth/Forgot-Password
 @auth_controller.route('/forgot-password', methods=['GET'])
 def forgot_password():
     return render_template('forgot-password.jinja2')
 
 
-## Auth/Logout ##
+# Auth/Logout
 @auth_controller.route('/logout', methods=['GET'])
 @login_required
 def logout():

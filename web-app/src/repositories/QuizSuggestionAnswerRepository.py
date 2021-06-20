@@ -11,12 +11,11 @@ class QuizSuggestionAnswerRepository(Repository, AbcQuizSuggestionAnswerReposito
     DEFAULT_RESULT_ITEM_MAX_COUNT = app.config['DEFAULT_RESULT_ITEM_MAX_COUNT']
 
     @staticmethod
-    def get_all(limit = DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizSuggestionAnswer]:
+    def get_all(limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizSuggestionAnswer]:
         """
         Returns all available Items
         """
         return QuizSuggestionAnswer.query.all()[:limit]
-
 
     @staticmethod
     def find_by_id(id) -> QuizSuggestionAnswer:

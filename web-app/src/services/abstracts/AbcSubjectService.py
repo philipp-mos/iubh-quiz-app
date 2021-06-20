@@ -3,6 +3,7 @@ from typing import List
 
 from ...api.v1.dtos.SubjectDto import SubjectDto
 
+
 class AbcSubjectService(ABC):
 
     @abstractmethod

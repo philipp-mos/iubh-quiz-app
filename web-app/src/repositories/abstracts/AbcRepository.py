@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class AbcRepository(ABC):
 
     @abstractmethod
@@ -22,7 +23,6 @@ class AbcRepository(ABC):
     def delete_and_commit(item) -> None:
         raise NotImplementedError
 
-
     @abstractmethod
     def add(item) -> None:
         raise NotImplementedError
@@ -34,7 +34,6 @@ class AbcRepository(ABC):
     @abstractmethod
     def delete(item) -> None:
         raise NotImplementedError
-
 
     @abstractmethod
     def commit() -> None:

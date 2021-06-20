@@ -1,8 +1,11 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 
+from ... import cache_manager
+
 from ...repositories.SubjectRepository import SubjectRepository
 from ...services.SubjectService import SubjectService
+
 
 api_v1__subjects_controller = Blueprint(
     'api_v1__subjects_controller',
@@ -17,16 +20,22 @@ def before_request():
     pass
 
 
-
 @api_v1__subjects_controller.route('/', methods=['GET'])
 def get():
     """
     Return all Subjects via DTO in JSON
     """
 
-    subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
-        SubjectRepository.get_all()
-    )
+    subject_dto_list = cache_manager.get_from_key(cache_manager._GETALLSUBJECTSAPIDTO)
+
+    if not subject_dto_list:
+        subject_dto_list = cache_manager.set_by_key(
+            cache_manager._GETALLSUBJECTSAPIDTO,
+            SubjectService.subjectlist_to_subjectdtolist_mapping(
+                SubjectRepository.get_all()
+            ),
+            cache_manager._ONEHOUR
+        )
 
     return jsonify(
         {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
@@ -44,9 +53,8 @@ def search():
     if 'query' in search_arguments:
         query = search_arguments['query']
 
-
     subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
-        SubjectRepository.search_by_query(query, limit = 5)
+        SubjectRepository.search_by_query(query, limit=5)
     )
 
     return jsonify(

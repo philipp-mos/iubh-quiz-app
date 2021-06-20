@@ -1,9 +1,9 @@
 from ... import db
 
+
 class QuizSuggestionAnswer(db.Model):
 
     __tablename__ = 'quiz_suggestion_answers'
-
 
     id = db.Column(
         db.Integer,
@@ -20,7 +20,6 @@ class QuizSuggestionAnswer(db.Model):
     is_correct = db.Column(
         db.Boolean()
     )
-
 
     quiz_suggestion_id = db.Column(
         db.Integer,

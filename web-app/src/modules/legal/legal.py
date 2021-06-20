@@ -9,7 +9,7 @@ legal_controller = Blueprint(
 )
 
 
-## Legal/Imprint ##
+# Legal/Imprint
 @legal_controller.route('/imprint', methods=['GET'])
 def imprint():
     """
@@ -19,7 +19,7 @@ def imprint():
     return render_template('imprint.jinja2')
 
 
-## Legal/PrivacyPolicy ##
+# Legal/PrivacyPolicy
 @legal_controller.route('/privacy-policy', methods=['GET'])
 def privacy_policy():
     """
