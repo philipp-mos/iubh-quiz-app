@@ -29,11 +29,13 @@ def get():
     subject_dto_list = cache_manager.get_from_key(cache_manager._GETALLSUBJECTSAPIDTO)
 
     if not subject_dto_list:
-        subject_dto_list = SubjectService.subjectlist_to_subjectdtolist_mapping(
-            SubjectRepository.get_all()
+        subject_dto_list = cache_manager.set_by_key(
+            cache_manager._GETALLSUBJECTSAPIDTO,
+            SubjectService.subjectlist_to_subjectdtolist_mapping(
+                SubjectRepository.get_all()
+            ),
+            cache_manager._ONEHOUR
         )
-
-        cache_manager.set_by_key(cache_manager._GETALLSUBJECTSAPIDTO, subject_dto_list, cache_manager._ONEHOUR)
 
     return jsonify(
         {'subjects': list(map(lambda x: x.json(), subject_dto_list))}
