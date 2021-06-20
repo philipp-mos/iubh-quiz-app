@@ -22,6 +22,9 @@ class CacheManager(object):
         Returns Value from Cache by Key
         Deletes Key if Cached Value is expired
         """
+        if app.config.get('FLASK_ENV') == 'development':
+            return None
+
         try:
             if self._cache_[key][self.EXPIRES] > time.time():
                 return self._cache_[key][self.VALUE]
