@@ -60,4 +60,5 @@ class CacheManager(object):
 
     # Cache Keys
     _APPVERSION = '_AppVersion'
+    _BUNDLEVERSION = '_BundleVersion'
     _GETALLSUBJECTSAPIDTO = '_GetAllSubjectsApiDto'
