@@ -61,7 +61,6 @@ def purge_app_cache():
     if request.args.get('migrationkey') == app.config['MIGRATION_KEY']:
         cache_manager.purge_cache()
 
-        app.logger.info('App Cache successfully purged')
         return jsonify({'status': 'success'}), 200
 
     app.logger.warning('Failed Authentication due to wrong Migration-Key')

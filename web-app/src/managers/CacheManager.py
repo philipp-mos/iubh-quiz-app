@@ -42,8 +42,9 @@ class CacheManager(object):
         try:
             expire_time = time.time() + duration
         except TypeError:
-            app.logger.error('')
-            raise TypeError("Dureation should be a numeric value")
+            error_message = 'Cache-Duration should be a numeric value'
+            app.logger.error(error_message)
+            raise TypeError(error_message)
 
         self._cache_[key] = (value, expire_time)
 
@@ -55,6 +56,7 @@ class CacheManager(object):
         Empties the Cache
         """
         self._cache_ = {}
+        app.logger.info('App Cache has been successfully purged.')
 
     # Cache Keys
     _APPVERSION = '_AppVersion'
