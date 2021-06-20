@@ -16,10 +16,9 @@ def before_request():
     pass
 
 
-
-## Subjects/Overview ##
+# Subjects/Overview
 @subjects_controller.route('/overview', methods=['GET'])
-def subjects():
+def overview():
     """
     Subjects Overview
     """
