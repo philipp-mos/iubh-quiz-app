@@ -29,3 +29,10 @@ class SubjectRepository(Repository, AbcSubjectRepository):
         Search Subjects based on given Query-String
         """
         return Subject.query.filter(Subject.name.contains(query))[:limit]
+
+    @staticmethod
+    def get_all_ordered_by_name(limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[Subject]:
+        """
+        Returns all available Items ordered by name
+        """
+        return Subject.query.order_by(Subject.name).all()[:limit]
