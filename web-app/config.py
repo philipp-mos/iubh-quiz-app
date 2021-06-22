@@ -23,6 +23,7 @@ class Config(object):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEFAULT_RESULT_ITEM_MAX_COUNT = 100
+    IS_CACHING_ENABLED = (os.environ.get("IS_CACHING_ENABLED") == 'True')
 
     # Google Tag Manager
     GOOGLE_TAGMANAGER_ACTIVE = (os.environ.get("GOOGLE_TAGMANAGER_ACTIVE") == 'True')
