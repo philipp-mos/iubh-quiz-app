@@ -1,10 +1,10 @@
 from ... import db
 from flask_login import UserMixin
 
+
 class User(UserMixin, db.Model):
 
     __tablename__ = 'users'
-
 
     id = db.Column(
         db.Integer,
@@ -35,10 +35,8 @@ class User(UserMixin, db.Model):
         db.Boolean()
     )
 
-
     # Relations
     roles = db.relationship(
         'UserRole',
-        secondary='user_userroles' 
+        secondary='user_userroles'
     )
-

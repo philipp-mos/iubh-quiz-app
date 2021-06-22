@@ -1,5 +1,7 @@
 {% set navigation_items = [
-  ('home_controller.index', 'Dashboard')
+  ('home_controller.index', 'Dashboard'),
+  ('subjects_controller.overview', 'Modulauswahl'),
+  ('suggestquestion_controller.subjectselection', 'Frage vorschlagen')
 ] -%}
 
 
@@ -30,7 +32,7 @@
 
       <div class="dropdown text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
-          <span class="icon-circle">
+          <span class="icon-circle d-none d-sm-inline-block">
             <i class="fas fa-user-graduate fs-4"></i>
           </span>
           <div class="d-sm-none mt-4"></div>
@@ -42,6 +44,12 @@
           <li>
             <a class="dropdown-item" href="#">
               <i class="fas fa-plus"></i> Neues Quiz
+            </a>
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="{{ url_for('user_controller.profile') }}">
+              <i class="fas fa-id-badge"></i> Mein Profil
             </a>
           </li>
 

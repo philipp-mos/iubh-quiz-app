@@ -18,6 +18,10 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 
+- script: |
+    cd web-app/src
+    flake8 --ignore E501,W605
+  displayName: 'Run flake8 Linting'
 
 - script: |
     cd web-app/tests

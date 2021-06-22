@@ -1,3 +1,4 @@
+from flask import current_app as app
 from typing import List
 
 from .abstracts.AbcUserRepository import AbcUserRepository
@@ -14,14 +15,12 @@ class UserRepository(Repository, AbcUserRepository):
         """
         return User.query.all()
 
-
     @staticmethod
     def find_by_id(id) -> User:
         """
         Get a specific Item by ID
         """
         return User.query.get(id)
-
 
     @staticmethod
     def find_by_email(user_email) -> User:
@@ -30,15 +29,16 @@ class UserRepository(Repository, AbcUserRepository):
         """
         return User.query.filter_by(email=user_email).first()
 
-
     @staticmethod
     def find_active_by_email(user_email) -> User:
         """
-        Get a active User by Email 
-        """ 
-        return User.query.filter_by(is_active=True,email=user_email).first()
-
+        Get a active User by Email
+        """
+        return User.query.filter_by(is_active=True, email=user_email).first()
 
     @staticmethod
     def is_tutor_by_userid(user_id) -> bool:
-        raise NotImplementedError
+        """
+        Checks, if a Tutor-Role is assigned to a specific user
+        """
+        return len(User.query.filter_by(id=user_id).filter(User.roles.any(id=app.config['USERROLE_TUTOR'])).all()) > 0

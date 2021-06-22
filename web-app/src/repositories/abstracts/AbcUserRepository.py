@@ -3,6 +3,7 @@ from abc import abstractmethod
 from ...models.user import User
 from .AbcRepository import AbcRepository
 
+
 class AbcUserRepository(AbcRepository):
 
     @abstractmethod
@@ -14,5 +15,5 @@ class AbcUserRepository(AbcRepository):
         raise NotImplementedError
 
     @abstractmethod
-    def is_tutor_by_userid(user_id) -> User:
+    def is_tutor_by_userid(user_id) -> bool:
         raise NotImplementedError

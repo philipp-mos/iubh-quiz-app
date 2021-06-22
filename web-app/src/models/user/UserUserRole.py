@@ -1,9 +1,9 @@
 from ... import db
 
+
 class UserUserRole(db.Model):
 
     __tablename__ = 'user_userroles'
-
 
     id = db.Column(
         db.Integer,
@@ -16,8 +16,8 @@ class UserUserRole(db.Model):
             'users.id',
             ondelete='CASCADE'
         )
-    )    
-    
+    )
+
     userrole_id = db.Column(
         db.Integer(),
         db.ForeignKey(

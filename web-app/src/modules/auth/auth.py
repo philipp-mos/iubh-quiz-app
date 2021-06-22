@@ -13,7 +13,6 @@ from ...services.UserService import UserService
 from ...services.NotificationService import NotificationService
 
 from ...models.user.User import User
-from ...models.user.UserRole import UserRole
 from ...models.user.UserUserRole import UserUserRole
 
 
@@ -25,7 +24,7 @@ auth_controller = Blueprint(
 )
 
 
-## Auth/Login ##
+# Auth/Login
 @auth_controller.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -39,18 +38,15 @@ def login():
 
     if request.method == 'POST' and login_viewmodel.validate_on_submit():
 
-        if login_viewmodel.validate():
+        user = UserRepository.find_active_by_email(login_viewmodel.email.data)
 
-            user = UserRepository().find_active_by_email(login_viewmodel.email.data)
+        if user and UserService.check_password(user, login_viewmodel.password.data):
+            login_user(user)
 
-            if user and UserService().check_password(user, login_viewmodel.password.data):
-                login_user(user)
-                return redirect(url_for('home_controller.index'))
-
+            return redirect(url_for(request.args.get('redirect_url') or 'home_controller.index'))
 
         flash('Email-Adresse oder Passwort ungültig')
         return redirect(url_for('auth_controller.login'))
-
 
     return render_template(
         'login.jinja2',
@@ -58,7 +54,7 @@ def login():
     )
 
 
-## Auth/Signup ##
+# Auth/Signup
 @auth_controller.route('/signup', methods=['GET', 'POST'])
 def signup():
     """
@@ -68,22 +64,25 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('home_controller.index'))
 
-
     signup_viewmodel = SignupViewModel()
 
     if request.method == 'POST' and signup_viewmodel.validate_on_submit():
 
-        if not signup_viewmodel.email.data.endswith(app.config['USER_SIGNUP_EMAIL_LIMITATION']):
-            flash('Diese Email Adresse ist nicht erlaubt')
-            app.logger.info('Email-Domain is not allowed')
-            return render_template(
-                'signup.jinja2',
-                form=signup_viewmodel
-            )
-
-        existing_user = UserRepository().find_by_email(signup_viewmodel.email.data)
+        existing_user = UserRepository.find_by_email(signup_viewmodel.email.data)
 
         if existing_user is None:
+
+            if not UserService.verify_recaptcha(request.form['recaptcha-token'], request.remote_addr):
+                flash('Das hat leider nicht geklappt.')
+                return redirect(url_for('auth_controller.signup'))
+
+            if not signup_viewmodel.email.data.endswith(app.config['USER_SIGNUP_EMAIL_LIMITATION']):
+                flash('Diese Email Adresse ist nicht erlaubt')
+                app.logger.info('Email-Domain is not allowed')
+                return render_template(
+                    'signup.jinja2',
+                    form=signup_viewmodel
+                )
 
             is_signup_email_validation_inactive = not app.config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
 
@@ -93,32 +92,36 @@ def signup():
                 is_active=is_signup_email_validation_inactive
             )
 
-            UserService().set_password(new_user, signup_viewmodel.password.data)
-            UserRepository().add(new_user)
+            UserService.set_password(new_user, signup_viewmodel.password.data)
+            UserRepository.add_and_commit(new_user)
 
             user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
-            UserUserRoleRepository().add(user_to_role)
-
+            UserUserRoleRepository.add_and_commit(user_to_role)
 
             if is_signup_email_validation_inactive:
                 login_user(new_user)
                 return redirect(url_for('home_controller.index'))
 
             else:
-                NotificationService().send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
+                NotificationService.send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
                 flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
                 return redirect(url_for('auth_controller.login'))
 
-
         flash('Du bist bereits registriert')
-    
+
     return render_template(
         'signup.jinja2',
         form=signup_viewmodel
     )
 
 
-## Auth/Logout ##
+# Auth/Forgot-Password
+@auth_controller.route('/forgot-password', methods=['GET'])
+def forgot_password():
+    return render_template('forgot-password.jinja2')
+
+
+# Auth/Logout
 @auth_controller.route('/logout', methods=['GET'])
 @login_required
 def logout():

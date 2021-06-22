@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import render_template
+from flask import Blueprint, render_template
 from flask_login import login_required
 
 
@@ -17,8 +16,7 @@ def before_request():
     pass
 
 
-
-## Home/Index ##
+# Home/Index
 @home_controller.route('/', methods=['GET'])
 def index():
     """
