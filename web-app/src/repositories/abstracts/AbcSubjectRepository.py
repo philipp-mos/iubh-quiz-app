@@ -11,3 +11,7 @@ class AbcSubjectRepository(AbcRepository):
     @abstractmethod
     def search_by_query(query, limit=0) -> List[Subject]:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_all_ordered_by_name(limit=0) -> List[Subject]:
+        raise NotImplementedError

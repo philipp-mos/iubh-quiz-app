@@ -62,3 +62,4 @@ class CacheManager(object):
     _APPVERSION = '_AppVersion'
     _BUNDLEVERSION = '_BundleVersion'
     _GETALLSUBJECTSAPIDTO = '_GetAllSubjectsApiDto'
+    _GETALLSUBJECTSORDEREDBYNAME = '_GetAllSubjectsOrderedByName'

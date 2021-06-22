@@ -3,22 +3,29 @@
 {% set bundle_name = '' %}
 
 {% block content %}
-<p class="h1">Modulauswahl</p>
+  <p class="h1">Modulauswahl</p>
 
-<div class="card mb-3" >
-  <div class="row g-0">
-    <div class="col-md-4 text-left align-self-md-left">
-      <img class="img-fluid" src="#" alt="Subject Image">
-    </div>
-    <div class="col-md-6 ">
-      <div class="card-body">
-        <p class="card-text">BSTA01-01</p>
-        <h4 class="card-title">Statistik</h4>
+  {% if subjects %}
+    {% for subject in subjects %}
+      <div class="card mb-3" >
+        <div class="row g-0">
+          <div class="col-md-4 text-left align-self-md-left">
+            <img class="img-fluid" src="{{ subject.image_path }}" alt="Subject Image">
+          </div>
+          <div class="col-md-6 ">
+            <div class="card-body">
+              <p class="card-text">{{ subject.short }}</p>
+              <h4 class="card-title">{{ subject.name }}</h4>
+            </div>
+          </div>
+          <div class="col-md-2 text-left align-self-md-left p-3">
+            <button type="button" class="btn btn-primary"><i class="fas fa-play"></i> Spiel starten</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-md-2 text-left align-self-md-left p-3">
-      <button type="button" class="btn btn-primary"><i class="fas fa-play"></i> Spiel starten</button>
-    </div>
-  </div>
-</div>
+    {% endfor %}
+  {% else %}
+    Es wurden keine Module gefunden
+  {% endif %}
+
 {% endblock %}
