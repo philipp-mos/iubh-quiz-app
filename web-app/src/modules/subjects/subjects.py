@@ -1,11 +1,15 @@
+from typing import List
+
 from flask import Blueprint, render_template
 from flask_login import login_required
 
 from ... import cache_manager
 
+from ...models.Subject import Subject
+
 from ...repositories.SubjectRepository import SubjectRepository
 
-from .viewmodels.SubjectOverviewViewModel import SubjectOverviewViewModel
+from ...services.SubjectService import SubjectService
 
 
 subjects_controller = Blueprint(
@@ -29,7 +33,7 @@ def overview():
     Subjects Overview
     """
 
-    all_subjects = cache_manager.get_from_key(cache_manager._GETALLSUBJECTSORDEREDBYNAME)
+    all_subjects: List[Subject] = cache_manager.get_from_key(cache_manager._GETALLSUBJECTSORDEREDBYNAME)
 
     if not all_subjects:
         all_subjects = cache_manager.set_by_key(
@@ -38,18 +42,7 @@ def overview():
             cache_manager._ONEDAY
         )
 
-    subjectviewmodel = []
-
-    for subject in all_subjects:
-        subjectviewmodel.append(
-            SubjectOverviewViewModel(
-                subject.name,
-                subject.short,
-                subject.image_path
-            )
-        )
-
     return render_template(
         'overview.jinja2',
-        subjects=subjectviewmodel
+        subjects=SubjectService.subjectlist_to_subjectoverviewviewmodellist_mapping(all_subjects)
     )
