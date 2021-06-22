@@ -38,6 +38,7 @@ def overview():
                 subject.image_path
             )
         )
+
     return render_template(
         'overview.jinja2',
         subjects=subjectviewmodel
