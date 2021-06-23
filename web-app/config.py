@@ -7,6 +7,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     load_dotenv(os.path.join(basedir, '.env'))
 
+    # General Application Configuration
     FLASK_APP = 'app.py'
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -17,6 +18,8 @@ class Config(object):
 
     DEBUG = False
     TESTING = False
+
+    APP_ENCODING_TYPE = "utf-8"
 
     # Database Settings
     SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRESQLCONNSTR_APPDB")
@@ -49,6 +52,7 @@ class Config(object):
 
     # External Applications
     QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
+    GRAVATAR_URL = "https://www.gravatar.com/avatar/"
 
     if FLASK_ENV == 'development':
         DEBUG = True
