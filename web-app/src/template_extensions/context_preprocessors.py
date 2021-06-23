@@ -1,4 +1,5 @@
 from flask import current_app as app
+from flask import session
 from flask_login import current_user
 
 from os import path
@@ -50,6 +51,12 @@ def inject_gravatar_url():
     """
     Build Gravatar Requets Url and provide it to Views
     """
+    if not current_user.is_authenticated:
+        return dict(user_image='')
+
+    if session.get('USER_IMAGE'):
+        return dict(user_image=session['USER_IMAGE'])
+
     image_size: int = 45
 
     gravatar_url: List[str] = []
@@ -72,4 +79,6 @@ def inject_gravatar_url():
         )
     )
 
-    return dict(user_image=''.join(gravatar_url))
+    session['USER_IMAGE'] = ''.join(gravatar_url)
+
+    return dict(user_image=session.get('USER_IMAGE'))
