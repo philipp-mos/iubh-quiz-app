@@ -23,7 +23,7 @@ class QuizQuestion(db.Model):
         nullable=False
     )
 
-    user_id = db.Column(
+    tutor_id = db.Column(
         db.Integer,
         db.ForeignKey('users.id'),
         nullable=False
