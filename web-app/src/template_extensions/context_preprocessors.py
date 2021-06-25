@@ -1,5 +1,11 @@
 from flask import current_app as app
+from flask import session
+from flask_login import current_user
+
 from os import path
+import urllib
+import hashlib
+from typing import List
 
 from .. import cache_manager
 
@@ -38,3 +44,41 @@ def inject_bundle_version():
         app.logger.error('bundle-version.txt does not exist')
 
     return dict(bundle_version=version_number)
+
+
+@app.context_processor
+def inject_gravatar_url():
+    """
+    Build Gravatar Requets Url and provide it to Views
+    """
+    if not current_user.is_authenticated:
+        return dict(user_image='')
+
+    if session.get('USER_IMAGE'):
+        return dict(user_image=session['USER_IMAGE'])
+
+    image_size: int = 45
+
+    gravatar_url: List[str] = []
+
+    gravatar_url.append(app.config.get('GRAVATAR_URL'))
+    gravatar_url.append(
+        hashlib.md5(
+            current_user.email.lower().encode(
+                app.config.get('APP_ENCODING_TYPE')
+            )
+        ).hexdigest()
+    )
+    gravatar_url.append('?')
+    gravatar_url.append(
+        urllib.parse.urlencode(
+            {
+                'd': 'retro',
+                's': str(image_size)
+            }
+        )
+    )
+
+    session['USER_IMAGE'] = ''.join(gravatar_url)
+
+    return dict(user_image=session.get('USER_IMAGE'))
