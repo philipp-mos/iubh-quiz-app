@@ -16,14 +16,14 @@ def before_request():
     pass
 
 
-# Quiz/Question_1
-@quiz_controller.route('/question-1', methods=['GET'])
-def question_1():
+# Quiz/Question/{question_number}
+@quiz_controller.route('/question/<int:question_number>', methods=['GET'])
+def question(question_number: int):
     """
-    Quiz Question 1
+    Quiz Question
     """
 
     return render_template(
         'question.jinja2',
-        question_number=str(1)
+        question_number=str(question_number)
     )
