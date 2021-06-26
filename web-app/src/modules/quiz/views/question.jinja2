@@ -25,33 +25,23 @@
 
   <div class="row mt-5">
 
-    <div class="col-4">
-      <div class="card quiz__answer">
-        <div class="quiz__answer__header">A</div>
-        <div class="card-body">
-          <p class="card-text">{{ viewmodel.answers[0] }}</p>
+    {% for key, answer in viewmodel.answers.items() %}
+      <div class="col-4">
+        <div class="card quiz__answer" id="quiz_answer_{{ key|lower }}">
+          <div class="quiz__answer__header">{{ key }}</div>
+          <div class="card-body">
+            <p class="card-text">{{ answer }}</p>
+          </div>
         </div>
       </div>
-    </div>
+    {% endfor %}
 
-    <div class="col-4">
-      <div class="card quiz__answer">
-        <div class="quiz__answer__header quiz__answer__header--correct">B</div>
-        <div class="card-body">
-          <p class="card-text">{{ viewmodel.answers[1] }}</p>
-        </div>
-      </div>
-    </div>
+  </div>
 
-    <div class="col-4">
-      <div class="card quiz__answer">
-        <div class="quiz__answer__header quiz__answer__header--incorrect">C</div>
-        <div class="card-body">
-          <p class="card-text">{{ viewmodel.answers[2] }}</p>
-        </div>
-      </div>
-    </div>
-
+  <div class="d-none">
+    {% for answer in viewmodel.answer_selection %}
+      {{ answer() }}
+    {% endfor %}
   </div>
 
 

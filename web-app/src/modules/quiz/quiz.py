@@ -29,11 +29,11 @@ def question(question_number: int):
 
     viewmodel.question_text = 'Lorem ipsum dolor sit amet?'
 
-    viewmodel.answers = [
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-    ]
+    viewmodel.answers = {
+        'A': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        'B': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        'C': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+    }
 
     viewmodel.question_number = question_number
 
