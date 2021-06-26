@@ -35,13 +35,14 @@ steps:
 
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)/web-app'
     Contents: |
       requirements.txt
       Dockerfile
       .gitignore
       .env.example
       tests/*
+      src/static/swagger.json
   displayName: 'Remove not required files / folders'
 
 

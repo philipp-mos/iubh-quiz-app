@@ -3,6 +3,8 @@ const extract = require('mini-css-extract-plugin');
 const CreateFileWepack = require('create-file-webpack');
 const CopyPlugin = require("copy-webpack-plugin");
 
+const destinationDirectory = '../web-app/src/static/bundle';
+
 module.exports = {
     mode: 'development',
     entry: {
@@ -13,7 +15,7 @@ module.exports = {
         suggestquestion: './src/modules/suggestquestion/scripts/scripts.js'
     },
     output: {
-        path: path.resolve(__dirname, '../web-app/src/static'),
+        path: path.resolve(__dirname, destinationDirectory),
         filename: '[name].bundle.js'
     },
 
@@ -64,7 +66,7 @@ module.exports = {
             filename: '[name].bundle.css'
         }),
         new CreateFileWepack({
-            path: '../web-app/src/static',
+            path: destinationDirectory,
             fileName: 'bundle-version.txt',
             content: Math.random().toString(36).replace(/[^a-z]+/g, '')
         }),
