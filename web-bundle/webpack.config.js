@@ -12,7 +12,8 @@ module.exports = {
         auth: './src/modules/auth/scripts/scripts.js',
         legal: './src/modules/legal/scripts/scripts.js',
         home: './src/modules/home/scripts/scripts.js',
-        suggestquestion: './src/modules/suggestquestion/scripts/scripts.js'
+        suggestquestion: './src/modules/suggestquestion/scripts/scripts.js',
+        quiz: './src/modules/quiz/scripts/scripts.js'
     },
     output: {
         path: path.resolve(__dirname, destinationDirectory),
