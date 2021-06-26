@@ -50,6 +50,10 @@ class Config(object):
     USERROLE_STUDENT = 1
     USERROLE_TUTOR = 2
 
+    # Swagger UI
+    SWAGGERUI_API_PATH = '/api/docs'
+    SWAGGERUI_CONFIGURATION_LOCATION = '/static/swagger.json'
+
     # External Applications
     QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
     GRAVATAR_URL = "https://www.gravatar.com/avatar/"

@@ -38,7 +38,7 @@ def inject_bundle_version():
         return dict(bundle_version=version_number)
 
     try:
-        with app.open_resource('static/bundle-version.txt', 'r') as version_file:
+        with app.open_resource('static/bundle/bundle-version.txt', 'r') as version_file:
             version_number = cache_manager.set_by_key(cache_manager._BUNDLEVERSION, version_file.read(), cache_manager._ONEDAY)
     except FileNotFoundError:
         app.logger.error('bundle-version.txt does not exist')
