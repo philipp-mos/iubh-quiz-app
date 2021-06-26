@@ -42,6 +42,7 @@ steps:
       .gitignore
       .env.example
       tests/*
+      src/static/swagger.json
   displayName: 'Remove not required files / folders'
 
 
