@@ -27,7 +27,7 @@
 
     {% for key, answer in viewmodel.answers.items() %}
       <div class="col-4">
-        <div class="card quiz__answer" id="quiz_answer_{{ key|lower }}">
+        <div class="card quiz__answer" id="quiz-answer-{{ key|lower }}" data-key="{{ key|lower }}">
           <div class="quiz__answer__header">{{ key }}</div>
           <div class="card-body">
             <p class="card-text">{{ answer }}</p>
@@ -40,7 +40,7 @@
 
   <div class="d-none">
     {% for answer in viewmodel.answer_selection %}
-      {{ answer() }}
+      {{ answer(id='answer-selection-' + answer.label.text) }}
     {% endfor %}
   </div>
 
@@ -49,7 +49,7 @@
     <div class="col-12">
       <div class="position-relative">
         <div class="position-absolute bottom-0 end-0">
-          {{ viewmodel.submit(class_="btn btn-success disabled", id="button-next-step") }}
+          {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
         </div>
       </div>
     </div>

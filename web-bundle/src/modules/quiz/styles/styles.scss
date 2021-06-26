@@ -3,6 +3,10 @@
 .quiz {
     &__answer {
         cursor: pointer;
+
+        &--selected {
+            border: helpers.px2rem(5px) solid var(--bs-primary);
+        }
     }
 
     &__answer__header {

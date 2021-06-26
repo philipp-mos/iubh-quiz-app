@@ -16,6 +16,6 @@ class QuizQuestionViewModel(FlaskForm):
         ]
     )
 
-    answer_selection = RadioField(choices=[('A', 'first'), ('B', 'second'), ('C', 'third')])
+    answer_selection = RadioField(choices=[('A', 'a'), ('B', 'b'), ('C', 'c')])
 
     submit = SubmitField('Diese Frage auswerten')
