@@ -38,21 +38,27 @@
 
   </div>
 
-  <div class="d-none">
-    {% for answer in viewmodel.answer_selection %}
-      {{ answer(id='answer-selection-' + answer.label.text) }}
-    {% endfor %}
-  </div>
+  <form method="POST" action="{{ url_for('quiz_controller.question', question_number=viewmodel.question_number) }}">
+    {{ viewmodel.csrf_token }}
+
+    <div class="d-none">
+      {% for answer in viewmodel.answer_selection %}
+        {{ answer(id='answer-selection-' + answer.label.text) }}
+      {% endfor %}
+    </div>
 
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <div class="position-relative">
-        <div class="position-absolute bottom-0 end-0">
-          {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="position-relative">
+          <div class="position-absolute bottom-0 end-0">
+            {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </form>
+
+
   
 {% endblock %}

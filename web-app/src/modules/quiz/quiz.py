@@ -19,7 +19,7 @@ def before_request():
 
 
 # Quiz/Question/{question_number}
-@quiz_controller.route('/question/<int:question_number>', methods=['GET'])
+@quiz_controller.route('/question/<int:question_number>', methods=['GET', 'POST'])
 def question(question_number: int):
     """
     Quiz Question
