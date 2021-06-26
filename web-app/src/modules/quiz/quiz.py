@@ -23,4 +23,7 @@ def question_1():
     Quiz Question 1
     """
 
-    return render_template('question.jinja2')
+    return render_template(
+        'question.jinja2',
+        question_number=str(1)
+    )

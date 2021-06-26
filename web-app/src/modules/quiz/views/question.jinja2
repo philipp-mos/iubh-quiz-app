@@ -1,7 +1,54 @@
 {% extends 'base_layout.jinja2' %}
-{% set page_title = 'Quiz' %}
+{% set page_title = 'Quiz - Frage' + question_number %}
 {% set bundle_name = '' %}
 
 {% block content %}
+
+  <div class="row mb-5">
+    <div class="col-12">
+      <nav class="nav nav-pills nav-fill">
+        <a class="nav-link active" href="#">Frage 1</a>
+        <a class="nav-link disabled" href="#">Frage 2</a>
+        <a class="nav-link disabled" href="#">Frage 3</a>
+        <a class="nav-link disabled" href="#">Frage 4</a>
+        <a class="nav-link disabled" href="#">Frage 5</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h2"></h1>
+    </div>
+  </div>
+
+
+
+  <div class="row mt-5">
+    <div class="col-4">
+      <div class="card">
+        <div class="bg-primary text-white text-center fw-bolder" style="height: 14rem; padding-top: 3rem;; font-size: 5rem;">A</div>
+        <div class="card-body">
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="bg-primary text-white text-center fw-bolder" style="height: 14rem; padding-top: 3rem;; font-size: 5rem;">B</div>
+        <div class="card-body">
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="bg-primary text-white text-center fw-bolder" style="height: 14rem; padding-top: 3rem;; font-size: 5rem;">C</div>
+        <div class="card-body">
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
