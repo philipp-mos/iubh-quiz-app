@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from ...models.Subject import Subject
+from ...models.subject.Subject import Subject
 from ...api.v1.dtos.SubjectDto import SubjectDto
 from ...modules.subjects.viewmodels.SubjectOverviewViewModel import SubjectOverviewViewModel
 

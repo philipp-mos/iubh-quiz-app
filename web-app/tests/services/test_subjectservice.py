@@ -1,7 +1,7 @@
 from typing import List
 
 from src.services.SubjectService import SubjectService
-from src.models.Subject import Subject
+from src.models.subject.Subject import Subject
 from src.api.v1.dtos.SubjectDto import SubjectDto
 
 def test_subjectservice_subjectlist_to_subjectdtolist_mapping():
