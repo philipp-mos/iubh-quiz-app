@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
 
+from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+
 
 quiz_controller = Blueprint(
     'quiz_controller',
@@ -23,7 +25,19 @@ def question(question_number: int):
     Quiz Question
     """
 
+    viewmodel = QuizQuestionViewModel(
+        'Lorem ipsum dolor sit amet?',
+        [
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+        ]
+    )
+
+    viewmodel.question_number = question_number
+
     return render_template(
         'question.jinja2',
-        question_number=str(question_number)
+        question_number=str(question_number),
+        viewmodel=viewmodel
     )
