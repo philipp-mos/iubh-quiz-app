@@ -1,5 +1,5 @@
 {% if bundle_name != '' %}
-    <link rel="stylesheet" href="{{ url_for('static', filename=bundle_name + '.css') }}{{ '?v=' + bundle_version }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bundle/' + bundle_name + '.css') }}{{ '?v=' + bundle_version }}">
 {% endif %}
 
 {% block modulestyles %} {% endblock %}
