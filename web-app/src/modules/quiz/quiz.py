@@ -25,19 +25,19 @@ def question(question_number: int):
     Quiz Question
     """
 
-    viewmodel = QuizQuestionViewModel(
-        'Lorem ipsum dolor sit amet?',
-        [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-        ]
-    )
+    viewmodel = QuizQuestionViewModel()
+
+    viewmodel.question_text = 'Lorem ipsum dolor sit amet?'
+
+    viewmodel.answers = [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+    ]
 
     viewmodel.question_number = question_number
 
     return render_template(
         'question.jinja2',
-        question_number=str(question_number),
         viewmodel=viewmodel
     )

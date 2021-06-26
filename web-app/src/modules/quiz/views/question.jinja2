@@ -1,5 +1,5 @@
 {% extends 'base_layout.jinja2' %}
-{% set page_title = 'Quiz - Frage' + question_number %}
+{% set page_title = 'Quiz - Frage ' + viewmodel.question_number|string %}
 {% set bundle_name = 'quiz.bundle' %}
 
 {% block content %}
@@ -7,8 +7,8 @@
   <div class="row mb-5">
     <div class="col-12">
       <nav class="nav nav-pills nav-fill">
-        {% for entry in ['1','2','3','4','5'] %}
-          <a class="nav-link {% if question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
+        {% for entry in [1, 2, 3, 4, 5] %}
+          <a class="nav-link {% if viewmodel.question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
         {% endfor %}
         <a class="nav-link disabled" href="#">Ergebnis</a>
       </nav>
@@ -53,4 +53,16 @@
     </div>
 
   </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          {{ viewmodel.submit(class_="btn btn-success disabled", id="button-next-step") }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}

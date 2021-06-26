@@ -6,9 +6,9 @@ from wtforms.validators import DataRequired
 
 class QuizQuestionViewModel(FlaskForm):
 
-    def __init__(self, question_text: str, answers: List[str]):
-        self.question_text = question_text
-        self.answers = answers
+    question_text: str = ''
+
+    answers: List[str] = []
 
     question_number = HiddenField(
         'question-number',
