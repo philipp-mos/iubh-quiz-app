@@ -1,4 +1,7 @@
+from sqlalchemy.dialects.postgresql import ENUM
 from ... import db
+
+from .QuizGameStatus import QuizGameStatus
 
 
 class QuizGame(db.Model):
@@ -10,9 +13,8 @@ class QuizGame(db.Model):
         primary_key=True
     )
 
-    status = db.Column(
-        db.Integer,
-        unique=False,
+    current_status = db.Column(
+        ENUM(QuizGameStatus),
         nullable=False
     )
 
