@@ -11,6 +11,6 @@ psycopg2-binary==2.8.6
 pytest==6.2.4
 python-dotenv==0.17.1
 requests==2.25.1
-sqlalchemy==1.4.17
+sqlalchemy==1.4.19
 wtforms==2.3.3
 flake8==3.9.2
