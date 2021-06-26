@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "iuquiz",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/subjects/": {
+      "get": {
+        "description": "Return all available Subjects",
+        "tags": [
+          "Subject"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/search": {
+      "get": {
+        "description": "Search-Endpoint to find specific Subjects by a given Querystring",
+        "tags": [
+          "Subject"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/app-version": {
+      "get": {
+        "description": "Returns the current running App-Version",
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/purge-app-cache": {
+      "get": {
+        "description": "Purge the AppCache. Requires Authentication via MigrationKey",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "migrationkey",
+            "description": "String to verify triggering AppCache-Purge",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/run-migrations": {
+      "get": {
+        "description": "Execute the Databasemigrations. Requires Authentication via MigrationKey",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "migrationkey",
+            "description": "String to verify triggering Databasemigrations",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}
