@@ -7,11 +7,9 @@
   <div class="row mb-5">
     <div class="col-12">
       <nav class="nav nav-pills nav-fill">
-        <a class="nav-link active" href="#">Frage 1</a>
-        <a class="nav-link disabled" href="#">Frage 2</a>
-        <a class="nav-link disabled" href="#">Frage 3</a>
-        <a class="nav-link disabled" href="#">Frage 4</a>
-        <a class="nav-link disabled" href="#">Frage 5</a>
+        {% for entry in ['1','2','3','4','5'] %}
+          <a class="nav-link {% if question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
+        {% endfor %}
       </nav>
     </div>
   </div>
