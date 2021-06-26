@@ -5,7 +5,7 @@ from flask_login import login_required
 
 from ... import cache_manager
 
-from ...models.Subject import Subject
+from ...models.subject.Subject import Subject
 
 from ...repositories.SubjectRepository import SubjectRepository
 

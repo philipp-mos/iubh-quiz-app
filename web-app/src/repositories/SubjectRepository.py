@@ -3,7 +3,7 @@ from typing import List
 
 from .abstracts.AbcSubjectRepository import AbcSubjectRepository
 from .Repository import Repository
-from ..models.Subject import Subject
+from ..models.subject.Subject import Subject
 
 
 class SubjectRepository(Repository, AbcSubjectRepository):
