@@ -7,7 +7,7 @@ Flask-SQLalchemy==2.5.1
 Flask-WTF==0.15.1
 Flask==1.1.2
 gunicorn==20.1.0
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.1
 pytest==6.2.4
 python-dotenv==0.17.1
 requests==2.25.1
