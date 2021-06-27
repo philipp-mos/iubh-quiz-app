@@ -36,6 +36,9 @@ def question(question_number: int):
     viewmodel = QuizQuestionViewModel()
 
     if request.method == 'POST' and viewmodel.validate_on_submit():
+        if question_number == 5:
+            return redirect(url_for('quiz_controller.question_results'))
+
         return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
     viewmodel.question_text = 'Lorem ipsum dolor sit amet?'
@@ -52,3 +55,13 @@ def question(question_number: int):
         'question.jinja2',
         viewmodel=viewmodel
     )
+
+
+# Quiz/Question/Results
+@quiz_controller.route('/question/results', methods=['GET'])
+def question_results():
+    """
+    Final Step that shows the Quiz-Results
+    """
+    return render_template('results.jinja2')
+
