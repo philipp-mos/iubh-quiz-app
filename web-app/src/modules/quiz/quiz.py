@@ -64,4 +64,3 @@ def question_results():
     Final Step that shows the Quiz-Results
     """
     return render_template('results.jinja2')
-
