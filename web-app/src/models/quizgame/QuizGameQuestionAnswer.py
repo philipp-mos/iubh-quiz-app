@@ -1,9 +1,9 @@
 from ... import db
 
 
-class QuizGameSetupAnswer(db.Model):
+class QuizGameQuestionAnswer(db.Model):
 
-    __tablename__ = 'quiz_game_setup_answers'
+    __tablename__ = 'quiz_game_question_answers'
 
     id = db.Column(
         db.Integer,
@@ -27,8 +27,8 @@ class QuizGameSetupAnswer(db.Model):
         nullable=False
     )
 
-    quizgamesetup_id = db.Column(
+    quizgame_question_id = db.Column(
         db.Integer,
-        db.ForeignKey('quiz_game_setups.id'),
+        db.ForeignKey('quiz_game_questions.id'),
         nullable=False
     )

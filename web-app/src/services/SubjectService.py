@@ -33,6 +33,7 @@ class SubjectService(AbcSubjectService):
         for subject in list_of_subjects:
             subjectviewmodel_list.append(
                 SubjectOverviewViewModel(
+                    subject.id,
                     subject.name,
                     subject.short,
                     subject.image_path
