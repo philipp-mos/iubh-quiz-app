@@ -50,6 +50,10 @@ class Config(object):
     USERROLE_STUDENT = 1
     USERROLE_TUTOR = 2
 
+    # Quiz Module
+    AMOUNT_OF_QUESTIONS_PER_QUIZ = 5
+    AMOUNT_OF_ANSWERS_PER_QUESTION = 3
+
     # Swagger UI
     SWAGGERUI_API_PATH = '/api/docs'
     SWAGGERUI_CONFIGURATION_LOCATION = '/static/swagger.json'

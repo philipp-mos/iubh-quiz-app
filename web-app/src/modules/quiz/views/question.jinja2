@@ -7,8 +7,9 @@
   <div class="row mb-5">
     <div class="col-12">
       <nav class="nav nav-pills nav-fill">
-        {% for entry in [1, 2, 3, 4, 5] %}
-          <a class="nav-link {% if viewmodel.question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
+        {% for count in range(config['AMOUNT_OF_QUESTIONS_PER_QUIZ']) %}
+          {% set count = count + 1 %}
+          <a class="nav-link {% if viewmodel.question_number == count %} active {% else %} disabled {% endif %}" href="#">Frage {{ count }}</a>
         {% endfor %}
         <a class="nav-link disabled" href="#">Ergebnis</a>
       </nav>
