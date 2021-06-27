@@ -1,0 +1,32 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Quiz - Ergebnisse' %}
+{% set bundle_name = 'quiz.bundle' %}
+
+{% block content %}
+  <div class="row mb-5">
+    <div class="col-12">
+      <nav class="nav nav-pills nav-fill">
+        {% for entry in [1, 2, 3, 4, 5] %}
+          <a class="nav-link disabled" href="#">Frage {{ entry }}</a>
+        {% endfor %}
+        <a class="nav-link active" href="#">Ergebnis</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h2">Ergebnisse</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          <a href="{{ url_for('home_controller.index') }}" class="btn btn-primary">Zum Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

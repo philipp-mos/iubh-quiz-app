@@ -1,0 +1,65 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Quiz - Frage ' + viewmodel.question_number|string %}
+{% set bundle_name = 'quiz.bundle' %}
+
+{% block content %}
+
+  <div class="row mb-5">
+    <div class="col-12">
+      <nav class="nav nav-pills nav-fill">
+        {% for entry in [1, 2, 3, 4, 5] %}
+          <a class="nav-link {% if viewmodel.question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
+        {% endfor %}
+        <a class="nav-link disabled" href="#">Ergebnis</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h2">{{ viewmodel.question_text }}</h1>
+      <span class="text-muted">Modul: {{ viewmodel.subject_name }}</span>
+    </div>
+  </div>
+
+
+
+  <div class="row mt-5">
+
+    {% for key, answer in viewmodel.answers.items() %}
+      <div class="col-4">
+        <div class="card quiz__answer" id="quiz-answer-{{ key|lower }}" data-key="{{ key|lower }}">
+          <div class="quiz__answer__header">{{ key }}</div>
+          <div class="card-body">
+            <p class="card-text">{{ answer }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  <form method="POST" action="{{ url_for('quiz_controller.question', question_number=viewmodel.question_number) }}">
+    {{ viewmodel.csrf_token }}
+
+    <div class="d-none">
+      {% for answer in viewmodel.answer_selection %}
+        {{ answer(id='answer-selection-' + answer.label.text) }}
+      {% endfor %}
+    </div>
+
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="position-relative">
+          <div class="position-absolute bottom-0 end-0">
+            {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  
+{% endblock %}
