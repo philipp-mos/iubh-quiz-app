@@ -45,6 +45,8 @@ def question(question_number: int):
 
     viewmodel.question_number = question_number
 
+    viewmodel.subject_name = 'Lorem ipsum dolor sit amet'
+
     viewmodel.answers = {
         'A': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         'B': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
