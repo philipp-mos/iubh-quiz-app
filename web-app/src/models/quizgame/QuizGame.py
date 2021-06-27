@@ -31,8 +31,8 @@ class QuizGame(db.Model):
         nullable=False
     )
 
-    quizgame_setup_id = db.Column(
+    quizgame_question_id = db.Column(
         db.Integer,
-        db.ForeignKey('quiz_game_setups.id'),
+        db.ForeignKey('quiz_game_questions.id'),
         nullable=False
     )
