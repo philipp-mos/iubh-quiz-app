@@ -18,6 +18,15 @@ def before_request():
     pass
 
 
+# Quiz/Start
+@quiz_controller.route('/start/<int:subject_id>', methods=['GET'])
+def start(subject_id: int):
+    """
+    Initialize QuizGame and redirect to QuizGame
+    """
+    return redirect(url_for('quiz_controller.question', question_number=1))
+
+
 # Quiz/Question
 @quiz_controller.route('/question', methods=['GET'])
 def question_fallback():
