@@ -1,5 +1,10 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+
+from ...models.quizgame.QuizGame import QuizGame
 
 
 class AbcQuizService(ABC):
-    pass
+
+    @abstractmethod
+    def initialize_quiz_game_for_subject(subject_id: int) -> QuizGame:
+        raise NotImplementedError
