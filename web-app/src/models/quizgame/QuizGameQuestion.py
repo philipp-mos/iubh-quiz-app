@@ -10,6 +10,12 @@ class QuizGameQuestion(db.Model):
         primary_key=True
     )
 
+    position = db.Column(
+        db.Integer,
+        unique=False,
+        nullable=False
+    )
+
     quizquestion_text = db.Column(
         db.String(),
         index=False,
