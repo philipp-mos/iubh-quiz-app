@@ -18,6 +18,10 @@ class QuizService(AbcQuizService):
 
     @staticmethod
     def initialize_quiz_game_for_subject(subject_id: int) -> QuizGame:
+        """
+        Build initial QuizGame and fill with random Questions and Answers from Subject
+        """
+
         quiz_game = QuizGame()
         quiz_game.creation_date = datetime.now()
         quiz_game.current_assignee_id = current_user.get_id()
@@ -39,6 +43,9 @@ class QuizService(AbcQuizService):
 
     @staticmethod
     def get_random_question_and_answers_for_subject(subject_id: int, position: int) -> QuizGameQuestion:
+        """
+        Load a random Question and random Answers based on Subject
+        """
 
         quiz_question = QuizQuestionRepository.get_random_entry_by_subject_id(subject_id)
 
