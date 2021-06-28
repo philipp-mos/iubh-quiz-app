@@ -4,6 +4,7 @@ from datetime import datetime
 from .abstracts.AbcQuizService import AbcQuizService
 
 from ..models.quizgame.QuizGame import QuizGame
+from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameStatus import QuizGameStatus
 
 
@@ -18,3 +19,7 @@ class QuizService(AbcQuizService):
         quiz_game.subject_id = subject_id
 
         return quiz_game
+
+    @staticmethod
+    def get_random_question_and_answers_for_subject(subject_id: int) -> QuizGameQuestion:
+        pass
