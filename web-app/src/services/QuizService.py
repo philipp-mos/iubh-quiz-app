@@ -24,11 +24,9 @@ class QuizService(AbcQuizService):
         quiz_game.current_status = QuizGameStatus.IN_PROGRESS
         quiz_game.subject_id = subject_id
 
-        quiz_game_question = QuizService.get_random_question_and_answers_for_subject(subject_id)
-        quiz_game.quizgamequestions.append(quiz_game_question)
-
-        quiz_game_question_2 = QuizService.get_random_question_and_answers_for_subject(subject_id)
-        quiz_game.quizgamequestions.append(quiz_game_question_2)
+        for count in range(app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ')):
+            quiz_game_question = QuizService.get_random_question_and_answers_for_subject(subject_id)
+            quiz_game.quizgamequestions.append(quiz_game_question)
 
         QuizGameRepository.add_and_commit(quiz_game)
 
@@ -53,11 +51,11 @@ class QuizService(AbcQuizService):
                 continue
 
             quizgame_question_answer = QuizGameQuestionAnswer()
-            quizgame_question_answer.quizgame_question_id = quiz_question.id
+            quizgame_question_answer.quizgame_question_id = quizgame_question.id
             quizgame_question_answer.quizanswer_id = quiz_answer.id
             quizgame_question_answer.quizanswer_text = quiz_answer.text
             quizgame_question_answer.quizanswer_is_correct = quiz_answer.is_correct
 
-            quizgame_question.quizgamequestionanswers.append(quizgame_question_answer)
+            # quizgame_question.quizgamequestionanswers.append(quizgame_question_answer)
 
         return quizgame_question
