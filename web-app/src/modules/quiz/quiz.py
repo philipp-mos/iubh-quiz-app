@@ -1,7 +1,10 @@
+from flask import current_app as app
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+
+from ...services.QuizService import QuizService
 
 
 quiz_controller = Blueprint(
@@ -24,7 +27,10 @@ def start(subject_id: int):
     """
     Initialize QuizGame and redirect to QuizGame
     """
-    return redirect(url_for('quiz_controller.question', question_number=1))
+
+    quiz_game = QuizService.initialize_quiz_game_for_subject(subject_id)
+
+    return redirect(url_for('quiz_controller.question', question_number=1, quiz_game=quiz_game))
 
 
 # Quiz/Question
@@ -45,7 +51,7 @@ def question(question_number: int):
     viewmodel = QuizQuestionViewModel()
 
     if request.method == 'POST' and viewmodel.validate_on_submit():
-        if question_number == 5:
+        if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
             return redirect(url_for('quiz_controller.question_results'))
 
         return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
