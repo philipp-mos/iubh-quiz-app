@@ -1,3 +1,5 @@
+from sqlalchemy.sql import func
+
 from flask import current_app as app
 from typing import List
 
@@ -22,3 +24,10 @@ class QuizQuestionRepository(Repository, AbcQuizQuestionRepository):
         Get a specific Item by ID
         """
         return QuizQuestion.query.get(id)
+
+    @staticmethod
+    def get_random_entry_by_subject_id(subject_id: int) -> QuizQuestion:
+        """
+        Pick a random Entry for given subject_id
+        """
+        return QuizQuestion.query.filter_by(subject_id=subject_id).order_by(func.random()).first()
