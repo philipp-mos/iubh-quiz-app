@@ -4,6 +4,8 @@ from datetime import datetime
 
 from .abstracts.AbcQuizService import AbcQuizService
 
+from ..models.quiz.QuizQuestion import QuizQuestion
+from ..models.quiz.QuizAnswer import QuizAnswer
 from ..models.quizgame.QuizGame import QuizGame
 from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
@@ -29,7 +31,7 @@ class QuizService(AbcQuizService):
         quiz_game.subject_id = subject_id
 
         for count in range(app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ')):
-            quiz_game_question = QuizService.get_random_question_and_answers_for_subject(subject_id, count + 1)
+            quiz_game_question: QuizGameQuestion = QuizService.get_random_question_and_answers_for_subject(subject_id, count + 1)
 
             if not quiz_game_question:
                 # TODO: Implement proper Error Handling
@@ -47,7 +49,7 @@ class QuizService(AbcQuizService):
         Load a random Question and random Answers based on Subject
         """
 
-        quiz_question = QuizQuestionRepository.get_random_entry_by_subject_id(subject_id)
+        quiz_question: QuizQuestion = QuizQuestionRepository.get_random_entry_by_subject_id(subject_id)
 
         if not quiz_question:
             return None
@@ -58,7 +60,7 @@ class QuizService(AbcQuizService):
         quizgame_question.position = position
 
         for count in range(app.config.get('AMOUNT_OF_ANSWERS_PER_QUESTION')):
-            quiz_answer = QuizAnswerRepository.get_random_entry_by_question_id(quiz_question.id)
+            quiz_answer: QuizAnswer = QuizAnswerRepository.get_random_entry_by_question_id(quiz_question.id)
 
             if not quiz_answer:
                 return None

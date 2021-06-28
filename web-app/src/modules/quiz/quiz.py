@@ -1,6 +1,8 @@
 from flask import current_app as app
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required
+
+from ...models.quizgame.QuizGame import QuizGame
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
@@ -28,7 +30,9 @@ def start(subject_id: int):
     Initialize QuizGame and redirect to QuizGame
     """
 
-    quiz_game = QuizService.initialize_quiz_game_for_subject(subject_id)
+    quiz_game: QuizGame = QuizService.initialize_quiz_game_for_subject(subject_id)
+
+    session['CURRENT_QUIZ_ID'] = quiz_game.id
 
     return redirect(url_for('quiz_controller.question', question_number=1, quiz_game=quiz_game))
 
