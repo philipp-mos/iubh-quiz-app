@@ -26,6 +26,11 @@ class QuizService(AbcQuizService):
 
         for count in range(app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ')):
             quiz_game_question = QuizService.get_random_question_and_answers_for_subject(subject_id, count + 1)
+
+            if not quiz_game_question:
+                # TODO: Implement proper Error Handling
+                raise Exception
+
             quiz_game.quizgamequestions.append(quiz_game_question)
 
         QuizGameRepository.add_and_commit(quiz_game)
@@ -49,7 +54,7 @@ class QuizService(AbcQuizService):
             quiz_answer = QuizAnswerRepository.get_random_entry_by_question_id(quiz_question.id)
 
             if not quiz_answer:
-                continue
+                return None
 
             quizgame_question_answer = QuizGameQuestionAnswer()
             quizgame_question_answer.quizanswer_id = quiz_answer.id
