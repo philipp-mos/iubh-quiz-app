@@ -11,5 +11,5 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get_random_question_and_answers_for_subject(subject_id: int) -> QuizGameQuestion:
+    def get_random_question_and_answers_for_subject(subject_id: int, position: int) -> QuizGameQuestion:
         raise NotImplementedError
