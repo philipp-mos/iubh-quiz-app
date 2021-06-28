@@ -52,12 +52,11 @@ class QuizService(AbcQuizService):
                 continue
 
             quizgame_question_answer = QuizGameQuestionAnswer()
-            quizgame_question_answer.quizgame_question_id = quizgame_question.id
             quizgame_question_answer.quizanswer_id = quiz_answer.id
             quizgame_question_answer.quizanswer_text = quiz_answer.text
             quizgame_question_answer.quizanswer_is_correct = quiz_answer.is_correct
             quizgame_question_answer.position = count + 1
 
-            # quizgame_question.quizgamequestionanswers.append(quizgame_question_answer)
+            quizgame_question.quizgamequestionanswers.append(quizgame_question_answer)
 
         return quizgame_question
