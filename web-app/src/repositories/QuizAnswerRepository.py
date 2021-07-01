@@ -26,8 +26,8 @@ class QuizAnswerRepository(Repository, AbcQuizAnswerRepository):
         return QuizAnswer.query.get(id)
 
     @staticmethod
-    def get_random_entry_by_question_id(question_id: int) -> QuizAnswer:
+    def get_random_entry_by_question_id(question_id: int, is_correct: bool = False) -> QuizAnswer:
         """
         Pick a random Entry for given question_id
         """
-        return QuizAnswer.query.filter_by(quiz_question_id=question_id).order_by(func.random()).first()
+        return QuizAnswer.query.filter_by(quiz_question_id=question_id, is_correct=is_correct).order_by(func.random()).first()

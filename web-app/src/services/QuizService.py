@@ -1,3 +1,4 @@
+import random
 from flask import current_app as app
 from flask_login import current_user
 from datetime import datetime
@@ -59,8 +60,14 @@ class QuizService(AbcQuizService):
         quizgame_question.quizquestion_text = quiz_question.question
         quizgame_question.position = position
 
+        correct_answer = random.randint(0, (int(app.config.get('AMOUNT_OF_ANSWERS_PER_QUESTION')) - 1))
+
         for count in range(app.config.get('AMOUNT_OF_ANSWERS_PER_QUESTION')):
-            quiz_answer: QuizAnswer = QuizAnswerRepository.get_random_entry_by_question_id(quiz_question.id)
+
+            quiz_answer: QuizAnswer = QuizAnswerRepository.get_random_entry_by_question_id(
+                quiz_question.id,
+                count == correct_answer
+            )
 
             if not quiz_answer:
                 return None
