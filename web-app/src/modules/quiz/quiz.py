@@ -2,9 +2,15 @@ from flask import current_app as app
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required
 
+from ...models.subject.Subject import Subject
 from ...models.quizgame.QuizGame import QuizGame
+from ...models.quizgame.QuizGameQuestion import QuizGameQuestion
+from ...models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+
+from ...repositories.SubjectRepository import SubjectRepository
+from ...repositories.QuizGameRepository import QuizGameRepository
 
 from ...services.QuizService import QuizService
 
@@ -54,23 +60,39 @@ def question(question_number: int):
     """
     viewmodel = QuizQuestionViewModel()
 
+    app.logger.info('Session QuizId: ' + str(session.get('CURRENT_QUIZ_ID')))
+
     if request.method == 'POST' and viewmodel.validate_on_submit():
         if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
             return redirect(url_for('quiz_controller.question_results'))
 
         return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
-    viewmodel.question_text = 'Lorem ipsum dolor sit amet?'
+    if not session.get('CURRENT_QUIZ_ID'):
+        raise ValueError
+
+    quiz_game: QuizGame = QuizGameRepository.find_by_id(session.get('CURRENT_QUIZ_ID'))
+
+    if not quiz_game:
+        raise ValueError
+
+    subject: Subject = SubjectRepository.find_by_id(quiz_game.subject_id)
+
+    if not subject:
+        raise ValueError
+
+    viewmodel.subject_name = subject.name
+
+    quiz_game_question: QuizGameQuestion = quiz_game.quizgamequestions[question_number - 1]
+
+    viewmodel.question_text = quiz_game_question.quizquestion_text
 
     viewmodel.question_number = question_number
 
-    viewmodel.subject_name = 'Lorem ipsum dolor sit amet'
+    viewmodel.answers = {}
 
-    viewmodel.answers = {
-        'A': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'B': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'C': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-    }
+    for quizgame_answer in quiz_game_question.quizgamequestionanswers:
+        viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
 
     return render_template(
         'question.jinja2',
