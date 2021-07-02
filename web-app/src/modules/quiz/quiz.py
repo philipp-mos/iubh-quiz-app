@@ -34,7 +34,7 @@ def start(subject_id: int):
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
 
-    return redirect(url_for('quiz_controller.question', question_number=1, quiz_game=quiz_game))
+    return redirect(url_for('quiz_controller.question', question_number=1))
 
 
 # Quiz/Question
