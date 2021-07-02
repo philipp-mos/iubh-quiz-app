@@ -35,7 +35,7 @@
     "npm-watch": "^0.10.0",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
-    "webpack": "^5.40.0",
+    "webpack": "^5.41.1",
     "webpack-cli": "^4.7.2"
   },
   "watch": {
