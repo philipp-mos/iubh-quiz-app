@@ -5,6 +5,7 @@ from datetime import datetime
 
 from .abstracts.AbcQuizService import AbcQuizService
 
+from ..models.subject.Subject import Subject
 from ..models.quiz.QuizQuestion import QuizQuestion
 from ..models.quiz.QuizAnswer import QuizAnswer
 from ..models.quizgame.QuizGame import QuizGame
@@ -12,6 +13,9 @@ from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 from ..models.quizgame.QuizGameStatus import QuizGameStatus
 
+from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+
+from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
 from ..repositories.QuizQuestionRepository import QuizQuestionRepository
 from ..repositories.QuizAnswerRepository import QuizAnswerRepository
@@ -81,3 +85,35 @@ class QuizService(AbcQuizService):
             quizgame_question.quizgamequestionanswers.append(quizgame_question_answer)
 
         return quizgame_question
+
+    @staticmethod
+    def fill_quizquestionviewmodel_by_quizgame_id(quizgame_id: int, question_number: int) -> QuizQuestionViewModel:
+        """
+        Build the QuizQuestionViewModel by QuizGame Id and current Question-Number
+        """
+        viewmodel = QuizQuestionViewModel()
+
+        quiz_game: QuizGame = QuizGameRepository.find_by_id(quizgame_id)
+
+        if not quiz_game:
+            raise ValueError
+
+        subject: Subject = SubjectRepository.find_by_id(quiz_game.subject_id)
+
+        if not subject:
+            raise ValueError
+
+        viewmodel.subject_name = subject.name
+
+        quiz_game_question: QuizGameQuestion = quiz_game.quizgamequestions[question_number - 1]
+
+        viewmodel.question_text = quiz_game_question.quizquestion_text
+
+        viewmodel.question_number = question_number
+
+        viewmodel.answers = {}
+
+        for quizgame_answer in quiz_game_question.quizgamequestionanswers:
+            viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
+
+        return viewmodel

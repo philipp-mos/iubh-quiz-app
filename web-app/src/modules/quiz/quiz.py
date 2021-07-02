@@ -2,15 +2,9 @@ from flask import current_app as app
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required
 
-from ...models.subject.Subject import Subject
 from ...models.quizgame.QuizGame import QuizGame
-from ...models.quizgame.QuizGameQuestion import QuizGameQuestion
-from ...models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
-
-from ...repositories.SubjectRepository import SubjectRepository
-from ...repositories.QuizGameRepository import QuizGameRepository
 
 from ...services.QuizService import QuizService
 
@@ -71,28 +65,7 @@ def question(question_number: int):
     if not session.get('CURRENT_QUIZ_ID'):
         raise ValueError
 
-    quiz_game: QuizGame = QuizGameRepository.find_by_id(session.get('CURRENT_QUIZ_ID'))
-
-    if not quiz_game:
-        raise ValueError
-
-    subject: Subject = SubjectRepository.find_by_id(quiz_game.subject_id)
-
-    if not subject:
-        raise ValueError
-
-    viewmodel.subject_name = subject.name
-
-    quiz_game_question: QuizGameQuestion = quiz_game.quizgamequestions[question_number - 1]
-
-    viewmodel.question_text = quiz_game_question.quizquestion_text
-
-    viewmodel.question_number = question_number
-
-    viewmodel.answers = {}
-
-    for quizgame_answer in quiz_game_question.quizgamequestionanswers:
-        viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
+    viewmodel = QuizService.fill_quizquestionviewmodel_by_quizgame_id(int(session.get('CURRENT_QUIZ_ID')), question_number)
 
     return render_template(
         'question.jinja2',
