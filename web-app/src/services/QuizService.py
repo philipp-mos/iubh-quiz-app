@@ -113,6 +113,7 @@ class QuizService(AbcQuizService):
 
         viewmodel.answers = {}
 
+        quizgame_answer: QuizGameQuestionAnswer
         for quizgame_answer in quiz_game_question.quizgamequestionanswers:
             viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
 
