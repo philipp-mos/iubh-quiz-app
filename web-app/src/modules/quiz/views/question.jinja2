@@ -28,7 +28,7 @@
   <div class="row mt-5">
 
     {% for key, answer in viewmodel.answers.items() %}
-      <div class="col-{{ (12 / config['AMOUNT_OF_ANSWERS_PER_QUESTION'])|int }}">
+      <div class="col-sm-{{ (12 / config['AMOUNT_OF_ANSWERS_PER_QUESTION'])|int }} col-xs-12 mb-5">
         <div class="card quiz__answer" id="quiz-answer-{{ key|lower }}" data-key="{{ key|lower }}">
           <div class="quiz__answer__header">{{ key }}</div>
           <div class="card-body">
