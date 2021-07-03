@@ -118,3 +118,20 @@ class QuizService(AbcQuizService):
             viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
 
         return viewmodel
+
+    @staticmethod
+    def add_answer_selection_choices(quizquestion_viewmodel: QuizQuestionViewModel) -> None:
+
+        quizquestion_viewmodel.answer_selection.choices = []
+
+        for count in range(app.config.get('AMOUNT_OF_ANSWERS_PER_QUESTION')):
+            number = count + 1
+
+            quizquestion_viewmodel.answer_selection.choices.append(
+                (
+                    chr(ord('@') + number),
+                    chr(ord('`') + number)
+                )
+            )
+
+        return quizquestion_viewmodel
