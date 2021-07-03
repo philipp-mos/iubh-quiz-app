@@ -65,7 +65,7 @@ def question(question_number: int):
     if not session.get('CURRENT_QUIZ_ID'):
         raise ValueError
 
-    viewmodel = QuizService.fill_quizquestionviewmodel_by_quizgame_id(int(session.get('CURRENT_QUIZ_ID')), question_number)
+    QuizService.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(session.get('CURRENT_QUIZ_ID')), question_number)
 
     QuizService.add_answer_selection_choices(viewmodel)
 

@@ -17,7 +17,7 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def fill_quizquestionviewmodel_by_quizgame_id(quizgame_id: int, question_number: int) -> QuizQuestionViewModel:
+    def fill_quizquestionviewmodel_by_quizgame_id(viewmodel: QuizQuestionViewModel, quizgame_id: int, question_number: int) -> None:
         raise NotImplementedError
 
     @abstractmethod

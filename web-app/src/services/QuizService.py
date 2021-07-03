@@ -87,12 +87,10 @@ class QuizService(AbcQuizService):
         return quizgame_question
 
     @staticmethod
-    def fill_quizquestionviewmodel_by_quizgame_id(quizgame_id: int, question_number: int) -> QuizQuestionViewModel:
+    def fill_quizquestionviewmodel_by_quizgame_id(viewmodel: QuizQuestionViewModel, quizgame_id: int, question_number: int) -> None:
         """
         Build the QuizQuestionViewModel by QuizGame Id and current Question-Number
         """
-        viewmodel = QuizQuestionViewModel()
-
         quiz_game: QuizGame = QuizGameRepository.find_by_id(quizgame_id)
 
         if not quiz_game:
@@ -117,8 +115,6 @@ class QuizService(AbcQuizService):
         for quizgame_answer in quiz_game_question.quizgamequestionanswers:
             viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
 
-        return viewmodel
-
     @staticmethod
     def add_answer_selection_choices(quizquestion_viewmodel: QuizQuestionViewModel) -> None:
 
@@ -133,5 +129,3 @@ class QuizService(AbcQuizService):
                     chr(ord('`') + number)
                 )
             )
-
-        return quizquestion_viewmodel
