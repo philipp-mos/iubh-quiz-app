@@ -109,6 +109,11 @@ class QuizService(AbcQuizService):
 
         viewmodel.question_number = question_number
 
+        if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
+            viewmodel.submit.label.text = 'Weiter'
+        else:
+            viewmodel.submit.label.text = 'Diese Frage auswerten'
+
         viewmodel.answers = {}
 
         quizgame_answer: QuizGameQuestionAnswer
