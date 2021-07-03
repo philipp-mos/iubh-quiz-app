@@ -55,7 +55,11 @@
       <div class="col-12">
         <div class="position-relative">
           <div class="position-absolute bottom-0 end-0">
-            {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+            {% if viewmodel.is_validation_step.data %}
+              {{ viewmodel.submit(class_="btn btn-primary", id="button-evaluate") }}
+            {% else %}
+              {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+            {% endif %}
           </div>
         </div>
       </div>

@@ -12,8 +12,6 @@ class QuizQuestionViewModel(FlaskForm):
 
     subject_name: str = ''
 
-    # Form-Elements
-
     answer_selection = RadioField()
 
     is_validation_step = BooleanField()

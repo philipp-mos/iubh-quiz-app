@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameQuestion import QuizGameQuestion
+from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from ...modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
@@ -22,4 +23,8 @@ class AbcQuizService(ABC):
 
     @abstractmethod
     def add_answer_selection_choices(quizquestion_viewmodel: QuizQuestionViewModel) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
         raise NotImplementedError
