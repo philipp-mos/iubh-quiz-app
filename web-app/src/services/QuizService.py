@@ -1,5 +1,6 @@
 import random
 from flask import current_app as app
+from flask import session
 from flask_login import current_user
 from datetime import datetime
 
@@ -138,3 +139,19 @@ class QuizService(AbcQuizService):
                     chr(ord('`') + number)
                 )
             )
+
+    @staticmethod
+    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
+        """
+        Updates the status of the current QuizGame
+        """
+        current_quiz_id = session.get('CURRENT_QUIZ_ID')
+
+        if not current_quiz_id:
+            raise ValueError
+
+        quiz_game = QuizGameRepository.find_by_id(int(current_quiz_id))
+
+        quiz_game.current_status = quiz_game_status
+
+        QuizGameRepository.commit()
