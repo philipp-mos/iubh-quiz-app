@@ -53,6 +53,7 @@ class Config(object):
     # Quiz Module
     AMOUNT_OF_QUESTIONS_PER_QUIZ = 5
     AMOUNT_OF_ANSWERS_PER_QUESTION = 3
+    SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED = False
 
     # Swagger UI
     SWAGGERUI_API_PATH = '/api/docs'
@@ -62,6 +63,7 @@ class Config(object):
     QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
     GRAVATAR_URL = "https://www.gravatar.com/avatar/"
 
+    # Special Environment Settings
     if FLASK_ENV == 'development':
         DEBUG = True
         TESTING = True

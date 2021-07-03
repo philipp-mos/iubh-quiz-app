@@ -54,9 +54,10 @@ def question(question_number: int):
     """
     viewmodel = QuizQuestionViewModel()
 
-    app.logger.info('Session QuizId: ' + str(session.get('CURRENT_QUIZ_ID')))
+    if request.method == 'POST':
+        if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
+            return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
-    if request.method == 'POST' and viewmodel.validate_on_submit():
         if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
             return redirect(url_for('quiz_controller.question_results'))
 
