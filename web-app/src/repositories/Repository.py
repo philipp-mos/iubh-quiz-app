@@ -32,13 +32,6 @@ class Repository(AbcRepository):
             db.session.rollback()
 
     @staticmethod
-    def update_and_commit(item) -> None:
-        """
-        Updates a defined Record with new Values and Commits to Database
-        """
-        raise NotImplementedError
-
-    @staticmethod
     def add(item) -> None:
         """
         Adds a new Item
@@ -59,13 +52,6 @@ class Repository(AbcRepository):
         except Exception as e:
             app.logger.critical(e)
             db.session.rollback()
-
-    @staticmethod
-    def update(item) -> None:
-        """
-        Updates a defined Record with new Values
-        """
-        raise NotImplementedError
 
     @staticmethod
     def commit() -> None:
