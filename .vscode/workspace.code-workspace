@@ -28,5 +28,22 @@
             "titleBar.inactiveBackground": "#4b0c9499",
             "titleBar.inactiveForeground": "#e7e7e799"
         }
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug Flask App",
+                "type": "python",
+                "request": "launch",
+                "stopOnEntry": true,
+                "program": "app.py",
+                "cwd": "${workspaceFolder}/web-app",
+                "args": [
+                    "runserver"
+                ],
+                "jinja": true
+            }
+        ]
     }
 }
