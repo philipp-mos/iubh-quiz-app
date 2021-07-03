@@ -115,9 +115,13 @@ class QuizService(AbcQuizService):
         for quizgame_answer in quiz_game_question.quizgamequestionanswers:
             viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
 
+        QuizService.add_answer_selection_choices(viewmodel)
+
     @staticmethod
     def add_answer_selection_choices(quizquestion_viewmodel: QuizQuestionViewModel) -> None:
-
+        """
+        Dynamically add the Coices for RadioButton Formelement
+        """
         quizquestion_viewmodel.answer_selection.choices = []
 
         for count in range(app.config.get('AMOUNT_OF_ANSWERS_PER_QUESTION')):

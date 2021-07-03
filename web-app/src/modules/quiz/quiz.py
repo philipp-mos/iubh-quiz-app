@@ -67,8 +67,6 @@ def question(question_number: int):
 
     QuizService.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(session.get('CURRENT_QUIZ_ID')), question_number)
 
-    QuizService.add_answer_selection_choices(viewmodel)
-
     return render_template(
         'question.jinja2',
         viewmodel=viewmodel
