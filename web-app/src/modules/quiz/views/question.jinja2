@@ -47,8 +47,9 @@
       {% for answer in viewmodel.answer_selection %}
         {{ answer(id='answer-selection-' + answer.label.text) }}
       {% endfor %}
-    </div>
 
+      {{ viewmodel.is_validation_step() }}
+    </div>
 
     <div class="row mt-5">
       <div class="col-12">
@@ -61,6 +62,4 @@
     </div>
   </form>
 
-
-  
 {% endblock %}

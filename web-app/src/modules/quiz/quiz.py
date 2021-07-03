@@ -58,10 +58,13 @@ def question(question_number: int):
         if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
             return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
-        if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
-            return redirect(url_for('quiz_controller.question_results'))
+        if viewmodel.is_validation_step.data:
+            if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
+                return redirect(url_for('quiz_controller.question_results'))
 
-        return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
+            return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
+
+        viewmodel.is_validation_step.data = True
 
     if not session.get('CURRENT_QUIZ_ID'):
         raise ValueError

@@ -109,7 +109,7 @@ class QuizService(AbcQuizService):
 
         viewmodel.question_number = question_number
 
-        if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
+        if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED') or viewmodel.is_validation_step.data:
             viewmodel.submit.label.text = 'Weiter'
         else:
             viewmodel.submit.label.text = 'Diese Frage auswerten'
