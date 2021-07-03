@@ -31,11 +31,11 @@
     "cssnano": "^5.0.6",
     "file-loader": "^6.2.0",
     "merge": "^2.1.0",
-    "mini-css-extract-plugin": "^1.6.1",
+    "mini-css-extract-plugin": "^2.0.0",
     "npm-watch": "^0.10.0",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
-    "webpack": "^5.40.0",
+    "webpack": "^5.41.1",
     "webpack-cli": "^4.7.2"
   },
   "watch": {
