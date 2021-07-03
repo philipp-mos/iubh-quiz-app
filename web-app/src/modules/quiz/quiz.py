@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
+from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
@@ -83,4 +84,7 @@ def question_results():
     """
     Final Step that shows the Quiz-Results
     """
+
+    QuizService.update_quiz_game_status_to(QuizGameStatus.FINISHED)
+
     return render_template('results.jinja2')
