@@ -28,3 +28,7 @@ class AbcQuizService(ABC):
     @abstractmethod
     def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
         raise NotImplementedError
+
+    @abstractmethod
+    def save_quiz_game_question_score(quiz_game_id: int, current_question_id: int, viewmodel: QuizQuestionViewModel) -> None:
+        raise NotImplementedError

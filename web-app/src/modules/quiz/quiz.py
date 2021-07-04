@@ -53,9 +53,22 @@ def question(question_number: int):
     """
     Quiz Question
     """
+    quiz_game_id = session.get('CURRENT_QUIZ_ID')
+
+    if not quiz_game_id:
+        raise ValueError
+
     viewmodel = QuizQuestionViewModel()
 
     if request.method == 'POST':
+
+        if not viewmodel.is_validation_step.data:
+            QuizService.save_quiz_game_question_score(
+                quiz_game_id,
+                question_number,
+                viewmodel
+            )
+
         if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
             return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
@@ -67,10 +80,7 @@ def question(question_number: int):
 
         viewmodel.is_validation_step.data = True
 
-    if not session.get('CURRENT_QUIZ_ID'):
-        raise ValueError
-
-    QuizService.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(session.get('CURRENT_QUIZ_ID')), question_number)
+    QuizService.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
 
     return render_template(
         'question.jinja2',

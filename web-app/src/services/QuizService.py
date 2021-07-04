@@ -13,6 +13,7 @@ from ..models.quizgame.QuizGame import QuizGame
 from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 from ..models.quizgame.QuizGameStatus import QuizGameStatus
+from ..models.quizgame.QuizGameQuestionScore import QuizGameQuestionScore
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
@@ -153,5 +154,36 @@ class QuizService(AbcQuizService):
         quiz_game = QuizGameRepository.find_by_id(int(current_quiz_id))
 
         quiz_game.current_status = quiz_game_status
+
+        QuizGameRepository.commit()
+
+    @staticmethod
+    def save_quiz_game_question_score(quiz_game_id: int, current_question_id: int, viewmodel: QuizQuestionViewModel) -> None:
+        """
+        Builds the QuizGame QuestionScore Model and persist it
+        """
+        quiz_game: QuizGame = QuizGameRepository.find_by_id(quiz_game_id)
+
+        quiz_game_question: QuizGameQuestion = quiz_game.quizgamequestions[current_question_id]
+
+        quiz_game_question_score = QuizGameQuestionScore()
+        quiz_game_question_score.creation_date = datetime.now()
+        quiz_game_question_score.quizgame_id = quiz_game.id
+        quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
+
+        selected_number = ((ord(viewmodel.answer_selection.data.lower()) - 96) - 1)
+
+        for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
+            if quizgame_question_answer.position == selected_number:
+                quiz_game_question_score.selected_quizgamequestionanswer_id = quizgame_question_answer.id
+
+        for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
+            if quizgame_question_answer.quizanswer_is_correct:
+                quiz_game_question_score.correct_quizgamequestionanswer_id = quizgame_question_answer.id
+
+        is_solved_correctly = quiz_game_question_score.correct_quizgamequestionanswer_id == quiz_game_question_score.selected_quizgamequestionanswer_id
+        quiz_game_question_score.is_solved_correctly = is_solved_correctly
+
+        quiz_game.quizgamequestionscores.append(quiz_game_question_score)
 
         QuizGameRepository.commit()
