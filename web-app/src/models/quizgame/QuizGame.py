@@ -41,3 +41,8 @@ class QuizGame(db.Model):
         'QuizGameQuestion',
         secondary='quiz_game_quiz_game_questions'
     )
+
+    quizgamequestionscores = db.relationship(
+        'QuizGameQuestionScore',
+        secondary='quiz_game_quiz_game_question_scores'
+    )
