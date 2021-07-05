@@ -158,28 +158,35 @@ class QuizService(AbcQuizService):
         QuizGameRepository.commit()
 
     @staticmethod
-    def save_quiz_game_question_score(quiz_game_id: int, current_question_id: int, viewmodel: QuizQuestionViewModel) -> None:
+    def save_quiz_game_question_score(quiz_game_id: int, question_number: int, viewmodel: QuizQuestionViewModel) -> None:
         """
         Builds the QuizGame QuestionScore Model and persist it
         """
         quiz_game: QuizGame = QuizGameRepository.find_by_id(quiz_game_id)
 
-        quiz_game_question: QuizGameQuestion = quiz_game.quizgamequestions[current_question_id]
+        quiz_game_question: QuizGameQuestion
+
+        for quizgame_question in quiz_game.quizgamequestions:
+            if quizgame_question.position == question_number:
+                quiz_game_question = quizgame_question
+                break
 
         quiz_game_question_score = QuizGameQuestionScore()
         quiz_game_question_score.creation_date = datetime.now()
         quiz_game_question_score.quizgame_id = quiz_game.id
         quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
 
-        selected_number = ((ord(viewmodel.answer_selection.data.lower()) - 96) - 1)
+        selected_number = ((ord(viewmodel.answer_selection.data.lower()) - 96))
 
         for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
             if quizgame_question_answer.position == selected_number:
                 quiz_game_question_score.selected_quizgamequestionanswer_id = quizgame_question_answer.id
+                break
 
         for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
             if quizgame_question_answer.quizanswer_is_correct:
                 quiz_game_question_score.correct_quizgamequestionanswer_id = quizgame_question_answer.id
+                break
 
         is_solved_correctly = quiz_game_question_score.correct_quizgamequestionanswer_id == quiz_game_question_score.selected_quizgamequestionanswer_id
         quiz_game_question_score.is_solved_correctly = is_solved_correctly
