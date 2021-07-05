@@ -104,7 +104,10 @@ def signup():
 
             else:
                 NotificationService.send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
-                flash('Wir haben dir nun eine Email gesendet. Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.')
+                flash(
+                    'Wir haben dir nun eine Email gesendet. '
+                    'Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.'
+                )
                 return redirect(url_for('auth_controller.login'))
 
         flash('Du bist bereits registriert')
