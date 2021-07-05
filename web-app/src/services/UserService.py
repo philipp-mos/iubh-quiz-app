@@ -17,7 +17,7 @@ class UserService(AbcUserService):
 
     @staticmethod
     @login_manager.user_loader
-    def load_user(user_id):
+    def load_user(user_id: int):
         return UserRepository.find_by_id(user_id)
 
     @staticmethod
@@ -32,21 +32,21 @@ class UserService(AbcUserService):
         return redirect(url_for('auth_controller.login', redirect_url=request.endpoint))
 
     @staticmethod
-    def check_password(User, password):
+    def check_password(User: User, password: str):
         """
         Checks if the Users Password is equals to the given Password
         """
         return check_password_hash(User.password, password)
 
     @staticmethod
-    def set_password(User, password):
+    def set_password(User: User, password: str):
         """
         Creates the Hash-Value for the given Password and set it for Users Password
         """
         User.password = generate_password_hash(password)
 
     @staticmethod
-    def verify_recaptcha(captcha_response, user_remote_ip):
+    def verify_recaptcha(captcha_response: str, user_remote_ip: str):
         """
         Proceeds the Backend-Handling for Google ReCaptcha Verification
         """
@@ -66,6 +66,7 @@ class UserService(AbcUserService):
 
         return response_data['success']
 
+    @staticmethod
     def is_user_student(user: User) -> bool:
         """
         Checks, if given User has Student Role assigned
@@ -76,6 +77,7 @@ class UserService(AbcUserService):
 
         return False
 
+    @staticmethod
     def is_user_tutor(user: User) -> bool:
         """
         Checks, if given User has Tutor Role assigned
