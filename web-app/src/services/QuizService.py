@@ -22,6 +22,8 @@ from ..repositories.QuizGameRepository import QuizGameRepository
 from ..repositories.QuizQuestionRepository import QuizQuestionRepository
 from ..repositories.QuizAnswerRepository import QuizAnswerRepository
 
+from ..helpers.NumberHelper import NumberHelper
+
 
 class QuizService(AbcQuizService):
 
@@ -120,7 +122,9 @@ class QuizService(AbcQuizService):
 
         quizgame_answer: QuizGameQuestionAnswer
         for quizgame_answer in quiz_game_question.quizgamequestionanswers:
-            viewmodel.answers[chr(ord('@') + quizgame_answer.position)] = quizgame_answer.quizanswer_text
+            viewmodel.answers[
+                NumberHelper.convert_from_number_to_char(quizgame_answer.position, True)
+            ] = quizgame_answer.quizanswer_text
 
         QuizService.add_answer_selection_choices(viewmodel)
 
@@ -136,8 +140,8 @@ class QuizService(AbcQuizService):
 
             quizquestion_viewmodel.answer_selection.choices.append(
                 (
-                    chr(ord('@') + number),
-                    chr(ord('`') + number)
+                    NumberHelper.convert_from_number_to_char(number, True),
+                    NumberHelper.convert_from_number_to_char(number)
                 )
             )
 
@@ -176,7 +180,7 @@ class QuizService(AbcQuizService):
         quiz_game_question_score.quizgame_id = quiz_game.id
         quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
 
-        selected_number = ((ord(viewmodel.answer_selection.data.lower()) - 96))
+        selected_number = NumberHelper.convert_from_char_to_number(viewmodel.answer_selection.data)
 
         for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
             if quizgame_question_answer.position == selected_number:
