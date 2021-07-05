@@ -27,6 +27,7 @@ from ..helpers.NumberHelper import NumberHelper
 
 class QuizService(AbcQuizService):
 
+    # region Public Static Methods
     @staticmethod
     def initialize_quiz_game_for_subject(subject_id: int) -> QuizGame:
         """
@@ -164,37 +165,90 @@ class QuizService(AbcQuizService):
     @staticmethod
     def save_quiz_game_question_score(quiz_game_id: int, question_number: int, viewmodel: QuizQuestionViewModel) -> None:
         """
-        Builds the QuizGame QuestionScore Model and persist it
+        Builds the QuizGame QuestionScore Model and persists it
         """
         quiz_game: QuizGame = QuizGameRepository.find_by_id(quiz_game_id)
 
-        quiz_game_question: QuizGameQuestion
-
-        for quizgame_question in quiz_game.quizgamequestions:
-            if quizgame_question.position == question_number:
-                quiz_game_question = quizgame_question
-                break
+        quiz_game_question: QuizGameQuestion = QuizService.__get_quiz_game_question(
+            quiz_game.quizgamequestions,
+            question_number
+        )
 
         quiz_game_question_score = QuizGameQuestionScore()
         quiz_game_question_score.creation_date = datetime.now()
         quiz_game_question_score.quizgame_id = quiz_game.id
         quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
 
-        selected_number = NumberHelper.convert_from_char_to_number(viewmodel.answer_selection.data)
+        quiz_game_question_score.selected_quizgamequestionanswer_id = QuizService.__get_answer_id_for_selected_answer(
+            quiz_game_question.quizgamequestionanswers,
+            NumberHelper.convert_from_char_to_number(viewmodel.answer_selection.data)
+        )
 
-        for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
-            if quizgame_question_answer.position == selected_number:
-                quiz_game_question_score.selected_quizgamequestionanswer_id = quizgame_question_answer.id
-                break
+        quiz_game_question_score.correct_quizgamequestionanswer_id = QuizService.__get_answer_id_for_correct_answer(
+            quiz_game_question.quizgamequestionanswers
+        )
 
-        for quizgame_question_answer in quiz_game_question.quizgamequestionanswers:
-            if quizgame_question_answer.quizanswer_is_correct:
-                quiz_game_question_score.correct_quizgamequestionanswer_id = quizgame_question_answer.id
-                break
-
-        is_solved_correctly = quiz_game_question_score.correct_quizgamequestionanswer_id == quiz_game_question_score.selected_quizgamequestionanswer_id
-        quiz_game_question_score.is_solved_correctly = is_solved_correctly
+        quiz_game_question_score.is_solved_correctly = (
+            quiz_game_question_score.correct_quizgamequestionanswer_id == quiz_game_question_score.selected_quizgamequestionanswer_id
+        )
 
         quiz_game.quizgamequestionscores.append(quiz_game_question_score)
 
         QuizGameRepository.commit()
+    # endregion
+
+    # region Private Methods
+    @staticmethod
+    def __get_quiz_game_question(quizgame_questions, question_number: int) -> QuizGameQuestion:
+        """
+        Returns the Selected Answer Id
+        """
+        quiz_game_question: QuizGameQuestion
+
+        for quizgame_question in quizgame_questions:
+            if quizgame_question.position == question_number:
+                quiz_game_question = quizgame_question
+                break
+
+        if not quiz_game_question:
+            app.logger.error('QuizGameQuestion could not be defined')
+            raise ValueError
+
+        return quiz_game_question
+
+    @staticmethod
+    def __get_answer_id_for_selected_answer(quizgame_question_answers, selected_number: int) -> int:
+        """
+        Returns the Selected Answer Id
+        """
+        selected_answer_id: int
+
+        for quizgame_question_answer in quizgame_question_answers:
+            if quizgame_question_answer.position == selected_number:
+                selected_answer_id = quizgame_question_answer.id
+                break
+
+        if not selected_answer_id:
+            app.logger.error('Selected Answer Id could not be defined')
+            raise ValueError
+
+        return selected_answer_id
+
+    @staticmethod
+    def __get_answer_id_for_correct_answer(quizgame_question_answers) -> int:
+        """
+        Returns the Correct Answer Id
+        """
+        correct_answer_id: int
+
+        for quizgame_question_answer in quizgame_question_answers:
+            if quizgame_question_answer.quizanswer_is_correct:
+                correct_answer_id = quizgame_question_answer.id
+                break
+
+        if not correct_answer_id:
+            app.logger.error('Correct Answer Id could not be defined')
+            raise ValueError
+
+        return correct_answer_id
+    # endregion
