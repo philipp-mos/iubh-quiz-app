@@ -14,6 +14,7 @@ from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 from ..models.quizgame.QuizGameStatus import QuizGameStatus
 from ..models.quizgame.QuizGameQuestionScore import QuizGameQuestionScore
+from ..models.quizgame.QuizGameResult import QuizGameResult
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
@@ -190,6 +191,7 @@ class QuizService(AbcQuizService):
         quiz_game_question_score = QuizGameQuestionScore()
         quiz_game_question_score.creation_date = datetime.now()
         quiz_game_question_score.quizgame_id = quiz_game.id
+        quiz_game_question_score.assigned_user_id = current_user.get_id()
         quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
 
         quiz_game_question_score.selected_quizgamequestionanswer_id = QuizService.__get_answer_id_for_selected_answer(
@@ -208,6 +210,17 @@ class QuizService(AbcQuizService):
         quiz_game.quizgamequestionscores.append(quiz_game_question_score)
 
         QuizGameRepository.commit()
+
+    @staticmethod
+    def save_and_get_quiz_game_result(quiz_game_id: int) -> QuizGameResult:
+        quizgame_result = QuizGameResult()
+        quizgame_result.quizgame_id = quiz_game_id
+        quizgame_result.user_id = current_user.get_id()
+        quizgame_result.creation_date = datetime.now()
+
+        # TODO: Update as soon as opponent-mode is implemented
+        quizgame_result.is_won = False
+
     # endregion
 
     # region Private Methods
