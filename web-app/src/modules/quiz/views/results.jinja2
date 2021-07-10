@@ -22,7 +22,25 @@
   </div>
 
   <div class="row">
-    <div class="col-12 result-chart-container">
+    <div class="col-sm-4 col-xs-12">
+      <div class="d-none d-sm-block mt-5"></div>
+      <div class="alert alert-secondary" role="alert">
+        <div class="text-center">
+          <strong>Aufgaben gesamt</strong><br />
+          {{ viewmodel.amount_questions }}
+        </div>
+        <div class="text-center mt-5">
+          <strong>Aufgaben richtig</strong><br />
+          {{ viewmodel.amount_correct_questions }}
+        </div>
+        <div class="text-center mt-5">
+          <strong>Aufgaben falsch</strong><br />
+          {{ viewmodel.amount_questions - viewmodel.amount_correct_questions }}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6 col-xs-12 result-chart-container">
       <canvas 
         id="result-chart"
         data-amount-questions="{{ viewmodel.amount_questions }}"
