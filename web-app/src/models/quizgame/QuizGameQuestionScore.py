@@ -17,9 +17,19 @@ class QuizGameQuestionScore(db.Model):
         nullable=True
     )
 
+    is_solved_correctly = db.Column(
+        db.Boolean()
+    )
+
     quizgame_id = db.Column(
         db.Integer,
         db.ForeignKey('quiz_games.id'),
+        nullable=False
+    )
+
+    assigned_user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
         nullable=False
     )
 
@@ -39,8 +49,4 @@ class QuizGameQuestionScore(db.Model):
         db.Integer,
         db.ForeignKey('quiz_game_question_answers.id'),
         nullable=False
-    )
-
-    is_solved_correctly = db.Column(
-        db.Boolean()
     )

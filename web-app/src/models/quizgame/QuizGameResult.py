@@ -14,6 +14,16 @@ class QuizGameResult(db.Model):
         db.Boolean()
     )
 
+    amount_of_questions = db.Column(
+        db.Integer,
+        nullable=False
+    )
+
+    amount_of_correct_questions = db.Column(
+        db.Integer,
+        nullable=True
+    )
+
     creation_date = db.Column(
         db.DateTime,
         index=False,
