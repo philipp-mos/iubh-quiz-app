@@ -1,8 +1,13 @@
 from typing import List
 
+from src.services.abstracts.AbcSubjectService import AbcSubjectService
 from src.services.SubjectService import SubjectService
+
 from src.models.subject.Subject import Subject
 from src.api.v1.dtos.SubjectDto import SubjectDto
+
+
+__subjectservice: AbcSubjectService = SubjectService()
 
 
 def test_subjectservice_subjectlist_to_subjectdtolist_mapping():
@@ -21,7 +26,7 @@ def test_subjectservice_subjectlist_to_subjectdtolist_mapping():
         SubjectDto(None, 'Financial Services Management')
     ]
 
-    result = SubjectService.subjectlist_to_subjectdtolist_mapping(list_of_subjects)
+    result = __subjectservice.subjectlist_to_subjectdtolist_mapping(list_of_subjects)
 
     assert is_equal_list_of_subjectdtos(list_of_subjectdtos, result)
 

@@ -7,8 +7,11 @@ from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
+from ...services.abstracts.AbcQuizService import AbcQuizService
 from ...services.QuizService import QuizService
 
+
+__quizservice: AbcQuizService = QuizService()
 
 quiz_controller = Blueprint(
     'quiz_controller',
@@ -31,7 +34,7 @@ def start(subject_id: int):
     Initialize QuizGame and redirect to QuizGame
     """
 
-    quiz_game: QuizGame = QuizService.initialize_quiz_game_for_subject(subject_id)
+    quiz_game: QuizGame = __quizservice.initialize_quiz_game_for_subject(subject_id)
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
 
@@ -63,7 +66,7 @@ def question(question_number: int):
     if request.method == 'POST':
 
         if not viewmodel.is_validation_step.data:
-            QuizService.save_quiz_game_question_score(
+            __quizservice.save_quiz_game_question_score(
                 quiz_game_id,
                 question_number,
                 viewmodel
@@ -80,7 +83,7 @@ def question(question_number: int):
 
         viewmodel.is_validation_step.data = True
 
-    QuizService.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
+    __quizservice.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
 
     return render_template(
         'question.jinja2',
@@ -95,6 +98,6 @@ def question_results():
     Final Step that shows the Quiz-Results
     """
 
-    QuizService.update_quiz_game_status_to(QuizGameStatus.FINISHED)
+    __quizservice.update_quiz_game_status_to(QuizGameStatus.FINISHED)
 
     return render_template('results.jinja2')

@@ -6,14 +6,24 @@ from datetime import datetime
 from .viewmodels.LoginViewModel import LoginViewModel
 from .viewmodels.SignupViewModel import SignupViewModel
 
+from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
+from ...repositories.abstracts.AbcUserUserRoleRepository import AbcUserUserRoleRepository
 from ...repositories.UserRepository import UserRepository
 from ...repositories.UserUserRoleRepository import UserUserRoleRepository
 
+from ...services.abstracts.AbcUserService import AbcUserService
+from ...services.abstracts.AbcNotificationService import AbcNotificationService
 from ...services.UserService import UserService
 from ...services.NotificationService import NotificationService
 
 from ...models.user.User import User
 from ...models.user.UserUserRole import UserUserRole
+
+__userrepository: AbcUserRepository = UserRepository()
+__useruserrolerepository: AbcUserUserRoleRepository = UserUserRoleRepository()
+
+__userservice: AbcUserService = UserService()
+__notificationservice: AbcNotificationService = NotificationService()
 
 
 auth_controller = Blueprint(
@@ -38,9 +48,9 @@ def login():
 
     if request.method == 'POST' and login_viewmodel.validate_on_submit():
 
-        user = UserRepository.find_active_by_email(login_viewmodel.email.data)
+        user = __userrepository.find_active_by_email(login_viewmodel.email.data)
 
-        if user and UserService.check_password(user, login_viewmodel.password.data):
+        if user and __userservice.check_password(user, login_viewmodel.password.data):
             login_user(user)
 
             return redirect(url_for(request.args.get('redirect_url') or 'home_controller.index'))
@@ -68,11 +78,11 @@ def signup():
 
     if request.method == 'POST' and signup_viewmodel.validate_on_submit():
 
-        existing_user = UserRepository.find_by_email(signup_viewmodel.email.data)
+        existing_user = __userrepository.find_by_email(signup_viewmodel.email.data)
 
         if existing_user is None:
 
-            if not UserService.verify_recaptcha(request.form['recaptcha-token'], request.remote_addr):
+            if not __userservice.verify_recaptcha(request.form['recaptcha-token'], request.remote_addr):
                 flash('Das hat leider nicht geklappt.')
                 return redirect(url_for('auth_controller.signup'))
 
@@ -92,18 +102,18 @@ def signup():
                 is_active=is_signup_email_validation_inactive
             )
 
-            UserService.set_password(new_user, signup_viewmodel.password.data)
-            UserRepository.add_and_commit(new_user)
+            __userservice.set_password(new_user, signup_viewmodel.password.data)
+            __userrepository.add_and_commit(new_user)
 
             user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
-            UserUserRoleRepository.add_and_commit(user_to_role)
+            __useruserrolerepository.add_and_commit(user_to_role)
 
             if is_signup_email_validation_inactive:
                 login_user(new_user)
                 return redirect(url_for('home_controller.index'))
 
             else:
-                NotificationService.send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
+                __notificationservice.send_notification(new_user.email, 'Bitte bestätige deine Email-Adresse', '')
                 flash(
                     'Wir haben dir nun eine Email gesendet. '
                     'Bitte bestätige deine Emailadresse durch einen Klick auf den Link in der Mail.'
