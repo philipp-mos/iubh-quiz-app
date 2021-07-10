@@ -1,5 +1,6 @@
 import random
 from flask import current_app as app
+from flask import session
 from flask_login import current_user
 from datetime import datetime
 
@@ -211,6 +212,12 @@ class QuizService(AbcQuizService):
 
     @staticmethod
     def save_and_get_quiz_game_result(quizgame_id: int) -> QuizGameResult:
+
+        quizgame_result_id = session.get('CURRENT_QUIZ_RESULT_ID')
+
+        if quizgame_result_id and quizgame_result_id > 0:
+            return QuizGameResultRepository.find_by_id(quizgame_result_id)
+
         quizgame_result = QuizGameResult()
         quizgame_result.quizgame_id = quizgame_id
         quizgame_result.user_id = int(current_user.get_id())
@@ -232,6 +239,8 @@ class QuizService(AbcQuizService):
                     quizgame_result.amount_of_correct_questions += 1
 
         QuizGameResultRepository.add_and_commit(quizgame_result)
+
+        session['CURRENT_QUIZ_RESULT_ID'] = quizgame_result.id
 
         return quizgame_result
     # endregion

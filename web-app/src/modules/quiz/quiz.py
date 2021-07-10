@@ -39,6 +39,7 @@ def start(subject_id: int):
     quiz_game: QuizGame = __quizservice.initialize_quiz_game_for_subject(subject_id)
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
+    session['CURRENT_QUIZ_RESULT_ID'] = 0
 
     return redirect(url_for('quiz_controller.question', question_number=1))
 
