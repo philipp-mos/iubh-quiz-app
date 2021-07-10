@@ -4,6 +4,10 @@
     &__answer {
         cursor: pointer;
 
+        &--validated {
+            cursor: not-allowed;
+        }
+
         &--selected {
             border: helpers.px2rem(5px) solid var(--bs-primary);
         }

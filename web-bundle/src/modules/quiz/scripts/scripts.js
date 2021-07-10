@@ -35,7 +35,7 @@ const enableSubmitButton = () => {
 /**
  * Eventlistener to trigger Selection of Answer
  */
-document.querySelectorAll('.quiz__answer').forEach((element) => {
+document.querySelectorAll('.quiz__answer:not(.quiz__answer--validated)').forEach((element) => {
     element.addEventListener('click', () => {
         handleAnswerSelection(element);
     });
