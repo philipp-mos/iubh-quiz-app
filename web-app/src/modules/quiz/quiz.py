@@ -3,9 +3,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
+from ...models.quizgame.QuizGameResult import QuizGameResult
 from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+from .viewmodels.QuizGameResultViewModel import QuizGameResultViewModel
 
 from ...services.abstracts.AbcQuizService import AbcQuizService
 from ...services.QuizService import QuizService
@@ -97,7 +99,20 @@ def question_results():
     """
     Final Step that shows the Quiz-Results
     """
+    quiz_game_id = session.get('CURRENT_QUIZ_ID')
 
-    __quizservice.update_quiz_game_status_to(QuizGameStatus.FINISHED)
+    if not quiz_game_id:
+        raise ValueError
 
-    return render_template('results.jinja2')
+    __quizservice.update_quiz_game_status_to(quiz_game_id, QuizGameStatus.FINISHED)
+
+    quizgame_result: QuizGameResult = __quizservice.save_and_get_quiz_game_result(quiz_game_id)
+
+    viewmodel = QuizGameResultViewModel()
+    viewmodel.amount_questions = quizgame_result.amount_of_questions
+    viewmodel.amount_correct_questions = quizgame_result.amount_of_correct_questions
+
+    return render_template(
+        'results.jinja2',
+        viewmodel=viewmodel
+    )

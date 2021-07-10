@@ -27,7 +27,7 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
         raise NotImplementedError
 
     @abstractmethod

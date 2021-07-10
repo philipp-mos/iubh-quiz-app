@@ -1,6 +1,5 @@
 import random
 from flask import current_app as app
-from flask import session
 from flask_login import current_user
 from datetime import datetime
 
@@ -23,6 +22,7 @@ from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
 from ..repositories.QuizQuestionRepository import QuizQuestionRepository
 from ..repositories.QuizAnswerRepository import QuizAnswerRepository
+from ..repositories.QuizGameResultRepository import QuizGameResultRepository
 
 from ..helpers.NumberHelper import NumberHelper
 
@@ -161,16 +161,14 @@ class QuizService(AbcQuizService):
             )
 
     @staticmethod
-    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
         """
         Updates the status of the current QuizGame
         """
-        current_quiz_id = session.get('CURRENT_QUIZ_ID')
-
-        if not current_quiz_id:
+        if not quiz_id:
             raise ValueError
 
-        quiz_game = QuizGameRepository.find_by_id(int(current_quiz_id))
+        quiz_game = QuizGameRepository.find_by_id(int(quiz_id))
 
         quiz_game.current_status = quiz_game_status
 
@@ -212,15 +210,30 @@ class QuizService(AbcQuizService):
         QuizGameRepository.commit()
 
     @staticmethod
-    def save_and_get_quiz_game_result(quiz_game_id: int) -> QuizGameResult:
+    def save_and_get_quiz_game_result(quizgame_id: int) -> QuizGameResult:
         quizgame_result = QuizGameResult()
-        quizgame_result.quizgame_id = quiz_game_id
-        quizgame_result.user_id = current_user.get_id()
+        quizgame_result.quizgame_id = quizgame_id
+        quizgame_result.user_id = int(current_user.get_id())
         quizgame_result.creation_date = datetime.now()
 
         # TODO: Update as soon as opponent-mode is implemented
         quizgame_result.is_won = False
 
+        quizgame_result.amount_of_questions = 0
+        quizgame_result.amount_of_correct_questions = 0
+
+        quiz_game: QuizGame = QuizGameRepository.find_by_id(quizgame_id)
+
+        for questionscore in quiz_game.quizgamequestionscores:
+            if questionscore.assigned_user_id == int(current_user.get_id()):
+                quizgame_result.amount_of_questions += 1
+
+                if questionscore.is_solved_correctly:
+                    quizgame_result.amount_of_correct_questions += 1
+
+        QuizGameResultRepository.add_and_commit(quizgame_result)
+
+        return quizgame_result
     # endregion
 
     # region Private Methods
