@@ -6,7 +6,7 @@ class QuizQuestionViewModel(FlaskForm):
 
     question_text: str = ''
 
-    answers = {}
+    answers = []
 
     question_number: int = 0
 
