@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, RadioField
+from wtforms import SubmitField, RadioField, BooleanField
 
 
 class QuizQuestionViewModel(FlaskForm):
@@ -12,8 +12,8 @@ class QuizQuestionViewModel(FlaskForm):
 
     subject_name: str = ''
 
-    # Form-Elements
+    answer_selection = RadioField()
 
-    answer_selection = RadioField(choices=[('A', 'a'), ('B', 'b'), ('C', 'c')])
+    is_validation_step = BooleanField()
 
-    submit = SubmitField('Diese Frage auswerten')
+    submit = SubmitField()

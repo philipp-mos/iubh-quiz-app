@@ -22,9 +22,3 @@ class QuizQuestion(db.Model):
         db.ForeignKey('subjects.id'),
         nullable=False
     )
-
-    tutor_id = db.Column(
-        db.Integer,
-        db.ForeignKey('users.id'),
-        nullable=False
-    )

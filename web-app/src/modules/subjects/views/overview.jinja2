@@ -7,10 +7,13 @@
 
   {% if subjects %}
     {% for subject in subjects %}
+      {% set quiz_start_url = url_for('quiz_controller.start', subject_id=subject.id) %}
       <div class="card mb-3" >
         <div class="row g-0">
           <div class="col-md-4 text-left align-self-md-left">
-            <img class="img-fluid" src="{{ subject.image_path }}" alt="Subject Image">
+            <a href="{{ quiz_start_url }}">
+              <img class="img-fluid" src="{{ subject.image_path }}" alt="Subject Image">
+            </a>
           </div>
           <div class="col-md-6 ">
             <div class="card-body">
@@ -19,7 +22,7 @@
             </div>
           </div>
           <div class="col-md-2 text-left align-self-md-left p-3">
-            <a href="{{ url_for('quiz_controller.start', subject_id=subject.id) }}" class="btn btn-primary"><i class="fas fa-play"></i> Spiel starten</a>
+            <a href="{{ quiz_start_url }}" class="btn btn-primary"><i class="fas fa-play"></i> Spiel starten</a>
           </div>
         </div>
       </div>

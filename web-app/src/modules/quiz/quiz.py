@@ -1,8 +1,17 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import current_app as app
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required
+
+from ...models.quizgame.QuizGame import QuizGame
+from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 
+from ...services.abstracts.AbcQuizService import AbcQuizService
+from ...services.QuizService import QuizService
+
+
+__quizservice: AbcQuizService = QuizService()
 
 quiz_controller = Blueprint(
     'quiz_controller',
@@ -24,6 +33,11 @@ def start(subject_id: int):
     """
     Initialize QuizGame and redirect to QuizGame
     """
+
+    quiz_game: QuizGame = __quizservice.initialize_quiz_game_for_subject(subject_id)
+
+    session['CURRENT_QUIZ_ID'] = quiz_game.id
+
     return redirect(url_for('quiz_controller.question', question_number=1))
 
 
@@ -42,25 +56,34 @@ def question(question_number: int):
     """
     Quiz Question
     """
+    quiz_game_id = session.get('CURRENT_QUIZ_ID')
+
+    if not quiz_game_id:
+        raise ValueError
+
     viewmodel = QuizQuestionViewModel()
 
-    if request.method == 'POST' and viewmodel.validate_on_submit():
-        if question_number == 5:
-            return redirect(url_for('quiz_controller.question_results'))
+    if request.method == 'POST':
 
-        return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
+        if not viewmodel.is_validation_step.data:
+            __quizservice.save_quiz_game_question_score(
+                quiz_game_id,
+                question_number,
+                viewmodel
+            )
 
-    viewmodel.question_text = 'Lorem ipsum dolor sit amet?'
+        if app.config.get('SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED'):
+            return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
-    viewmodel.question_number = question_number
+        if viewmodel.is_validation_step.data:
+            if question_number == app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ'):
+                return redirect(url_for('quiz_controller.question_results'))
 
-    viewmodel.subject_name = 'Lorem ipsum dolor sit amet'
+            return redirect(url_for('quiz_controller.question', question_number=question_number + 1))
 
-    viewmodel.answers = {
-        'A': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'B': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        'C': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-    }
+        viewmodel.is_validation_step.data = True
+
+    __quizservice.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
 
     return render_template(
         'question.jinja2',
@@ -74,4 +97,7 @@ def question_results():
     """
     Final Step that shows the Quiz-Results
     """
+
+    __quizservice.update_quiz_game_status_to(QuizGameStatus.FINISHED)
+
     return render_template('results.jinja2')

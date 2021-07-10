@@ -7,6 +7,7 @@ const destinationDirectory = '../web-app/src/static/bundle';
 
 module.exports = {
     mode: 'development',
+    devtool: 'source-map',
     entry: {
         base: './src/modules/base/scripts/scripts.js',
         auth: './src/modules/auth/scripts/scripts.js',
@@ -19,7 +20,6 @@ module.exports = {
         path: path.resolve(__dirname, destinationDirectory),
         filename: '[name].bundle.js'
     },
-
     module: {
         rules: [
             {

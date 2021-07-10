@@ -1,12 +1,19 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 
+from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
 from ...repositories.UserRepository import UserRepository
 
+from ...services.abstracts.AbcUserService import AbcUserService
+from ...services.abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
 from ...services.UserService import UserService
 from ...services.QuizSuggestionService import QuizSuggestionService
 
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
+
+__userrepository: AbcUserRepository = UserRepository()
+__userservice: AbcUserService = UserService()
+__quizsuggestionservice: AbcQuizSuggestionService = QuizSuggestionService()
 
 
 user_controller = Blueprint(
@@ -30,13 +37,13 @@ def profile():
     User Profile Overview Page
     """
 
-    user = UserRepository.find_by_id(current_user.id)
+    user = __userrepository.find_by_id(current_user.id)
 
     role_status = '-'
 
-    if UserService.is_user_tutor(user):
+    if __userservice.is_user_tutor(user):
         role_status = 'Tutor'
-    elif UserService.is_user_student(user):
+    elif __userservice.is_user_student(user):
         role_status = 'Student'
 
     return render_template(
@@ -46,6 +53,6 @@ def profile():
             user.is_active,
             user.creation_date.strftime("%d.%m.%Y"),
             role_status,
-            user_profile_quiz_suggestion=QuizSuggestionService.get_stat_values_for_user_profile_by_user_id(user.id)
+            user_profile_quiz_suggestion=__quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
         )
     )

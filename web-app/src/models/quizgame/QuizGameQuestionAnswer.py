@@ -10,6 +10,12 @@ class QuizGameQuestionAnswer(db.Model):
         primary_key=True
     )
 
+    position = db.Column(
+        db.Integer,
+        unique=False,
+        nullable=False
+    )
+
     quizanswer_text = db.Column(
         db.String(),
         index=False,
@@ -24,11 +30,5 @@ class QuizGameQuestionAnswer(db.Model):
     quizanswer_id = db.Column(
         db.Integer,
         db.ForeignKey('quiz_answers.id'),
-        nullable=False
-    )
-
-    quizgame_question_id = db.Column(
-        db.Integer,
-        db.ForeignKey('quiz_game_questions.id'),
         nullable=False
     )

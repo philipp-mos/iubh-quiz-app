@@ -31,7 +31,18 @@ class QuizGame(db.Model):
         nullable=False
     )
 
+    subject_id = db.Column(
+        db.Integer,
+        db.ForeignKey('subjects.id'),
+        nullable=False
+    )
+
     quizgamequestions = db.relationship(
         'QuizGameQuestion',
         secondary='quiz_game_quiz_game_questions'
+    )
+
+    quizgamequestionscores = db.relationship(
+        'QuizGameQuestionScore',
+        secondary='quiz_game_quiz_game_question_scores'
     )

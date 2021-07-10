@@ -7,8 +7,9 @@
   <div class="row mb-5">
     <div class="col-12">
       <nav class="nav nav-pills nav-fill">
-        {% for entry in [1, 2, 3, 4, 5] %}
-          <a class="nav-link {% if viewmodel.question_number == entry %} active {% else %} disabled {% endif %}" href="#">Frage {{ entry }}</a>
+        {% for count in range(config['AMOUNT_OF_QUESTIONS_PER_QUIZ']) %}
+          {% set count = count + 1 %}
+          <a class="nav-link {% if viewmodel.question_number == count %} active {% else %} disabled {% endif %}" href="#">Frage {{ count }}</a>
         {% endfor %}
         <a class="nav-link disabled" href="#">Ergebnis</a>
       </nav>
@@ -27,7 +28,7 @@
   <div class="row mt-5">
 
     {% for key, answer in viewmodel.answers.items() %}
-      <div class="col-4">
+      <div class="col-sm-{{ (12 / config['AMOUNT_OF_ANSWERS_PER_QUESTION'])|int }} col-xs-12 mb-5">
         <div class="card quiz__answer" id="quiz-answer-{{ key|lower }}" data-key="{{ key|lower }}">
           <div class="quiz__answer__header">{{ key }}</div>
           <div class="card-body">
@@ -46,20 +47,23 @@
       {% for answer in viewmodel.answer_selection %}
         {{ answer(id='answer-selection-' + answer.label.text) }}
       {% endfor %}
-    </div>
 
+      {{ viewmodel.is_validation_step() }}
+    </div>
 
     <div class="row mt-5">
       <div class="col-12">
         <div class="position-relative">
           <div class="position-absolute bottom-0 end-0">
-            {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+            {% if viewmodel.is_validation_step.data %}
+              {{ viewmodel.submit(class_="btn btn-primary", id="button-evaluate") }}
+            {% else %}
+              {{ viewmodel.submit(class_="btn btn-success disabled", id="button-evaluate") }}
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
   </form>
 
-
-  
 {% endblock %}
