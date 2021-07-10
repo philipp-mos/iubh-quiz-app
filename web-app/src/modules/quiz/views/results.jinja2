@@ -21,8 +21,15 @@
     </div>
   </div>
 
-  <span>{{ viewmodel.amount_questions }}</span>
-  <span>{{ viewmodel.amount_correct_questions }}</span>
+  <div class="row">
+    <div class="col-12 result-chart-container">
+      <canvas 
+        id="result-chart"
+        data-amount-questions="{{ viewmodel.amount_questions }}"
+        data-amount-correct-questions="{{ viewmodel.amount_correct_questions }}"
+      ></canvas>
+    </div>
+  </div>
 
   <div class="row mt-5">
     <div class="col-12">
