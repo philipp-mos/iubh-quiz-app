@@ -14,6 +14,7 @@ from ..models.quizgame.QuizGameQuestion import QuizGameQuestion
 from ..models.quizgame.QuizGameQuestionAnswer import QuizGameQuestionAnswer
 from ..models.quizgame.QuizGameStatus import QuizGameStatus
 from ..models.quizgame.QuizGameQuestionScore import QuizGameQuestionScore
+from ..models.quizgame.QuizGameResult import QuizGameResult
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
@@ -22,6 +23,7 @@ from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
 from ..repositories.QuizQuestionRepository import QuizQuestionRepository
 from ..repositories.QuizAnswerRepository import QuizAnswerRepository
+from ..repositories.QuizGameResultRepository import QuizGameResultRepository
 
 from ..helpers.NumberHelper import NumberHelper
 
@@ -160,16 +162,14 @@ class QuizService(AbcQuizService):
             )
 
     @staticmethod
-    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
         """
         Updates the status of the current QuizGame
         """
-        current_quiz_id = session.get('CURRENT_QUIZ_ID')
-
-        if not current_quiz_id:
+        if not quiz_id:
             raise ValueError
 
-        quiz_game = QuizGameRepository.find_by_id(int(current_quiz_id))
+        quiz_game = QuizGameRepository.find_by_id(int(quiz_id))
 
         quiz_game.current_status = quiz_game_status
 
@@ -190,6 +190,7 @@ class QuizService(AbcQuizService):
         quiz_game_question_score = QuizGameQuestionScore()
         quiz_game_question_score.creation_date = datetime.now()
         quiz_game_question_score.quizgame_id = quiz_game.id
+        quiz_game_question_score.assigned_user_id = current_user.get_id()
         quiz_game_question_score.quizgamequestion_id = quiz_game_question.id
 
         quiz_game_question_score.selected_quizgamequestionanswer_id = QuizService.__get_answer_id_for_selected_answer(
@@ -208,6 +209,40 @@ class QuizService(AbcQuizService):
         quiz_game.quizgamequestionscores.append(quiz_game_question_score)
 
         QuizGameRepository.commit()
+
+    @staticmethod
+    def save_and_get_quiz_game_result(quizgame_id: int) -> QuizGameResult:
+
+        quizgame_result_id = session.get('CURRENT_QUIZ_RESULT_ID')
+
+        if quizgame_result_id and quizgame_result_id > 0:
+            return QuizGameResultRepository.find_by_id(quizgame_result_id)
+
+        quizgame_result = QuizGameResult()
+        quizgame_result.quizgame_id = quizgame_id
+        quizgame_result.user_id = int(current_user.get_id())
+        quizgame_result.creation_date = datetime.now()
+
+        # TODO: Update as soon as opponent-mode is implemented
+        quizgame_result.is_won = False
+
+        quizgame_result.amount_of_questions = 0
+        quizgame_result.amount_of_correct_questions = 0
+
+        quiz_game: QuizGame = QuizGameRepository.find_by_id(quizgame_id)
+
+        for questionscore in quiz_game.quizgamequestionscores:
+            if questionscore.assigned_user_id == int(current_user.get_id()):
+                quizgame_result.amount_of_questions += 1
+
+                if questionscore.is_solved_correctly:
+                    quizgame_result.amount_of_correct_questions += 1
+
+        QuizGameResultRepository.add_and_commit(quizgame_result)
+
+        session['CURRENT_QUIZ_RESULT_ID'] = quizgame_result.id
+
+        return quizgame_result
     # endregion
 
     # region Private Methods

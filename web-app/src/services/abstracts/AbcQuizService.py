@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameQuestion import QuizGameQuestion
+from ...models.quizgame.QuizGameResult import QuizGameResult
 from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from ...modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
@@ -26,9 +27,13 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def update_quiz_game_status_to(quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
         raise NotImplementedError
 
     @abstractmethod
     def save_quiz_game_question_score(quiz_game_id: int, question_number: int, viewmodel: QuizQuestionViewModel) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def save_and_get_quiz_game_result(quiz_game_id: int) -> QuizGameResult:
         raise NotImplementedError

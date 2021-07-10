@@ -3,9 +3,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
+from ...models.quizgame.QuizGameResult import QuizGameResult
 from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+from .viewmodels.QuizGameResultViewModel import QuizGameResultViewModel
 
 from ...services.abstracts.AbcQuizService import AbcQuizService
 from ...services.QuizService import QuizService
@@ -37,6 +39,7 @@ def start(subject_id: int):
     quiz_game: QuizGame = __quizservice.initialize_quiz_game_for_subject(subject_id)
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
+    session['CURRENT_QUIZ_RESULT_ID'] = 0
 
     return redirect(url_for('quiz_controller.question', question_number=1))
 
@@ -83,6 +86,9 @@ def question(question_number: int):
 
         viewmodel.is_validation_step.data = True
 
+    if question_number == (app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ') + 1):
+        return redirect(url_for('quiz_controller.question_results'))
+
     __quizservice.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
 
     return render_template(
@@ -97,7 +103,20 @@ def question_results():
     """
     Final Step that shows the Quiz-Results
     """
+    quiz_game_id = session.get('CURRENT_QUIZ_ID')
 
-    __quizservice.update_quiz_game_status_to(QuizGameStatus.FINISHED)
+    if not quiz_game_id:
+        raise ValueError
 
-    return render_template('results.jinja2')
+    __quizservice.update_quiz_game_status_to(quiz_game_id, QuizGameStatus.FINISHED)
+
+    quizgame_result: QuizGameResult = __quizservice.save_and_get_quiz_game_result(quiz_game_id)
+
+    viewmodel = QuizGameResultViewModel()
+    viewmodel.amount_questions = quizgame_result.amount_of_questions
+    viewmodel.amount_correct_questions = quizgame_result.amount_of_correct_questions
+
+    return render_template(
+        'results.jinja2',
+        viewmodel=viewmodel
+    )
