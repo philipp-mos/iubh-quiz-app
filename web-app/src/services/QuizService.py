@@ -128,7 +128,15 @@ class QuizService(AbcQuizService):
 
             quiz_questionanswer_viewmodel.answer_char = NumberHelper.convert_from_number_to_char(quizgame_answer.position, True)
             quiz_questionanswer_viewmodel.answer_text = quizgame_answer.quizanswer_text
-            quiz_questionanswer_viewmodel.is_correct = quizgame_answer.quizanswer_is_correct
+
+            quiz_questionanswer_viewmodel.mark_correct = False
+            quiz_questionanswer_viewmodel.mark_incorrect = False
+
+            if viewmodel.answer_selection.data == quiz_questionanswer_viewmodel.answer_char:
+                if quizgame_answer.quizanswer_is_correct:
+                    quiz_questionanswer_viewmodel.mark_correct = True
+                else:
+                    quiz_questionanswer_viewmodel.mark_incorrect = True
 
             viewmodel.answers.append(quiz_questionanswer_viewmodel)
 

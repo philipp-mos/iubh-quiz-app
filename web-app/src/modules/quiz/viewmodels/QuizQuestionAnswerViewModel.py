@@ -5,4 +5,6 @@ class QuizQuestionAnswerViewModel:
 
     answer_text: str = ''
 
-    is_correct: bool
+    mark_correct: bool
+
+    mark_incorrect: bool
