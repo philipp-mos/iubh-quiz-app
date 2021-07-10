@@ -86,6 +86,9 @@ def question(question_number: int):
 
         viewmodel.is_validation_step.data = True
 
+    if question_number == (app.config.get('AMOUNT_OF_QUESTIONS_PER_QUIZ') + 1):
+        return redirect(url_for('quiz_controller.question_results'))
+
     __quizservice.fill_quizquestionviewmodel_by_quizgame_id(viewmodel, int(quiz_game_id), question_number)
 
     return render_template(
