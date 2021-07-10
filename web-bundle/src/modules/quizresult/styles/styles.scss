@@ -1,3 +1,16 @@
+@use '../../../utilities/styles/helpers';
+
+
 .result-chart-container {
     width: 50%;
+}
+
+.resultinfo {
+    &__element {
+        text-align: center;
+
+        &__title {
+            font-weight: bolder;
+        }
+    }
 }

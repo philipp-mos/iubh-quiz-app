@@ -12,8 +12,8 @@ var resultChart = new Chart(chartCanvas, {
     type: 'doughnut',
     data: {
         labels: [
-            'Richtig',
-            'Falsch'
+            'Richtig beantwortet',
+            'Falsch beantwortet'
         ],
         datasets: [{
             data: [
@@ -26,5 +26,12 @@ var resultChart = new Chart(chartCanvas, {
             ],
             hoverOffset: 4
         }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
     }
 });

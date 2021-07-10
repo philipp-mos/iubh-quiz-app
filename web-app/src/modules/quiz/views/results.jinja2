@@ -21,21 +21,21 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5 mb-5">
     <div class="col-sm-4 col-xs-12">
       <div class="d-none d-sm-block mt-5"></div>
-      <div class="alert alert-secondary" role="alert">
-        <div class="text-center">
-          <strong>Aufgaben gesamt</strong><br />
-          {{ viewmodel.amount_questions }}
+      <div class="resultinfo alert alert-secondary">
+        <div class="resultinfo__element mb-5">
+          <div class="resultinfo__element__title">Aufgaben gesamt</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_questions }}</div>
         </div>
-        <div class="text-center mt-5">
-          <strong>Aufgaben richtig</strong><br />
-          {{ viewmodel.amount_correct_questions }}
+        <div class="resultinfo__element mb-5">
+          <div class="resultinfo__element__title">Aufgaben richtig</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_correct_questions }}</div>
         </div>
-        <div class="text-center mt-5">
-          <strong>Aufgaben falsch</strong><br />
-          {{ viewmodel.amount_questions - viewmodel.amount_correct_questions }}
+        <div class="resultinfo__element">
+          <div class="resultinfo__element__title">Aufgaben falsch</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_questions - viewmodel.amount_correct_questions }}</div>
         </div>
       </div>
     </div>
