@@ -16,6 +16,7 @@ from ..models.quizgame.QuizGameStatus import QuizGameStatus
 from ..models.quizgame.QuizGameQuestionScore import QuizGameQuestionScore
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
 
 from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
@@ -119,13 +120,25 @@ class QuizService(AbcQuizService):
         else:
             viewmodel.submit.label.text = 'Diese Frage auswerten'
 
-        viewmodel.answers = {}
+        viewmodel.answers = []
 
         quizgame_answer: QuizGameQuestionAnswer
         for quizgame_answer in quiz_game_question.quizgamequestionanswers:
-            viewmodel.answers[
-                NumberHelper.convert_from_number_to_char(quizgame_answer.position, True)
-            ] = quizgame_answer.quizanswer_text
+            quiz_questionanswer_viewmodel = QuizQuestionAnswerViewModel()
+
+            quiz_questionanswer_viewmodel.answer_char = NumberHelper.convert_from_number_to_char(quizgame_answer.position, True)
+            quiz_questionanswer_viewmodel.answer_text = quizgame_answer.quizanswer_text
+
+            quiz_questionanswer_viewmodel.mark_correct = False
+            quiz_questionanswer_viewmodel.mark_incorrect = False
+
+            if viewmodel.answer_selection.data == quiz_questionanswer_viewmodel.answer_char:
+                if quizgame_answer.quizanswer_is_correct:
+                    quiz_questionanswer_viewmodel.mark_correct = True
+                else:
+                    quiz_questionanswer_viewmodel.mark_incorrect = True
+
+            viewmodel.answers.append(quiz_questionanswer_viewmodel)
 
         QuizService.add_answer_selection_choices(viewmodel)
 

@@ -27,12 +27,20 @@
 
   <div class="row mt-5">
 
-    {% for key, answer in viewmodel.answers.items() %}
+    {% for answer in viewmodel.answers %}
       <div class="col-sm-{{ (12 / config['AMOUNT_OF_ANSWERS_PER_QUESTION'])|int }} col-xs-12 mb-5">
-        <div class="card quiz__answer" id="quiz-answer-{{ key|lower }}" data-key="{{ key|lower }}">
-          <div class="quiz__answer__header">{{ key }}</div>
+        <div 
+            class="card quiz__answer {% if viewmodel.is_validation_step.data %} quiz__answer--validated {% endif %}" 
+            id="quiz-answer-{{ answer.answer_char|lower }}"
+            data-key="{{ answer.answer_char|lower }}">
+          <div 
+            class="quiz__answer__header 
+              {% if viewmodel.is_validation_step.data and answer.mark_correct %} quiz__answer__header--correct {% endif %}
+              {% if viewmodel.is_validation_step.data and answer.mark_incorrect %} quiz__answer__header--incorrect {% endif %}">
+            {{ answer.answer_char }}
+          </div>
           <div class="card-body">
-            <p class="card-text">{{ answer }}</p>
+            <p class="card-text">{{ answer.answer_text }}</p>
           </div>
         </div>
       </div>
