@@ -14,3 +14,4 @@ requests==2.25.1
 sqlalchemy==1.4.20
 wtforms==2.3.3
 flake8==3.9.2
+flask-swagger-ui==3.36.0

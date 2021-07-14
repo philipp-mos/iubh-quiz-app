@@ -1,5 +1,5 @@
 {% if bundle_name != '' %}
-    <script async src="{{ url_for('static', filename=bundle_name + '.js') }}{{ '?v=' + bundle_version }}"></script>
+    <script async src="{{ url_for('static', filename='bundle/' + bundle_name + '.js') }}{{ '?v=' + bundle_version }}"></script>
 {% endif %}
 
 {% block modulescripts %} {% endblock %}

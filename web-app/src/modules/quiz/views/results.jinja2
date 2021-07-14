@@ -1,0 +1,61 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Quiz - Ergebnisse' %}
+{% set bundle_name = 'quizresult.bundle' %}
+
+{% block content %}
+  <div class="row mb-5">
+    <div class="col-12">
+      <nav class="nav nav-pills nav-fill">
+        {% for count in range(config['AMOUNT_OF_QUESTIONS_PER_QUIZ']) %}
+          {% set count = count + 1 %}
+          <a class="nav-link disabled" href="#">Frage {{ count }}</a>
+        {% endfor %}
+        <a class="nav-link active" href="#">Ergebnis</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1 class="h2">Ergebnisse</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5 mb-5">
+    <div class="col-sm-4 col-xs-12">
+      <div class="d-none d-sm-block mt-5"></div>
+      <div class="resultinfo alert alert-secondary">
+        <div class="resultinfo__element mb-5">
+          <div class="resultinfo__element__title">Aufgaben gesamt</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_questions }}</div>
+        </div>
+        <div class="resultinfo__element mb-5">
+          <div class="resultinfo__element__title">Aufgaben richtig</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_correct_questions }}</div>
+        </div>
+        <div class="resultinfo__element">
+          <div class="resultinfo__element__title">Aufgaben falsch</div>
+          <div class="resultinfo__element__value">{{ viewmodel.amount_questions - viewmodel.amount_correct_questions }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6 col-xs-12 result-chart-container">
+      <canvas 
+        id="result-chart"
+        data-amount-questions="{{ viewmodel.amount_questions }}"
+        data-amount-correct-questions="{{ viewmodel.amount_correct_questions }}"
+      ></canvas>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0">
+          <a href="{{ url_for('home_controller.index') }}" class="btn btn-primary">Zum Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

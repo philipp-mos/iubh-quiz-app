@@ -18,8 +18,11 @@ class SignupViewModel(FlaskForm):
         validators=[
             DataRequired(),
             Regexp(
-                regex='^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{12,}$',
-                message='Bitte wähle ein stärkeres Passwort. Dein Passwort muss mindestens 12 Zeichen, davon mindestens 1 Sonderzeichen und eine Zahl, enthalten.'
+                regex='^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{12,}$',  # noqa: W605
+                message=(
+                    'Bitte wähle ein stärkeres Passwort. '
+                    'Dein Passwort muss mindestens 12 Zeichen, davon mindestens 1 Sonderzeichen und eine Zahl, enthalten.'
+                )
             )
         ]
     )

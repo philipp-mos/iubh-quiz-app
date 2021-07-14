@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import List
 
-from ...models.Subject import Subject
+from ...models.subject.Subject import Subject
 
 from .AbcRepository import AbcRepository
 

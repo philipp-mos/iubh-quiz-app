@@ -8,10 +8,9 @@
     }
 }
 
-
-.icon-circle {
-    display: inline-block;
-    border-radius: helpers.px2rem(60px);
-    border: solid helpers.px2rem(2px) var(--bs-white);
-    padding: helpers.px2rem(8px) helpers.px2rem(11.2px);
+.navigation {
+    &__user-image {
+        width: helpers.px2rem(42.5px);
+        border-radius: 25px;
+    }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <meta charset="utf-8">
+        <meta charset="{{ config['APP_ENCODING_TYPE'] }}">
         <title>{{ page_title }} | iuquiz</title>
 
         <meta name="description" content="Projekt Software Engineering - IU Internationale Hochschule">
@@ -10,8 +10,8 @@
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/images/apple-touch-icon.png') }}{{ '?v=' + bundle_version }}">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.ico') }}{{ '?v=' + bundle_version }}"/>
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='bundle/assets/images/apple-touch-icon.png') }}{{ '?v=' + bundle_version }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='bundle/assets/images/favicon.ico') }}{{ '?v=' + bundle_version }}"/>
 
 
         {% include 'layout/preloads.jinja2' %}
