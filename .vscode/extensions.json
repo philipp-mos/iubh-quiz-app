@@ -9,7 +9,6 @@
         "samuelcolvin.jinjahtml",
         "ms-azure-devops.azure-pipelines",
         "ms-azuretools.vscode-azureappservice",
-        "ms-azuretools.vscode-docker",
         "ms-python.vscode-pylance"
     ]
 }

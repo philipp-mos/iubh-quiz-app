@@ -8,9 +8,15 @@ from ...models.suggestquestion.QuizSuggestion import QuizSuggestion
 from .viewmodels.SubjectSelectionViewModel import SubjectSelectionViewModel
 from .viewmodels.QuestionAndAnswerViewModel import QuestionAndAnswerViewModel
 
+from ...repositories.abstracts.AbcQuizSuggestionRepository import AbcQuizSuggestionRepository
 from ...repositories.QuizSuggestionRepository import QuizSuggestionRepository
 
+from ...services.abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
 from ...services.QuizSuggestionService import QuizSuggestionService
+
+
+__quizsuggestionrepository: AbcQuizSuggestionRepository = QuizSuggestionRepository()
+__quizsuggestionservice: AbcQuizSuggestionService = QuizSuggestionService()
 
 
 suggestquestion_controller = Blueprint(
@@ -74,26 +80,26 @@ def questionandanswer():
         new_quizsuggestion.subject_id = questionandanswer_viewmodel.subject_id.data
         new_quizsuggestion.user_id = current_user.id
 
-        QuizSuggestionRepository.add_and_commit(new_quizsuggestion)
+        __quizsuggestionrepository.add_and_commit(new_quizsuggestion)
 
         if not new_quizsuggestion.id:
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
-        if not QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not __quizsuggestionservice.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_1_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
-        if not QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not __quizsuggestionservice.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_2_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '2',
             new_quizsuggestion.id
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
-        if not QuizSuggestionService.add_answer_for_quizsuggestion(
+        if not __quizsuggestionservice.add_answer_for_quizsuggestion(
             questionandanswer_viewmodel.answer_3_text.data,
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
             new_quizsuggestion.id

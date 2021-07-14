@@ -1,0 +1,33 @@
+@use '../../../utilities/styles/helpers';
+
+.quiz {
+    &__answer {
+        cursor: pointer;
+
+        &--validated {
+            cursor: not-allowed;
+        }
+
+        &--selected {
+            border: helpers.px2rem(5px) solid var(--bs-primary);
+        }
+    }
+
+    &__answer__header {
+        background-color: var(--bs-primary);
+        color: var(--bs-white);
+        height: helpers.px2rem(224px);
+        padding-top: helpers.px2rem(48px);
+        text-align: center;
+        font-weight: bolder;
+        font-size: helpers.px2rem(80px);
+
+        &--correct {
+            background-color: var(--bs-success);
+        }
+
+        &--incorrect {
+            background-color: var(--bs-danger);
+        }
+    }
+}

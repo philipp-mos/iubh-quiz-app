@@ -2,7 +2,7 @@ from typing import List
 
 from .abstracts.AbcSubjectService import AbcSubjectService
 
-from ..models.Subject import Subject
+from ..models.subject.Subject import Subject
 from ..api.v1.dtos.SubjectDto import SubjectDto
 from ..modules.subjects.viewmodels.SubjectOverviewViewModel import SubjectOverviewViewModel
 
@@ -33,6 +33,7 @@ class SubjectService(AbcSubjectService):
         for subject in list_of_subjects:
             subjectviewmodel_list.append(
                 SubjectOverviewViewModel(
+                    subject.id,
                     subject.name,
                     subject.short,
                     subject.image_path

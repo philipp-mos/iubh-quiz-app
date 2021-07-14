@@ -51,7 +51,6 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)/web-app'
     Contents: |
       requirements.txt
-      Dockerfile
       .gitignore
       .env.example
       tests/*

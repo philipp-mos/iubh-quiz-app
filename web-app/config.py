@@ -7,6 +7,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
     load_dotenv(os.path.join(basedir, '.env'))
 
+    # General Application Configuration
     FLASK_APP = 'app.py'
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -17,6 +18,8 @@ class Config(object):
 
     DEBUG = False
     TESTING = False
+
+    APP_ENCODING_TYPE = "utf-8"
 
     # Database Settings
     SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRESQLCONNSTR_APPDB")
@@ -47,9 +50,20 @@ class Config(object):
     USERROLE_STUDENT = 1
     USERROLE_TUTOR = 2
 
+    # Quiz Module
+    AMOUNT_OF_QUESTIONS_PER_QUIZ = 5
+    AMOUNT_OF_ANSWERS_PER_QUESTION = 3
+    SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED = False
+
+    # Swagger UI
+    SWAGGERUI_API_PATH = '/api/docs'
+    SWAGGERUI_CONFIGURATION_LOCATION = '/static/swagger.json'
+
     # External Applications
     QUICKSTART_DOCUMENTATION_URL = "https://iuquiz.gitbook.io/quickstart/"
+    GRAVATAR_URL = "https://www.gravatar.com/avatar/"
 
+    # Special Environment Settings
     if FLASK_ENV == 'development':
         DEBUG = True
         TESTING = True
