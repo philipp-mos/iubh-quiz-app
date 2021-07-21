@@ -19,7 +19,7 @@ from ..models.quizgame.QuizGameResult import QuizGameResult
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
-from ..modules.home.viewmodels.DashboardGameListItemViewModel import DashboardGameListItemViewModel
+from ..modules.home.viewmodels.QuizGameListItemViewModel import QuizGameListItemViewModel
 
 from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
@@ -247,7 +247,7 @@ class QuizService(AbcQuizService):
         return quizgame_result
 
     @staticmethod
-    def get_played_games_for_dashboardviewmodel() -> List[DashboardGameListItemViewModel]:
+    def get_played_games_for_dashboardviewmodel() -> List[QuizGameListItemViewModel]:
 
         all_quizgames = QuizGameRepository.get_all_by_status(
             QuizGameStatus.FINISHED,
@@ -257,7 +257,7 @@ class QuizService(AbcQuizService):
         dashboard_viewmodel_list = []
 
         for quizgame in all_quizgames:
-            game_listitem = DashboardGameListItemViewModel()
+            game_listitem = QuizGameListItemViewModel()
             game_listitem.id = quizgame.id
             game_listitem.date = quizgame.creation_date.strftime('%d.%m.%Y %H:%M')
 
