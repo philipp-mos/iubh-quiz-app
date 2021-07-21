@@ -7,6 +7,7 @@ from ...models.quizgame.QuizGameResult import QuizGameResult
 from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from ...modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
+from ...modules.home.viewmodels.DashboardGameListItemViewModel import DashboardGameListItemViewModel
 
 
 class AbcQuizService(ABC):
@@ -40,5 +41,5 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get_played_games_for_dashboard() -> List[QuizGame]:
+    def get_played_games_for_dashboardviewmodel() -> List[DashboardGameListItemViewModel]:
         raise NotImplementedError

@@ -4,4 +4,4 @@ class DashboardGameListItemViewModel():
 
     date: str
 
-    module_name: str
+    subject_name: str

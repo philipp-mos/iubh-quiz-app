@@ -19,6 +19,7 @@ from ..models.quizgame.QuizGameResult import QuizGameResult
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
+from ..modules.home.viewmodels.DashboardGameListItemViewModel import DashboardGameListItemViewModel
 
 from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
@@ -246,8 +247,23 @@ class QuizService(AbcQuizService):
         return quizgame_result
 
     @staticmethod
-    def get_played_games_for_dashboard() -> List[QuizGame]:
-        return QuizGameRepository.get_all()
+    def get_played_games_for_dashboardviewmodel() -> List[DashboardGameListItemViewModel]:
+
+        all_quizgames = QuizGameRepository.get_all()
+
+        dashboard_viewmodel_list = []
+
+        for quizgame in all_quizgames:
+            game_listitem = DashboardGameListItemViewModel()
+            game_listitem.id = quizgame.id
+            game_listitem.date = quizgame.creation_date.strftime('%d.%m.%Y %H:%M')
+
+            subject = SubjectRepository.find_by_id(quizgame.subject_id)
+            game_listitem.subject_name = subject.name
+
+            dashboard_viewmodel_list.append(game_listitem)
+
+        return dashboard_viewmodel_list
     # endregion
 
     # region Private Methods
