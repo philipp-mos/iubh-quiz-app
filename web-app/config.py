@@ -55,6 +55,9 @@ class Config(object):
     AMOUNT_OF_ANSWERS_PER_QUESTION = 3
     SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED = False
 
+    # User Dashboard
+    AMOUNT_OF_QUIZGAMES = 7
+
     # Swagger UI
     SWAGGERUI_API_PATH = '/api/docs'
     SWAGGERUI_CONFIGURATION_LOCATION = '/static/swagger.json'

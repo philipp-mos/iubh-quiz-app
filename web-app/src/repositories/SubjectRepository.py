@@ -40,5 +40,5 @@ class SubjectRepository(Repository, AbcSubjectRepository):
         return Subject.query.order_by(Subject.name).all()[:limit]
 
     @staticmethod
-    def get_random_item(limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> Subject:
+    def get_random_item() -> Subject:
         return Subject.query.order_by(func.random()).first()

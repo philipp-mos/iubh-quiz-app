@@ -17,5 +17,5 @@ class AbcSubjectRepository(AbcRepository):
         raise NotImplementedError
 
     @abstractmethod
-    def get_random_item(limit=0) -> Subject:
+    def get_random_item() -> Subject:
         raise NotImplementedError
