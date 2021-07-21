@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameQuestion import QuizGameQuestion
@@ -36,4 +37,8 @@ class AbcQuizService(ABC):
 
     @abstractmethod
     def save_and_get_quiz_game_result(quiz_game_id: int) -> QuizGameResult:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_played_games_for_dashboard() -> List[QuizGame]:
         raise NotImplementedError

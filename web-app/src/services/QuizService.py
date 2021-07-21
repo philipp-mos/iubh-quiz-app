@@ -1,4 +1,5 @@
 import random
+from typing import List
 from flask import current_app as app
 from flask import session
 from flask_login import current_user
@@ -243,6 +244,10 @@ class QuizService(AbcQuizService):
         session['CURRENT_QUIZ_RESULT_ID'] = quizgame_result.id
 
         return quizgame_result
+
+    @staticmethod
+    def get_played_games_for_dashboard() -> List[QuizGame]:
+        return QuizGameRepository.get_all()
     # endregion
 
     # region Private Methods
