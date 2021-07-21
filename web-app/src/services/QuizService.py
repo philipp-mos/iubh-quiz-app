@@ -251,7 +251,7 @@ class QuizService(AbcQuizService):
 
         all_quizgames = QuizGameRepository.get_all_by_status(
             QuizGameStatus.FINISHED,
-            app.config.get('AMOUNT_OF_QUIZGAMES')
+            app.config.get('DASHBOARD_AMOUNT_OF_QUIZGAMES')
         )
 
         dashboard_viewmodel_list = []

@@ -56,7 +56,7 @@ class Config(object):
     SHOW_QUESTIONRESULTS_ONLY_SUMMARIZED = False
 
     # User Dashboard
-    AMOUNT_OF_QUIZGAMES = 7
+    DASHBOARD_AMOUNT_OF_QUIZGAMES = 7
 
     # Swagger UI
     SWAGGERUI_API_PATH = '/api/docs'
