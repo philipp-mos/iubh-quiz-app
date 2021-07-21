@@ -4,4 +4,46 @@
 
 {% block content %}
 
+    <div class="row">
+        <div class="col-sm-5 col-xs-12 mb-5">
+            <h1 class="h4 mb-4">Optionen</h1>
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('quiz_controller.start', subject_id=8) }}" class="btn btn-secondary">Neues zufälliges Quiz starten</a>
+                <a href="{{ url_for('suggestquestion_controller.subjectselection') }}" class="btn btn-secondary">Eigene Frage vorschlagen</a>
+                <a href="{{ url_for('user_controller.profile') }}" class="btn btn-secondary">Mein Profil anzeigen</a>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-sm-6 col-xs-12">
+            <h1 class="h4 mb-4">Spiele gegen Gegner</h1>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Gestartet am</th>
+                        <th scope="col">Modul</th>
+                        <th scope="col">Starten</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18.07.2021</td>
+                        <td>Financial Services Management I</td>
+                        <td><i class="fas fa-play"></i></td>
+                    </tr>
+                    <tr>
+                        <td>19.07.2021</td>
+                        <td>Financial Services Management I</td>
+                        <td><i class="fas fa-play"></i></td>
+                    </tr>
+                    <tr>
+                        <td>20.07.2021</td>
+                        <td>Financial Services Management I</td>
+                        <td><i class="fas fa-play"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 {% endblock %}
