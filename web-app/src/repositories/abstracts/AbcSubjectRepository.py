@@ -15,3 +15,7 @@ class AbcSubjectRepository(AbcRepository):
     @abstractmethod
     def get_all_ordered_by_name(limit=0) -> List[Subject]:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_random_item(limit=0) -> Subject:
+        raise NotImplementedError

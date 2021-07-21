@@ -5,6 +5,8 @@ from .viewmodels.DashboardViewModel import DashboardViewModel
 
 from ...services.QuizService import QuizService
 
+from ...repositories.SubjectRepository import SubjectRepository
+
 
 home_controller = Blueprint(
     'home_controller',
@@ -26,10 +28,14 @@ def index():
     """
     User Dashboard
     """
-
     viewmodel = DashboardViewModel()
+    viewmodel.random_quiz_id = 0
 
-    viewmodel.random_quiz_id = 8
+    random_subject = SubjectRepository.get_random_item()
+
+    if random_subject:
+        viewmodel.random_quiz_id = random_subject.id
+
     viewmodel.dashboard_game_list_items = QuizService.get_played_games_for_dashboardviewmodel()
 
     return render_template(
