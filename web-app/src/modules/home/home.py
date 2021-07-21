@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
 
+from .viewmodels.DashboardViewModel import DashboardViewModel
+
 
 home_controller = Blueprint(
     'home_controller',
@@ -23,4 +25,12 @@ def index():
     User Dashboard
     """
 
-    return render_template('index.jinja2')
+    viewmodel = DashboardViewModel()
+
+    viewmodel.random_quiz_id = 8
+    viewmodel.dashboard_game_list_items = []
+
+    return render_template(
+        'index.jinja2',
+        viewmodel=viewmodel
+    )

@@ -8,7 +8,7 @@
         <div class="col-sm-5 col-xs-12 mb-5">
             <h1 class="h4 mb-4">Optionen</h1>
             <div class="d-grid gap-2">
-                <a href="{{ url_for('quiz_controller.start', subject_id=8) }}" class="btn btn-secondary">Neues zufälliges Quiz starten</a>
+                <a href="{{ url_for('quiz_controller.start', subject_id=viewmodel.random_quiz_id) }}" class="btn btn-secondary">Neues zufälliges Quiz starten</a>
                 <a href="{{ url_for('suggestquestion_controller.subjectselection') }}" class="btn btn-secondary">Eigene Frage vorschlagen</a>
                 <a href="{{ url_for('user_controller.profile') }}" class="btn btn-secondary">Mein Profil anzeigen</a>
             </div>
@@ -25,38 +25,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-secondary">18.07.2021</td>
-                        <td>
-                            <a href="">Financial Services Management I</a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#"><i class="fas fa-play"></i><a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-secondary">19.07.2021</td>
-                        <td>
-                            <a href="">Financial Services Management I</a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#"><i class="fas fa-play"></i><a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-secondary">20.07.2021</td>
-                        <td>
-                            <a href="">Financial Services Management I</a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#"><i class="fas fa-play"></i><a>
-                        </td>
-                    </tr>
+                    {% if viewmodel.dashboard_game_list_items %}
+                        {% for game_list_item in viewmodel.dashboard_game_list_items %}
+                            <tr>
+                                <td class="text-secondary">{{ game_list_item.date }}</td>
+                                <td>
+                                    <a href="">{{ game_list_item.module_name }}</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#"><i class="fas fa-play"></i><a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">
+                                Es wurden keine Spiele gefunden. 
+                                <a href="{{ url_for('subjects_controller.overview') }}">Starten Sie ein neues.</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+
                 </tbody>
             </table>
-            <div>
-                <a href="#">mehr anzeigen <i class="fas fa-angle-double-right"></i></a>
-            </div>
+
+            {% if viewmodel.dashboard_game_list_items %}
+                <div>
+                    <a href="#">mehr anzeigen <i class="fas fa-angle-double-right"></i></a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
