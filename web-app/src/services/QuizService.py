@@ -247,11 +247,13 @@ class QuizService(AbcQuizService):
         return quizgame_result
 
     @staticmethod
-    def get_played_games_for_dashboardviewmodel() -> List[QuizGameListItemViewModel]:
+    def get_played_games_for_quiz_game_overview(
+        limit: int = app.config['DEFAULT_RESULT_ITEM_MAX_COUNT']
+    ) -> List[QuizGameListItemViewModel]:
 
         all_quizgames = QuizGameRepository.get_all_by_status(
             QuizGameStatus.FINISHED,
-            app.config.get('DASHBOARD_AMOUNT_OF_QUIZGAMES')
+            limit
         )
 
         dashboard_viewmodel_list = []

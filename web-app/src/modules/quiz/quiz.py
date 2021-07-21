@@ -120,3 +120,19 @@ def question_results():
         'results.jinja2',
         viewmodel=viewmodel
     )
+
+
+# Quiz/Question/Results
+@quiz_controller.route('/game/overview', methods=['GET'])
+def game_overview():
+    """
+    Returns the Overview of QuizGames to use
+    """
+    viewmodel = []
+
+    viewmodel = QuizService.get_played_games_for_quiz_game_overview()
+
+    return render_template(
+        'game_overview.jinja2',
+        viewmodel=viewmodel
+    )

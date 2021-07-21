@@ -54,7 +54,7 @@
 
             {% if viewmodel.dashboard_game_list_items %}
                 <div>
-                    <a href="#">mehr anzeigen <i class="fas fa-angle-double-right"></i></a>
+                    <a href="{{ url_for('quiz_controller.game_overview') }}">mehr anzeigen <i class="fas fa-angle-double-right"></i></a>
                 </div>
             {% endif %}
         </div>

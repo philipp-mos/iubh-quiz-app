@@ -1,3 +1,4 @@
+from flask import current_app as app
 from flask import Blueprint, render_template
 from flask_login import login_required
 
@@ -36,7 +37,9 @@ def index():
     if random_subject:
         viewmodel.random_quiz_id = random_subject.id
 
-    viewmodel.dashboard_game_list_items = QuizService.get_played_games_for_dashboardviewmodel()
+    viewmodel.dashboard_game_list_items = QuizService.get_played_games_for_quiz_game_overview(
+        app.config.get('DASHBOARD_AMOUNT_OF_QUIZGAMES')
+    )
 
     return render_template(
         'index.jinja2',

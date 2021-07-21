@@ -41,5 +41,5 @@ class AbcQuizService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get_played_games_for_dashboardviewmodel() -> List[QuizGameListItemViewModel]:
+    def get_played_games_for_quiz_game_overview(limit: int=0) -> List[QuizGameListItemViewModel]:
         raise NotImplementedError
