@@ -25,5 +25,7 @@ class QuizGameRepository(Repository, AbcQuizGameRepository):
         return QuizGame.query.get(id)
 
     @staticmethod
-    def get_all_by_status(quizgame_status: QuizGameStatus, limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizGame]:
-        return QuizGame.query.filter(QuizGame.current_status == quizgame_status)[:limit]
+    def get_all_by_status(quizgame_status: QuizGameStatus, current_user_id: int, limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizGame]:
+        return QuizGame.query.filter(
+            QuizGame.current_status == quizgame_status,
+            QuizGame.current_assignee_id != current_user_id)[:limit]

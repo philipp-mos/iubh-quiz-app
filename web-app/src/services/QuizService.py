@@ -253,6 +253,7 @@ class QuizService(AbcQuizService):
 
         all_quizgames = QuizGameRepository.get_all_by_status(
             QuizGameStatus.FINISHED,
+            current_user.get_id(),
             limit
         )
 

@@ -9,5 +9,5 @@ from ...models.quizgame.QuizGameStatus import QuizGameStatus
 class AbcQuizGameRepository(AbcRepository):
 
     @abstractmethod
-    def get_all_by_status(quizgame_status: QuizGameStatus, limit=0) -> List[QuizGame]:
+    def get_all_by_status(quizgame_status: QuizGameStatus, current_user_id: int, limit=0) -> List[QuizGame]:
         raise NotImplementedError
