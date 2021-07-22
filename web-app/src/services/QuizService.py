@@ -164,7 +164,7 @@ class QuizService(AbcQuizService):
             )
 
     @staticmethod
-    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status(quiz_id: int) -> None:
         """
         Updates the status of the current QuizGame
         """
@@ -173,7 +173,14 @@ class QuizService(AbcQuizService):
 
         quiz_game = QuizGameRepository.find_by_id(int(quiz_id))
 
-        quiz_game.current_status = quiz_game_status
+        if quiz_game.current_status == QuizGameStatus.IN_PROGRESS:
+            quiz_game.current_status = QuizGameStatus.FINISHED
+
+        elif quiz_game.current_status == QuizGameStatus.FINISHED:
+            quiz_game.current_status = QuizGameStatus.OPPONENT_IN_PROGRESS
+
+        elif quiz_game.current_status == QuizGameStatus.OPPONENT_IN_PROGRESS:
+            quiz_game.current_status = QuizGameStatus.CLOSED
 
         QuizGameRepository.commit()
 
@@ -275,7 +282,8 @@ class QuizService(AbcQuizService):
     def initialize_quiz_game_multiplayer(quizgame_id: int) -> QuizGame:
         quizgame = QuizGameRepository.find_by_id(quizgame_id)
         quizgame.current_assignee_id = current_user.get_id()
-        quizgame.current_status = QuizGameStatus.OPPONENT_IN_PROGRESS
+
+        QuizService.update_quiz_game_status(quizgame.id)
 
         QuizGameRepository.commit()
 

@@ -4,7 +4,6 @@ from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameResult import QuizGameResult
-from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from .viewmodels.QuizGameResultViewModel import QuizGameResultViewModel
@@ -123,7 +122,7 @@ def question_results():
     if not quiz_game_id:
         raise ValueError
 
-    __quizservice.update_quiz_game_status_to(quiz_game_id, QuizGameStatus.FINISHED)
+    __quizservice.update_quiz_game_status(quiz_game_id)
 
     quizgame_result: QuizGameResult = __quizservice.save_and_get_quiz_game_result(quiz_game_id)
 
