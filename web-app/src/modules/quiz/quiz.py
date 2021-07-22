@@ -44,6 +44,21 @@ def start(subject_id: int):
     return redirect(url_for('quiz_controller.question', question_number=1))
 
 
+# Quiz/StartMultiplayer
+@quiz_controller.route('/start-multiplayer/<int:quizgame_id>', methods=['GET'])
+def start_multiplayer(quizgame_id: int):
+    """
+    Initialize the Multiplayer Mode for QuizGame by Opponent
+    """
+
+    quiz_game: QuizGame = __quizservice.initialize_quiz_game_multiplayer(quizgame_id)
+
+    session['CURRENT_QUIZ_ID'] = quiz_game.id
+    session['CURRENT_QUIZ_RESULT_ID'] = 0
+
+    return redirect(url_for('quiz_controller.question', question_number=1))
+
+
 # Quiz/Question
 @quiz_controller.route('/question', methods=['GET'])
 def question_fallback():

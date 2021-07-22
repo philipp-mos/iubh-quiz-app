@@ -270,6 +270,16 @@ class QuizService(AbcQuizService):
             dashboard_viewmodel_list.append(game_listitem)
 
         return dashboard_viewmodel_list
+
+    @staticmethod
+    def initialize_quiz_game_multiplayer(quizgame_id: int) -> QuizGame:
+        quizgame = QuizGameRepository.find_by_id(quizgame_id)
+        quizgame.current_assignee_id = current_user.get_id()
+        quizgame.current_status = QuizGameStatus.OPPONENT_IN_PROGRESS
+
+        QuizGameRepository.commit()
+
+        return quizgame
     # endregion
 
     # region Private Methods
