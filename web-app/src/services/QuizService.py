@@ -1,4 +1,5 @@
 import random
+from typing import List
 from flask import current_app as app
 from flask import session
 from flask_login import current_user
@@ -18,6 +19,7 @@ from ..models.quizgame.QuizGameResult import QuizGameResult
 
 from ..modules.quiz.viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from ..modules.quiz.viewmodels.QuizQuestionAnswerViewModel import QuizQuestionAnswerViewModel
+from ..modules.home.viewmodels.QuizGameListItemViewModel import QuizGameListItemViewModel
 
 from ..repositories.SubjectRepository import SubjectRepository
 from ..repositories.QuizGameRepository import QuizGameRepository
@@ -162,7 +164,7 @@ class QuizService(AbcQuizService):
             )
 
     @staticmethod
-    def update_quiz_game_status_to(quiz_id: int, quiz_game_status: QuizGameStatus) -> None:
+    def update_quiz_game_status(quiz_id: int) -> None:
         """
         Updates the status of the current QuizGame
         """
@@ -171,7 +173,14 @@ class QuizService(AbcQuizService):
 
         quiz_game = QuizGameRepository.find_by_id(int(quiz_id))
 
-        quiz_game.current_status = quiz_game_status
+        if quiz_game.current_status == QuizGameStatus.IN_PROGRESS:
+            quiz_game.current_status = QuizGameStatus.FINISHED
+
+        elif quiz_game.current_status == QuizGameStatus.FINISHED:
+            quiz_game.current_status = QuizGameStatus.OPPONENT_IN_PROGRESS
+
+        elif quiz_game.current_status == QuizGameStatus.OPPONENT_IN_PROGRESS:
+            quiz_game.current_status = QuizGameStatus.CLOSED
 
         QuizGameRepository.commit()
 
@@ -243,6 +252,42 @@ class QuizService(AbcQuizService):
         session['CURRENT_QUIZ_RESULT_ID'] = quizgame_result.id
 
         return quizgame_result
+
+    @staticmethod
+    def get_played_games_for_quiz_game_overview(
+        limit: int = app.config['DEFAULT_RESULT_ITEM_MAX_COUNT']
+    ) -> List[QuizGameListItemViewModel]:
+
+        all_quizgames = QuizGameRepository.get_all_by_status(
+            QuizGameStatus.FINISHED,
+            current_user.get_id(),
+            limit
+        )
+
+        dashboard_viewmodel_list = []
+
+        for quizgame in all_quizgames:
+            game_listitem = QuizGameListItemViewModel()
+            game_listitem.id = quizgame.id
+            game_listitem.date = quizgame.creation_date.strftime('%d.%m.%Y %H:%M')
+
+            subject = SubjectRepository.find_by_id(quizgame.subject_id)
+            game_listitem.subject_name = subject.name
+
+            dashboard_viewmodel_list.append(game_listitem)
+
+        return dashboard_viewmodel_list
+
+    @staticmethod
+    def initialize_quiz_game_multiplayer(quizgame_id: int) -> QuizGame:
+        quizgame = QuizGameRepository.find_by_id(quizgame_id)
+        quizgame.current_assignee_id = current_user.get_id()
+
+        QuizService.update_quiz_game_status(quizgame.id)
+
+        QuizGameRepository.commit()
+
+        return quizgame
     # endregion
 
     # region Private Methods

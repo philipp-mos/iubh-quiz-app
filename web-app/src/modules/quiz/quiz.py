@@ -4,7 +4,6 @@ from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameResult import QuizGameResult
-from ...models.quizgame.QuizGameStatus import QuizGameStatus
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from .viewmodels.QuizGameResultViewModel import QuizGameResultViewModel
@@ -37,6 +36,21 @@ def start(subject_id: int):
     """
 
     quiz_game: QuizGame = __quizservice.initialize_quiz_game_for_subject(subject_id)
+
+    session['CURRENT_QUIZ_ID'] = quiz_game.id
+    session['CURRENT_QUIZ_RESULT_ID'] = 0
+
+    return redirect(url_for('quiz_controller.question', question_number=1))
+
+
+# Quiz/StartMultiplayer
+@quiz_controller.route('/start-multiplayer/<int:quizgame_id>', methods=['GET'])
+def start_multiplayer(quizgame_id: int):
+    """
+    Initialize the Multiplayer Mode for QuizGame by Opponent
+    """
+
+    quiz_game: QuizGame = __quizservice.initialize_quiz_game_multiplayer(quizgame_id)
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
     session['CURRENT_QUIZ_RESULT_ID'] = 0
@@ -108,7 +122,7 @@ def question_results():
     if not quiz_game_id:
         raise ValueError
 
-    __quizservice.update_quiz_game_status_to(quiz_game_id, QuizGameStatus.FINISHED)
+    __quizservice.update_quiz_game_status(quiz_game_id)
 
     quizgame_result: QuizGameResult = __quizservice.save_and_get_quiz_game_result(quiz_game_id)
 
@@ -118,5 +132,21 @@ def question_results():
 
     return render_template(
         'results.jinja2',
+        viewmodel=viewmodel
+    )
+
+
+# Quiz/Question/Results
+@quiz_controller.route('/game/overview', methods=['GET'])
+def game_overview():
+    """
+    Returns the Overview of QuizGames to use
+    """
+    viewmodel = []
+
+    viewmodel = QuizService.get_played_games_for_quiz_game_overview()
+
+    return render_template(
+        'game_overview.jinja2',
         viewmodel=viewmodel
     )

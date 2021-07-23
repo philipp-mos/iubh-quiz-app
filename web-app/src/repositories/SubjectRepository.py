@@ -1,3 +1,5 @@
+from sqlalchemy.sql import func
+
 from flask import current_app as app
 from typing import List
 
@@ -36,3 +38,7 @@ class SubjectRepository(Repository, AbcSubjectRepository):
         Returns all available Items ordered by name
         """
         return Subject.query.order_by(Subject.name).all()[:limit]
+
+    @staticmethod
+    def get_random_item() -> Subject:
+        return Subject.query.order_by(func.random()).first()
