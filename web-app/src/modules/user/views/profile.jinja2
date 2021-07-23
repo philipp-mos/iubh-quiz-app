@@ -29,6 +29,24 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-2"></div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="mb-2">
+                            <strong>Highscore-Übersicht</strong>
+                        </div>
+                        <div class="form-check">
+                            {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
+                            {{ viewmodel.is_highscore_enabled.label }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn btn-success" disabled>Speichern</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="d-block d-sm-none mt-2"></div>
         <div class="col-sm-6 col-xs-12">

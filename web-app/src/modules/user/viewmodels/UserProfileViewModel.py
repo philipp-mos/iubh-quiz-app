@@ -1,18 +1,19 @@
+from flask_wtf import FlaskForm
+from wtforms import BooleanField
+
 from .UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
 
-class UserProfileViewModel():
+class UserProfileViewModel(FlaskForm):
 
-    def __init__(
-        self,
-        email: str,
-        is_email_verified: bool,
-        registered_since,
-        role_status,
-        user_profile_quiz_suggestion: UserProfileQuizSuggestionViewModel
-    ):
-        self.email = email
-        self.is_email_verified = is_email_verified
-        self.registered_since = registered_since
-        self.role_status = role_status
-        self.user_profile_quiz_suggestion = user_profile_quiz_suggestion
+    email: str = ''
+
+    is_email_verified: bool = False
+
+    is_highscore_enabled = BooleanField('Zeige mich in der Highscore-Übersicht')
+
+    registered_since: str = ''
+
+    role_status: str = ''
+
+    user_profile_quiz_suggestion: UserProfileQuizSuggestionViewModel

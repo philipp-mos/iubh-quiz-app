@@ -46,13 +46,14 @@ def profile():
     elif __userservice.is_user_student(user):
         role_status = 'Student'
 
+    viewmodel = UserProfileViewModel()
+    viewmodel.email = user.email
+    viewmodel.is_email_verified = user.is_active
+    viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
+    viewmodel.role_status = role_status
+    viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
+
     return render_template(
         'profile.jinja2',
-        viewmodel=UserProfileViewModel(
-            user.email,
-            user.is_active,
-            user.creation_date.strftime("%d.%m.%Y"),
-            role_status,
-            user_profile_quiz_suggestion=__quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
-        )
+        viewmodel=viewmodel
     )
