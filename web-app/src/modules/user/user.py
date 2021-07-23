@@ -49,6 +49,7 @@ def profile():
     viewmodel = UserProfileViewModel()
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
+    viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
