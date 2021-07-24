@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
-from flask.helpers import url_for
+from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from werkzeug.utils import redirect
+
+from ...models.user.User import User
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
 from ...repositories.UserRepository import UserRepository
@@ -67,5 +68,12 @@ def save_highscore():
     """
     Saves the User Highscore Setting
     """
+    viewmodel = UserProfileViewModel()
+
+    if viewmodel.validate_on_submit():
+        user: User = UserRepository.find_by_id(current_user.get_id())
+        user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
+
+        UserRepository.commit()
 
     return redirect(url_for('user_controller.profile'))
