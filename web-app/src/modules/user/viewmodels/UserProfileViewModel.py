@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, SubmitField, StringField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
 from .UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
@@ -21,7 +21,8 @@ class UserProfileViewModel(FlaskForm):
     highscore_alias = StringField(
         'Alias',
         validators=[
-            DataRequired()
+            DataRequired(),
+            Length(min=5)
         ]
     )
 
