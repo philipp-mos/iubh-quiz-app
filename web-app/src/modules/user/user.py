@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
+from flask.helpers import url_for
 from flask_login import login_required, current_user
+from werkzeug.utils import redirect
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
 from ...repositories.UserRepository import UserRepository
@@ -58,3 +60,12 @@ def profile():
         'profile.jinja2',
         viewmodel=viewmodel
     )
+
+
+@user_controller.route('/save-highscore', methods=['POST'])
+def save_highscore():
+    """
+    Saves the User Highscore Setting
+    """
+
+    return redirect(url_for('user_controller.profile'))

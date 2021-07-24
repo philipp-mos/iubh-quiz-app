@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField
+from wtforms import BooleanField, SubmitField
 
 from .UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
@@ -17,3 +17,5 @@ class UserProfileViewModel(FlaskForm):
     role_status: str = ''
 
     user_profile_quiz_suggestion: UserProfileQuizSuggestionViewModel
+
+    submit = SubmitField('Speichern')

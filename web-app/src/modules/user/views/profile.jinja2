@@ -25,26 +25,31 @@
                     </div>
 
                     <div>
-                        <button type="button" class="btn btn-success" disabled>Speichern</button>
+                        {{ viewmodel.submit(class_="btn btn-success", disabled=True) }}
                     </div>
                 </div>
             </div>
             <div class="mt-2"></div>
             <div class="card">
                 <div class="card-body">
-                    <div class="mb-4">
-                        <div class="mb-2">
-                            <strong>Highscore-Übersicht</strong>
-                        </div>
-                        <div class="form-check">
-                            {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
-                            {{ viewmodel.is_highscore_enabled.label }}
-                        </div>
-                    </div>
+                    <form method="POST" action="{{ url_for('user_controller.save_highscore') }}">
+                        {{ viewmodel.csrf_token }}
 
-                    <div>
-                        <button type="button" class="btn btn-success" disabled>Speichern</button>
-                    </div>
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <strong>Highscore-Übersicht</strong>
+                            </div>
+                            <div class="form-check">
+                                {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
+                                {{ viewmodel.is_highscore_enabled.label }}
+                            </div>
+                        </div>
+
+                        <div>
+                            {{ viewmodel.submit(class_="btn btn-success") }}
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
