@@ -40,7 +40,7 @@ def profile():
     User Profile Overview Page
     """
 
-    user = __userrepository.find_by_id(current_user.id)
+    user: User = __userrepository.find_by_id(current_user.id)
 
     role_status = '-'
 
@@ -53,6 +53,7 @@ def profile():
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
+    viewmodel.highscore_alias.data = user.highscore_alias
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
@@ -73,6 +74,7 @@ def save_highscore():
     if viewmodel.validate_on_submit():
         user: User = UserRepository.find_by_id(current_user.get_id())
         user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
+        user.highscore_alias = viewmodel.highscore_alias.data
 
         UserRepository.commit()
 

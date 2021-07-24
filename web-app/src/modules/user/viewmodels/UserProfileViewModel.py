@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SubmitField
+from wtforms import BooleanField, SubmitField, StringField
+from wtforms.validators import DataRequired
 
 from .UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
 
@@ -10,11 +11,19 @@ class UserProfileViewModel(FlaskForm):
 
     is_email_verified: bool = False
 
-    is_highscore_enabled = BooleanField('Zeige mich in der Highscore-Übersicht')
-
     registered_since: str = ''
 
     role_status: str = ''
+
+    # Highscore
+    is_highscore_enabled = BooleanField('Zeige mich in der Highscore-Übersicht')
+
+    highscore_alias = StringField(
+        'Alias',
+        validators=[
+            DataRequired()
+        ]
+    )
 
     user_profile_quiz_suggestion: UserProfileQuizSuggestionViewModel
 

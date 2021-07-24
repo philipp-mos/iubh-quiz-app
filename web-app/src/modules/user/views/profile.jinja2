@@ -38,10 +38,22 @@
                         <div class="mb-4">
                             <div class="mb-2">
                                 <strong>Highscore-Übersicht</strong>
+                                {% if viewmodel.is_highscore_enabled.data %}
+                                    <span class="badge bg-success float-end"><i class="far fa-check-circle"></i> Aktiv</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark float-end"><i class="far fa-at"></i> Nicht aktiv</span>
+                                {% endif %}
                             </div>
-                            <div class="form-check">
+                            <div class="form-text">
+                                Aktiviere diese Option, wenn du in der Highscore-Übersicht erscheinen möchtest.<br />
+                                Du benötigst einen Alias, um gelistet zu werden.
+                            </div>
+                            <div class="form-check mt-3">
                                 {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
                                 {{ viewmodel.is_highscore_enabled.label }}
+                            </div>
+                            <div class="mt-4">
+                                {{ viewmodel.highscore_alias(class_="form-control", placeholder="Alias") }}
                             </div>
                         </div>
 
