@@ -39,13 +39,18 @@ class HighscoreService(AbcHighscoreService):
 
     @staticmethod
     def calculate_highscores_and_update() -> bool:
-        grouped_results = QuizGameResultRepository.get_all_grouped_and_count_by_user()
+
+        results_sorted = sorted(
+            QuizGameResultRepository.get_all_grouped_and_count_by_user(),
+            key=lambda x: x.amount_of_games_won,
+            reverse=True
+        )
 
         highscorerank_list = []
 
         counter = 0
 
-        for result in grouped_results:
+        for result in results_sorted:
 
             user: User = UserRepository.find_by_id(result.user_id)
 
