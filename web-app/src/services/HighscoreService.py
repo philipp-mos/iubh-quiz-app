@@ -2,9 +2,16 @@ from typing import List
 
 from .abstracts.AbcHighscoreService import AbcHighscoreService
 
+from ..models.highscore.HighscoreRank import HighscoreRank
+from ..models.user.User import User
+
 from ..modules.highscore.viewmodels.HighscoreRankViewModel import HighscoreRankViewModel
 
 from ..repositories.HighscoreRankRepository import HighscoreRankRepository
+from ..repositories.QuizGameResultRepository import QuizGameResultRepository
+from ..repositories.UserRepository import UserRepository
+
+from ..helpers.ImageHelper import ImageHelper
 
 
 class HighscoreService(AbcHighscoreService):
@@ -32,4 +39,29 @@ class HighscoreService(AbcHighscoreService):
 
     @staticmethod
     def calculate_highscores_and_update() -> bool:
+        grouped_results = QuizGameResultRepository.get_all_grouped_and_count_by_user()
+
+        highscorerank_list = []
+
+        counter = 0
+
+        for result in grouped_results:
+
+            user: User = UserRepository.find_by_id(result.user_id)
+
+            if not user or not user.is_highscore_enabled:
+                continue
+
+            counter += 1
+
+            highscore_rank: HighscoreRank = HighscoreRank()
+
+            highscore_rank.rank = counter
+            highscore_rank.user_id = user.id
+            highscore_rank.user_alias = user.highscore_alias
+            highscore_rank.user_profilepicture = ImageHelper.build_gavatar_image_url(user.email)
+            highscore_rank.amount_of_games_won = result.amount_of_games_won
+
+            highscorerank_list.append(highscore_rank)
+
         return True
