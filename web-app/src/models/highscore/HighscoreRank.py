@@ -29,6 +29,12 @@ class HighscoreRank(db.Model):
         unique=True
     )
 
+    user_id = db.Column(
+        db.Integer,
+        nullable=False,
+        unique=True
+    )
+
     amount_of_games_won = db.Column(
         db.Integer,
         nullable=False,
