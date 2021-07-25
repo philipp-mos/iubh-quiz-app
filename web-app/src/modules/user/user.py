@@ -5,7 +5,10 @@ from werkzeug.utils import redirect
 from ...models.user.User import User
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
+from ...repositories.abstracts.AbcQuizGameResultRepository import AbcQuizGameResultRepository
 from ...repositories.UserRepository import UserRepository
+from ...repositories.QuizGameResultRepository import QuizGameResultRepository
+
 
 from ...services.abstracts.AbcUserService import AbcUserService
 from ...services.abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
@@ -15,6 +18,7 @@ from ...services.QuizSuggestionService import QuizSuggestionService
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
 
 __userrepository: AbcUserRepository = UserRepository()
+__quizgameresultrepository: AbcQuizGameResultRepository = QuizGameResultRepository()
 __userservice: AbcUserService = UserService()
 __quizsuggestionservice: AbcQuizSuggestionService = QuizSuggestionService()
 
@@ -52,8 +56,10 @@ def profile():
     viewmodel = UserProfileViewModel()
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
+    viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.highscore_alias.data = user.highscore_alias
+    viewmodel.highscore_rank = 0
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)

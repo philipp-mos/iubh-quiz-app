@@ -22,3 +22,7 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         Get a specific Item by ID
         """
         return QuizGameResult.query.get(id)
+
+    @staticmethod
+    def count_by_user_id(user_id: int) -> int:
+        return QuizGameResult.query.filter(QuizGameResult.user_id == user_id).count()

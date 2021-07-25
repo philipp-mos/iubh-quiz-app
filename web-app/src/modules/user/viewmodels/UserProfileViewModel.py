@@ -15,6 +15,8 @@ class UserProfileViewModel(FlaskForm):
 
     role_status: str = ''
 
+    amount_played_games: int
+
     # Highscore
     is_highscore_enabled = BooleanField('Zeige mich in der Highscore-Übersicht')
 
@@ -25,6 +27,8 @@ class UserProfileViewModel(FlaskForm):
             Length(min=5)
         ]
     )
+
+    highscore_rank: int
 
     user_profile_quiz_suggestion: UserProfileQuizSuggestionViewModel
 

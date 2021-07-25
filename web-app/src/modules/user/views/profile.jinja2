@@ -81,7 +81,7 @@
                             </div>
                             <div class="mb-3">
                                 <strong>Gespielte Spiele:</strong>
-                                <span class="float-end">-</span>
+                                <span class="float-end">{{ viewmodel.amount_played_games }}</span>
                             </div>
 
                             <div>
@@ -95,7 +95,7 @@
                             {% if viewmodel.is_highscore_enabled.data %}
                                 <div class="mt-3">
                                     <strong>Highscore-Rang:</strong>
-                                    <span class="float-end">-</span>
+                                    <span class="float-end">{{ viewmodel.highscore_rank }}</span>
                                 </div>
                             {% endif %}
                         </div>
