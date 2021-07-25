@@ -22,3 +22,10 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         Get a specific Item by ID
         """
         return QuizGameResult.query.get(id)
+
+    @staticmethod
+    def find_by_guizgame_id(quizgame_id: int, limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizGameResult]:
+        """
+        Returns all QuizGameResults for a given QuizGame Id
+        """
+        return QuizGameResult.query.filter(QuizGameResult.quizgame_id == quizgame_id)[:limit]

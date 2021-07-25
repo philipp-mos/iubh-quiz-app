@@ -164,7 +164,7 @@ class QuizService(AbcQuizService):
             )
 
     @staticmethod
-    def update_quiz_game_status(quiz_id: int) -> None:
+    def update_quiz_game_status(quiz_id: int, quizgame_status: QuizGameStatus = None) -> None:
         """
         Updates the status of the current QuizGame
         """
@@ -172,6 +172,12 @@ class QuizService(AbcQuizService):
             raise ValueError
 
         quiz_game = QuizGameRepository.find_by_id(int(quiz_id))
+
+        if quizgame_status is not None:
+            quiz_game.current_status = quizgame_status
+            QuizGameRepository.commit()
+
+            return None
 
         if quiz_game.current_status == QuizGameStatus.IN_PROGRESS:
             quiz_game.current_status = QuizGameStatus.FINISHED
@@ -183,6 +189,8 @@ class QuizService(AbcQuizService):
             quiz_game.current_status = QuizGameStatus.CLOSED
 
         QuizGameRepository.commit()
+
+        return None
 
     @staticmethod
     def save_quiz_game_question_score(quiz_game_id: int, question_number: int, viewmodel: QuizQuestionViewModel) -> None:
@@ -288,6 +296,29 @@ class QuizService(AbcQuizService):
         QuizGameRepository.commit()
 
         return quizgame
+
+    @staticmethod
+    def finalize_quiz_result_calculations(quiz_game_id: int) -> None:
+
+        quizgame = QuizGameRepository.find_by_id(quiz_game_id)
+
+        if quizgame.current_status != QuizGameStatus.OPPONENT_IN_PROGRESS:
+            return None
+
+        quizgame_results = QuizGameResultRepository.find_by_guizgame_id(quiz_game_id)
+
+        if not quizgame_results:
+            return None
+
+        max_amount_correctquestions: int = max(quizgame_result.amount_of_correct_questions for quizgame_result in quizgame_results)
+
+        for quizgame_result in quizgame_results:
+            quizgame_result.is_won = quizgame_result.amount_of_correct_questions == max_amount_correctquestions
+
+        QuizGameResultRepository.commit()
+
+        return None
+
     # endregion
 
     # region Private Methods
