@@ -4,6 +4,8 @@ from flask_login import login_required
 
 from ...models.quizgame.QuizGame import QuizGame
 from ...models.quizgame.QuizGameResult import QuizGameResult
+from ...models.quizgame.QuizGameStatus import QuizGameStatus
+
 
 from .viewmodels.QuizQuestionViewModel import QuizQuestionViewModel
 from .viewmodels.QuizGameResultViewModel import QuizGameResultViewModel
@@ -39,6 +41,7 @@ def start(subject_id: int):
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
     session['CURRENT_QUIZ_RESULT_ID'] = 0
+    session['IS_MULTIPLAYER_GAME'] = False
 
     return redirect(url_for('quiz_controller.question', question_number=1))
 
@@ -54,6 +57,7 @@ def start_multiplayer(quizgame_id: int):
 
     session['CURRENT_QUIZ_ID'] = quiz_game.id
     session['CURRENT_QUIZ_RESULT_ID'] = 0
+    session['IS_MULTIPLAYER_GAME'] = True
 
     return redirect(url_for('quiz_controller.question', question_number=1))
 
@@ -122,9 +126,15 @@ def question_results():
     if not quiz_game_id:
         raise ValueError
 
-    __quizservice.update_quiz_game_status(quiz_game_id)
-
     quizgame_result: QuizGameResult = __quizservice.save_and_get_quiz_game_result(quiz_game_id)
+
+    new_quizgame_status: QuizGameStatus = QuizGameStatus.FINISHED
+
+    if session.get('IS_MULTIPLAYER_GAME') is True:
+        __quizservice.finalize_quiz_result_calculations(quiz_game_id)
+        new_quizgame_status = QuizGameStatus.CLOSED
+
+    __quizservice.update_quiz_game_status(quiz_game_id, new_quizgame_status)
 
     viewmodel = QuizGameResultViewModel()
     viewmodel.amount_questions = quizgame_result.amount_of_questions

@@ -20,10 +20,10 @@
                         <tr>
                             <td class="text-secondary">{{ game_list_item.date }}</td>
                             <td>
-                                <a href="">{{ game_list_item.subject_name }}</a>
+                                <a href="{{ url_for('quiz_controller.start_multiplayer', quizgame_id=game_list_item.id) }}">{{ game_list_item.subject_name }}</a>
                             </td>
                             <td class="text-center">
-                                <a href="#"><i class="fas fa-play"></i><a>
+                                <a href="{{ url_for('quiz_controller.start_multiplayer', quizgame_id=game_list_item.id) }}"><i class="fas fa-play"></i><a>
                             </td>
                         </tr>
                     {% endfor %}
