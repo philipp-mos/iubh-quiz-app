@@ -1,8 +1,14 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
+from werkzeug.utils import redirect
+
+from ...models.user.User import User
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
+from ...repositories.abstracts.AbcQuizGameResultRepository import AbcQuizGameResultRepository
 from ...repositories.UserRepository import UserRepository
+from ...repositories.QuizGameResultRepository import QuizGameResultRepository
+
 
 from ...services.abstracts.AbcUserService import AbcUserService
 from ...services.abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
@@ -12,6 +18,7 @@ from ...services.QuizSuggestionService import QuizSuggestionService
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
 
 __userrepository: AbcUserRepository = UserRepository()
+__quizgameresultrepository: AbcQuizGameResultRepository = QuizGameResultRepository()
 __userservice: AbcUserService = UserService()
 __quizsuggestionservice: AbcQuizSuggestionService = QuizSuggestionService()
 
@@ -37,7 +44,7 @@ def profile():
     User Profile Overview Page
     """
 
-    user = __userrepository.find_by_id(current_user.id)
+    user: User = __userrepository.find_by_id(current_user.id)
 
     role_status = '-'
 
@@ -46,13 +53,35 @@ def profile():
     elif __userservice.is_user_student(user):
         role_status = 'Student'
 
+    viewmodel = UserProfileViewModel()
+    viewmodel.email = user.email
+    viewmodel.is_email_verified = user.is_active
+    viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
+    viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
+    viewmodel.highscore_alias.data = user.highscore_alias
+    viewmodel.highscore_rank = 0
+    viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
+    viewmodel.role_status = role_status
+    viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
+
     return render_template(
         'profile.jinja2',
-        viewmodel=UserProfileViewModel(
-            user.email,
-            user.is_active,
-            user.creation_date.strftime("%d.%m.%Y"),
-            role_status,
-            user_profile_quiz_suggestion=__quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
-        )
+        viewmodel=viewmodel
     )
+
+
+@user_controller.route('/save-highscore', methods=['POST'])
+def save_highscore():
+    """
+    Saves the User Highscore Setting
+    """
+    viewmodel = UserProfileViewModel()
+
+    if viewmodel.validate_on_submit():
+        user: User = UserRepository.find_by_id(current_user.get_id())
+        user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
+        user.highscore_alias = viewmodel.highscore_alias.data
+
+        UserRepository.commit()
+
+    return redirect(url_for('user_controller.profile'))

@@ -29,3 +29,7 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         Returns all QuizGameResults for a given QuizGame Id
         """
         return QuizGameResult.query.filter(QuizGameResult.quizgame_id == quizgame_id)[:limit]
+
+    @staticmethod
+    def count_by_user_id(user_id: int) -> int:
+        return QuizGameResult.query.filter(QuizGameResult.user_id == user_id).count()
