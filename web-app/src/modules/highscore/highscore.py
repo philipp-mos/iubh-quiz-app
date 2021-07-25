@@ -23,4 +23,9 @@ def overview():
     Highscore-Übersicht
     """
 
-    return render_template('highscore.jinja2')
+    viewmodel_list = []
+
+    return render_template(
+        'highscore.jinja2',
+        viewmodel=viewmodel_list
+    )

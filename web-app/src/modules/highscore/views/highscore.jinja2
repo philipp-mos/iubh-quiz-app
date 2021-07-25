@@ -2,6 +2,34 @@
 {% set page_title = 'Highscore' %}
 {% set bundle_name = '' %}
 
+
 {% block content %}
-    <h1>Highscore</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h2 mb-4">Highscore</h1>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Rang</th>
+                        <th scope="col">Spieler</th>
+                        <th scope="col" class="text-right">Gewonnene Spiele</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for highscore_item in viewmodel %}
+                        <tr class="align-middle">
+                            <td class="text-secondary">{{ highscore_item.rank }}.</td>
+                            <td>
+                                <img src="{{ highscore_item.user_profilepicture }}" class="img-rounded" width="33" height="33">
+                                <span class="mx-3">{{ highscore_item.user_alias }}</span>
+                            </td>
+                            <td class="text-right">{{ highscore_item.amount_of_games_won }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
