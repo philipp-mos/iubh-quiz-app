@@ -29,3 +29,7 @@ class HighscoreService(AbcHighscoreService):
             viewmodel_list.append(viewmodel)
 
         return viewmodel_list
+
+    @staticmethod
+    def calculate_highscores_and_update() -> bool:
+        return True

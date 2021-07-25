@@ -9,3 +9,7 @@ class AbcHighscoreService(ABC):
     @abstractmethod
     def get_highscore_rank_viewmodel_list() -> List[HighscoreRankViewModel]:
         raise NotImplementedError
+
+    @abstractmethod
+    def calculate_highscores_and_update() -> bool:
+        raise NotImplementedError
