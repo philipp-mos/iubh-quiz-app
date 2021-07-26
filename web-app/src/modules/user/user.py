@@ -79,7 +79,9 @@ def save_highscore():
 
     if viewmodel.validate_on_submit():
         user: User = UserRepository.find_by_id(current_user.get_id())
-        user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
+        if not user.is_highscore_enabled:
+            user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
+
         user.highscore_alias = viewmodel.highscore_alias.data
 
         UserRepository.commit()
