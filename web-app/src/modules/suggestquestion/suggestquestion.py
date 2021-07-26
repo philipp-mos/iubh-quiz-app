@@ -1,5 +1,5 @@
 from flask_login import login_required, current_user
-from flask import Blueprint, render_template, session, request, redirect, url_for
+from flask import Blueprint, render_template, session, request, redirect, url_for, escape
 from flask import current_app as app
 from datetime import datetime
 
@@ -46,8 +46,8 @@ def subjectselection():
         subject_selection_viewmodel.subject_name.data = session.get('quizsuggest__subject_name')
 
     if request.method == 'POST' and subject_selection_viewmodel.validate_on_submit():
-        session['quizsuggest__subject_id'] = subject_selection_viewmodel.subject_id.data
-        session['quizsuggest__subject_name'] = subject_selection_viewmodel.subject_name.data
+        session['quizsuggest__subject_id'] = escape(subject_selection_viewmodel.subject_id.data)
+        session['quizsuggest__subject_name'] = escape(subject_selection_viewmodel.subject_name.data)
 
         return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
@@ -73,11 +73,11 @@ def questionandanswer():
     if request.method == 'POST' and questionandanswer_viewmodel.validate_on_submit():
 
         new_quizsuggestion = QuizSuggestion()
-        new_quizsuggestion.question = questionandanswer_viewmodel.question_text.data
+        new_quizsuggestion.question = escape(questionandanswer_viewmodel.question_text.data)
         new_quizsuggestion.creation_date = datetime.now()
         new_quizsuggestion.is_approved = False
         new_quizsuggestion.is_declined = False
-        new_quizsuggestion.subject_id = questionandanswer_viewmodel.subject_id.data
+        new_quizsuggestion.subject_id = escape(questionandanswer_viewmodel.subject_id.data)
         new_quizsuggestion.user_id = current_user.id
 
         __quizsuggestionrepository.add_and_commit(new_quizsuggestion)
@@ -86,21 +86,21 @@ def questionandanswer():
             return redirect(url_for('suggestquestion_controller.questionandanswer'))
 
         if not __quizsuggestionservice.add_answer_for_quizsuggestion(
-            questionandanswer_viewmodel.answer_1_text.data,
+            escape(questionandanswer_viewmodel.answer_1_text.data),
             questionandanswer_viewmodel.correct_answer_flag.data == '1',
             new_quizsuggestion.id
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
         if not __quizsuggestionservice.add_answer_for_quizsuggestion(
-            questionandanswer_viewmodel.answer_2_text.data,
+            escape(questionandanswer_viewmodel.answer_2_text.data),
             questionandanswer_viewmodel.correct_answer_flag.data == '2',
             new_quizsuggestion.id
         ):
             app.logger.warn('QuizSuggestionAnswer was not saved successfully')
 
         if not __quizsuggestionservice.add_answer_for_quizsuggestion(
-            questionandanswer_viewmodel.answer_3_text.data,
+            escape(questionandanswer_viewmodel.answer_3_text.data),
             questionandanswer_viewmodel.correct_answer_flag.data == '3',
             new_quizsuggestion.id
         ):

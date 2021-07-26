@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, escape
 from flask_login import login_required, current_user
 from werkzeug.utils import redirect
 
@@ -82,7 +82,7 @@ def save_highscore():
         if not user.is_highscore_enabled:
             user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
 
-        user.highscore_alias = viewmodel.highscore_alias.data
+        user.highscore_alias = escape(viewmodel.highscore_alias.data)
 
         UserRepository.commit()
 
