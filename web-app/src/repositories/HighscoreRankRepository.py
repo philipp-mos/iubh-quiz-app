@@ -22,3 +22,10 @@ class HighscoreRankRepository(Repository, AbcHighscoreRankRepository):
         Get a specific Item by ID
         """
         return HighscoreRank.query.get(id)
+
+    @staticmethod
+    def find_by_rank(rank: int) -> HighscoreRank:
+        """
+        Get a specific HighscoreRank by rank
+        """
+        return HighscoreRank.query.filter(HighscoreRank.rank == rank).first()

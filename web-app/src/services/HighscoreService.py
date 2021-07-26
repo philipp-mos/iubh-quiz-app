@@ -46,8 +46,6 @@ class HighscoreService(AbcHighscoreService):
             reverse=True
         )
 
-        highscorerank_list = []
-
         counter = 0
 
         for result in results_sorted:
@@ -67,6 +65,22 @@ class HighscoreService(AbcHighscoreService):
             highscore_rank.user_profilepicture = ImageHelper.build_gavatar_image_url(user.email)
             highscore_rank.amount_of_games_won = result.amount_of_games_won
 
-            highscorerank_list.append(highscore_rank)
+            HighscoreService.__replace_or_create_ranking(highscore_rank)
 
         return True
+
+    @staticmethod
+    def __replace_or_create_ranking(highscore_rank: HighscoreRank) -> None:
+
+        db_highscorerank: HighscoreRank = HighscoreRankRepository.find_by_rank(highscore_rank.rank)
+
+        if db_highscorerank:
+            db_highscorerank.user_id = highscore_rank.user_id
+            db_highscorerank.user_alias = highscore_rank.user_alias
+            db_highscorerank.user_profilepicture = highscore_rank.user_profilepicture
+            db_highscorerank.amount_of_games_won = highscore_rank.amount_of_games_won
+
+            HighscoreRankRepository.commit()
+
+        else:
+            HighscoreRankRepository.add_and_commit(highscore_rank)
