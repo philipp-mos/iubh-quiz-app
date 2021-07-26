@@ -24,6 +24,13 @@ class HighscoreRankRepository(Repository, AbcHighscoreRankRepository):
         return HighscoreRank.query.get(id)
 
     @staticmethod
+    def get_all_ordered_by_rank(limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[HighscoreRank]:
+        """
+        Get all Elements ordered by their rank
+        """
+        return HighscoreRank.query.order_by(HighscoreRank.rank).all()[:limit]
+
+    @staticmethod
     def find_by_rank(rank: int) -> HighscoreRank:
         """
         Get a specific HighscoreRank by rank

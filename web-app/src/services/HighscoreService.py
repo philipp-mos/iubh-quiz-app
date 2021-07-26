@@ -32,7 +32,7 @@ class HighscoreService(AbcHighscoreService):
         Builds all Highscore Ranks and return List of ViewModles
         """
 
-        all_highscoreranks = HighscoreRankRepository.get_all()
+        all_highscoreranks = HighscoreRankRepository.get_all_ordered_by_rank()
 
         viewmodel_list = []
 
