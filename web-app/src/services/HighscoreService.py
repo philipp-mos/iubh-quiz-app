@@ -7,6 +7,7 @@ from ..models.highscore.HighscoreRank import HighscoreRank
 from ..models.user.User import User
 
 from ..modules.highscore.viewmodels.HighscoreRankViewModel import HighscoreRankViewModel
+from ..modules.highscore.viewmodels.HighscoreOverviewViewModel import HighscoreOverviewViewModel
 
 from ..repositories.HighscoreRankRepository import HighscoreRankRepository
 from ..repositories.QuizGameResultRepository import QuizGameResultRepository
@@ -16,6 +17,14 @@ from ..helpers.ImageHelper import ImageHelper
 
 
 class HighscoreService(AbcHighscoreService):
+
+    @staticmethod
+    def get_highscoreoverview_viewmodel() -> HighscoreOverviewViewModel:
+        viewmodel = HighscoreOverviewViewModel()
+        viewmodel.highscorerank_viewmodels = HighscoreService.get_highscore_rank_viewmodel_list()
+        viewmodel.last_updated = HighscoreService.get_last_update_datestring()
+
+        return viewmodel
 
     @staticmethod
     def get_highscore_rank_viewmodel_list() -> List[HighscoreRankViewModel]:

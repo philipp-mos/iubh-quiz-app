@@ -2,9 +2,14 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from ...modules.highscore.viewmodels.HighscoreRankViewModel import HighscoreRankViewModel
+from ...modules.highscore.viewmodels.HighscoreOverviewViewModel import HighscoreOverviewViewModel
 
 
 class AbcHighscoreService(ABC):
+
+    @abstractmethod
+    def get_highscoreoverview_viewmodel() -> HighscoreOverviewViewModel:
+        raise NotImplementedError
 
     @abstractmethod
     def get_highscore_rank_viewmodel_list() -> List[HighscoreRankViewModel]:
