@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import current_app as app
+from flask import Blueprint, jsonify, request
 
 from ...services.abstracts.AbcHighscoreService import AbcHighscoreService
 from ...services.HighscoreService import HighscoreService
@@ -19,6 +20,9 @@ def update():
     """
     Run the Highscore Calculation and Update Entries
     """
+
+    if request.args.get('migrationkey') != app.config['MIGRATION_KEY']:
+        return jsonify({'status': 'denied'}), 403
 
     status_message: str = 'failed'
     status_code: int = 500
