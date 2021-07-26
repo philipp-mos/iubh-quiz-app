@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for highscore_item in viewmodel %}
+                    {% for highscore_item in viewmodel.highscorerank_viewmodels %}
                         <tr class="align-middle">
                             <td class="text-secondary">{{ highscore_item.rank }}.</td>
                             <td>
@@ -29,6 +29,11 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-muted">
+            Stand: {{ viewmodel.last_updated }}
         </div>
     </div>
 

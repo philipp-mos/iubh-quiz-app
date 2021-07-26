@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
 
+from .viewmodels.HighscoreOverviewViewModel import HighscoreOverviewViewModel
+
 from ...services.abstracts.AbcHighscoreService import AbcHighscoreService
 from ...services.HighscoreService import HighscoreService
 
@@ -28,8 +30,11 @@ def overview():
     """
     Highscore-Übersicht
     """
+    viewmodel = HighscoreOverviewViewModel()
+    viewmodel.highscorerank_viewmodels = __highscoreservice.get_highscore_rank_viewmodel_list()
+    viewmodel.last_updated = ''
 
     return render_template(
         'highscore.jinja2',
-        viewmodel=__highscoreservice.get_highscore_rank_viewmodel_list()
+        viewmodel=viewmodel
     )
