@@ -40,3 +40,10 @@ class HighscoreRank(db.Model):
         nullable=False,
         unique=False
     )
+
+    last_update = db.Column(
+        db.DateTime,
+        index=False,
+        unique=False,
+        nullable=True
+    )
