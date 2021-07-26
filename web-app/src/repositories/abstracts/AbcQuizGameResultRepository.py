@@ -14,3 +14,7 @@ class AbcQuizGameResultRepository(AbcRepository):
     @abstractmethod
     def find_by_guizgame_id(quizgame_id: int, limit=0) -> List[QuizGameResult]:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_all_grouped_and_count_by_user() -> List[QuizGameResult]:
+        raise NotImplementedError

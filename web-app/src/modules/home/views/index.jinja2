@@ -1,6 +1,6 @@
 {% extends 'base_layout.jinja2' %}
 {% set page_title = 'Dashboard' %}
-{% set bundle_name = 'home.bundle' %}
+{% set bundle_name = '' %}
 
 {% block content %}
 
@@ -9,11 +9,24 @@
             <h1 class="h4 mb-4">Optionen</h1>
             <div class="d-grid gap-2">
                 {% if viewmodel.random_quiz_id > 0 %}
-                    <a href="{{ url_for('quiz_controller.start', subject_id=viewmodel.random_quiz_id) }}" class="btn btn-secondary">Neues zufälliges Quiz starten</a>
+                    <a href="{{ url_for('quiz_controller.start', subject_id=viewmodel.random_quiz_id) }}" class="btn btn-primary">
+                        <i class="fas fa-puzzle-piece"></i>&nbsp;
+                        Neues zufälliges Quiz starten
+                    </a>
                 {% endif %}
                 
-                <a href="{{ url_for('suggestquestion_controller.subjectselection') }}" class="btn btn-secondary">Eigene Frage vorschlagen</a>
-                <a href="{{ url_for('user_controller.profile') }}" class="btn btn-secondary">Mein Profil anzeigen</a>
+                <a href="{{ url_for('suggestquestion_controller.subjectselection') }}" class="btn btn-primary">
+                    <i class="fas fa-question"></i>&nbsp;
+                    Eigene Frage vorschlagen
+                </a>
+                <a href="{{ url_for('user_controller.profile') }}" class="btn btn-primary">
+                    <i class="fas fa-id-badge"></i>&nbsp;
+                    Mein Profil anzeigen
+                </a>
+                <a href="{{ url_for('highscore_controller.overview') }}" class="btn btn-primary">
+                    <i class="fas fa-thumbs-up"></i>&nbsp;
+                    Highscores anzeigen
+                </a>
             </div>
         </div>
         <div class="col-1"></div>

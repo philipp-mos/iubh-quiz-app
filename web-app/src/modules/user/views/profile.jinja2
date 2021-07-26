@@ -49,7 +49,11 @@
                                 Du benötigst hierzu einen Alias. Dieser wird den anderen Spielern angezeigt.
                             </div>
                             <div class="form-check mt-3">
-                                {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
+                                {% if viewmodel.is_highscore_enabled.data %}
+                                    {{ viewmodel.is_highscore_enabled(class_="form-check-input", disabled=True) }}
+                                {% else %}
+                                    {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
+                                {% endif %}
                                 {{ viewmodel.is_highscore_enabled.label }}
                             </div>
                             <div class="mt-4">
