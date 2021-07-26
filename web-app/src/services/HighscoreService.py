@@ -80,7 +80,7 @@ class HighscoreService(AbcHighscoreService):
             db_highscorerank.user_profilepicture = highscore_rank.user_profilepicture
             db_highscorerank.amount_of_games_won = highscore_rank.amount_of_games_won
 
-            HighscoreRankRepository.commit()
-
         else:
-            HighscoreRankRepository.add_and_commit(highscore_rank)
+            HighscoreRankRepository.add(highscore_rank)
+
+        HighscoreRankRepository.commit()
