@@ -1,4 +1,5 @@
 from typing import List
+from datetime import datetime
 
 from .abstracts.AbcHighscoreService import AbcHighscoreService
 
@@ -64,6 +65,7 @@ class HighscoreService(AbcHighscoreService):
             highscore_rank.user_alias = user.highscore_alias
             highscore_rank.user_profilepicture = ImageHelper.build_gavatar_image_url(user.email)
             highscore_rank.amount_of_games_won = result.amount_of_games_won
+            highscore_rank.last_update = datetime.now()
 
             HighscoreService.__replace_or_create_ranking(highscore_rank)
 
@@ -75,6 +77,12 @@ class HighscoreService(AbcHighscoreService):
         db_highscorerank: HighscoreRank = HighscoreRankRepository.find_by_rank(highscore_rank.rank)
 
         if db_highscorerank:
+            if (
+                db_highscorerank.user_id != highscore_rank.user_id or
+                db_highscorerank.amount_of_games_won != highscore_rank.amount_of_games_won
+            ):
+                db_highscorerank.last_update = highscore_rank.last_update
+
             db_highscorerank.user_id = highscore_rank.user_id
             db_highscorerank.user_alias = highscore_rank.user_alias
             db_highscorerank.user_profilepicture = highscore_rank.user_profilepicture
