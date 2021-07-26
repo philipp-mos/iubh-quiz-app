@@ -72,6 +72,15 @@ class HighscoreService(AbcHighscoreService):
         return True
 
     @staticmethod
+    def get_last_update_datestring() -> str:
+        last_updated_item: HighscoreRank = HighscoreRankRepository.get_last_updated_item()
+
+        if not last_updated_item:
+            return '-'
+
+        return last_updated_item.last_update.strftime('%d.%m.%Y %H:%M')
+
+    @staticmethod
     def __replace_or_create_ranking(highscore_rank: HighscoreRank) -> None:
 
         db_highscorerank: HighscoreRank = HighscoreRankRepository.find_by_rank(highscore_rank.rank)

@@ -29,3 +29,10 @@ class HighscoreRankRepository(Repository, AbcHighscoreRankRepository):
         Get a specific HighscoreRank by rank
         """
         return HighscoreRank.query.filter(HighscoreRank.rank == rank).first()
+
+    @staticmethod
+    def get_last_updated_item() -> HighscoreRank:
+        """
+        Returns the last updated Item
+        """
+        return HighscoreRank.query.order_by(HighscoreRank.last_update.desc()).first()

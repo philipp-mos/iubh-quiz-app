@@ -13,3 +13,7 @@ class AbcHighscoreService(ABC):
     @abstractmethod
     def calculate_highscores_and_update() -> bool:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_last_update_datestring() -> str:
+        raise NotImplementedError

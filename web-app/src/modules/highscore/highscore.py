@@ -32,7 +32,7 @@ def overview():
     """
     viewmodel = HighscoreOverviewViewModel()
     viewmodel.highscorerank_viewmodels = __highscoreservice.get_highscore_rank_viewmodel_list()
-    viewmodel.last_updated = ''
+    viewmodel.last_updated = __highscoreservice.get_last_update_datestring()
 
     return render_template(
         'highscore.jinja2',
