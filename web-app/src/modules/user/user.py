@@ -12,8 +12,10 @@ from ...repositories.QuizGameResultRepository import QuizGameResultRepository
 
 from ...services.abstracts.AbcUserService import AbcUserService
 from ...services.abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
+from ...services.abstracts.AbcHighscoreService import AbcHighscoreService
 from ...services.UserService import UserService
 from ...services.QuizSuggestionService import QuizSuggestionService
+from ...services.HighscoreService import HighscoreService
 
 from .viewmodels.UserProfileViewModel import UserProfileViewModel
 
@@ -21,6 +23,7 @@ __userrepository: AbcUserRepository = UserRepository()
 __quizgameresultrepository: AbcQuizGameResultRepository = QuizGameResultRepository()
 __userservice: AbcUserService = UserService()
 __quizsuggestionservice: AbcQuizSuggestionService = QuizSuggestionService()
+__highscoreservice: AbcHighscoreService = HighscoreService()
 
 
 user_controller = Blueprint(
@@ -59,7 +62,7 @@ def profile():
     viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.highscore_alias.data = user.highscore_alias
-    viewmodel.highscore_rank = 0
+    viewmodel.highscore_rank = __highscoreservice.get_rank_for_user(user.id)
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)

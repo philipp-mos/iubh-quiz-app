@@ -90,6 +90,15 @@ class HighscoreService(AbcHighscoreService):
         return last_updated_item.last_update.strftime('%d.%m.%Y %H:%M')
 
     @staticmethod
+    def get_rank_for_user(user_id: int) -> str:
+        highscore_rank = HighscoreRankRepository.get_item_by_user_id(user_id)
+
+        if highscore_rank:
+            return highscore_rank.rank
+
+        return '-'
+
+    @staticmethod
     def __replace_or_create_ranking(highscore_rank: HighscoreRank) -> None:
 
         db_highscorerank: HighscoreRank = HighscoreRankRepository.find_by_rank(highscore_rank.rank)

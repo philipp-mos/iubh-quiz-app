@@ -18,3 +18,7 @@ class AbcHighscoreRankRepository(AbcRepository):
     @abstractmethod
     def get_last_updated_item() -> HighscoreRank:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_item_by_user_id(user_id: int) -> HighscoreRank:
+        raise NotImplementedError

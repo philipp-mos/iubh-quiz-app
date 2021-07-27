@@ -43,3 +43,10 @@ class HighscoreRankRepository(Repository, AbcHighscoreRankRepository):
         Returns the last updated Item
         """
         return HighscoreRank.query.order_by(HighscoreRank.last_update.desc()).first()
+
+    @staticmethod
+    def get_item_by_user_id(user_id: int) -> HighscoreRank:
+        """
+        Returns the rank matching to a given user_id
+        """
+        return HighscoreRank.query.filter(HighscoreRank.user_id == user_id).first()

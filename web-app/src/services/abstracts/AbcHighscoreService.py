@@ -22,3 +22,7 @@ class AbcHighscoreService(ABC):
     @abstractmethod
     def get_last_update_datestring() -> str:
         raise NotImplementedError
+
+    @abstractmethod
+    def get_rank_for_user() -> int:
+        raise NotImplementedError
