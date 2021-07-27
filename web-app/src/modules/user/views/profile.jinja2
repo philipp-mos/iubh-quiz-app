@@ -25,8 +25,47 @@
                     </div>
 
                     <div>
-                        <button type="button" class="btn btn-success" disabled>Speichern</button>
+                        {{ viewmodel.submit(class_="btn btn-success", disabled=True) }}
                     </div>
+                </div>
+            </div>
+            <div class="mt-2"></div>
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('user_controller.save_highscore') }}">
+                        {{ viewmodel.csrf_token }}
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <strong>Highscore-Übersicht</strong>
+                                {% if viewmodel.is_highscore_enabled.data %}
+                                    <span class="badge bg-success float-end"><i class="far fa-check-circle"></i> Aktiv</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark float-end"><i class="far fa-at"></i> Nicht aktiv</span>
+                                {% endif %}
+                            </div>
+                            <div class="form-text">
+                                Aktiviere diese Option, wenn du in der Highscore-Übersicht erscheinen möchtest.<br />
+                                Du benötigst hierzu einen Alias. Dieser wird den anderen Spielern angezeigt.
+                            </div>
+                            <div class="form-check mt-3">
+                                {% if viewmodel.is_highscore_enabled.data %}
+                                    {{ viewmodel.is_highscore_enabled(class_="form-check-input", disabled=True) }}
+                                {% else %}
+                                    {{ viewmodel.is_highscore_enabled(class_="form-check-input") }}
+                                {% endif %}
+                                {{ viewmodel.is_highscore_enabled.label }}
+                            </div>
+                            <div class="mt-4">
+                                {{ viewmodel.highscore_alias(class_="form-control", placeholder="Alias", minlength="5") }}
+                            </div>
+                        </div>
+
+                        <div>
+                            {{ viewmodel.submit(class_="btn btn-success") }}
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
@@ -36,30 +75,32 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="mb-3">
+                            <div class="mb-4">
                                 <strong>Registriert seit:</strong>
                                 <span class="float-end">{{ viewmodel.registered_since }}</span>
                             </div>
-                            <div>
+                            <div class="mb-4">
                                 <strong>Status:</strong>
                                 <span class="float-end">{{ viewmodel.role_status }}</span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <strong>Quizvorschläge (eingereicht):</strong>
-                                <span class="float-end">{{ viewmodel.user_profile_quiz_suggestion.created }}</span>
+                            <div class="mb-4">
+                                <strong>Gespielte Spiele:</strong>
+                                <span class="float-end">{{ viewmodel.amount_played_games }}</span>
                             </div>
+
                             <div>
-                                <strong>Quizvorschläge (angenommen):</strong>
-                                <span class="float-end">{{ viewmodel.user_profile_quiz_suggestion.accepted }}</span>
+                                <strong>Quizvorschläge (Eingereicht / Angenommen):</strong>
+                                <span class="float-end">
+                                    {{ viewmodel.user_profile_quiz_suggestion.created }} / {{ viewmodel.user_profile_quiz_suggestion.accepted }}
+                                </span>
                             </div>
+
+                            {% if viewmodel.is_highscore_enabled.data %}
+                                <div class="mt-4">
+                                    <strong>Highscore-Rang:</strong>
+                                    <span class="float-end">{{ viewmodel.highscore_rank }}</span>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

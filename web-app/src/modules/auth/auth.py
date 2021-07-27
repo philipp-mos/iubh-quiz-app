@@ -1,5 +1,5 @@
 from flask import current_app as app
-from flask import Blueprint, render_template, redirect, request, url_for, flash
+from flask import Blueprint, render_template, redirect, request, url_for, flash, escape
 from flask_login import current_user, login_user, login_required, logout_user
 from datetime import datetime
 
@@ -48,7 +48,7 @@ def login():
 
     if request.method == 'POST' and login_viewmodel.validate_on_submit():
 
-        user = __userrepository.find_active_by_email(login_viewmodel.email.data)
+        user = __userrepository.find_active_by_email(escape(login_viewmodel.email.data))
 
         if user and __userservice.check_password(user, login_viewmodel.password.data):
             login_user(user)
@@ -78,7 +78,7 @@ def signup():
 
     if request.method == 'POST' and signup_viewmodel.validate_on_submit():
 
-        existing_user = __userrepository.find_by_email(signup_viewmodel.email.data)
+        existing_user = __userrepository.find_by_email(escape(signup_viewmodel.email.data))
 
         if existing_user is None:
 
@@ -94,12 +94,12 @@ def signup():
                     form=signup_viewmodel
                 )
 
-            is_signup_email_validation_inactive = not app.config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
+            is_signup_email_validation_active = app.config['IS_SIGNUP_EMAIL_VALIDATION_ACTIVE']
 
             new_user = User(
-                email=signup_viewmodel.email.data,
+                email=escape(signup_viewmodel.email.data),
                 creation_date=datetime.now(),
-                is_active=is_signup_email_validation_inactive
+                is_active=not is_signup_email_validation_active
             )
 
             __userservice.set_password(new_user, signup_viewmodel.password.data)
@@ -108,7 +108,7 @@ def signup():
             user_to_role = UserUserRole(user_id=new_user.id, userrole_id=app.config['USERROLE_STUDENT'])
             __useruserrolerepository.add_and_commit(user_to_role)
 
-            if is_signup_email_validation_inactive:
+            if not is_signup_email_validation_active:
                 login_user(new_user)
                 return redirect(url_for('home_controller.index'))
 

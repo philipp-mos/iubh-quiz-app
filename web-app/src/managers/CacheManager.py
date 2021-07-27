@@ -64,3 +64,4 @@ class CacheManager(object):
     _BUNDLEVERSION = '_BundleVersion'
     _GETALLSUBJECTSAPIDTO = '_GetAllSubjectsApiDto'
     _GETALLSUBJECTSORDEREDBYNAME = '_GetAllSubjectsOrderedByName'
+    _HIGHSCOREOVERVIEWVIEWMODEL = '_HighscoreOverviewViewModel'

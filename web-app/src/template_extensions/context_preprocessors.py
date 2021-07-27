@@ -3,9 +3,8 @@ from flask import session
 from flask_login import current_user
 
 from os import path
-import urllib
-import hashlib
-from typing import List
+
+from ..helpers.ImageHelper import ImageHelper
 
 from .. import cache_manager
 
@@ -61,28 +60,6 @@ def inject_gravatar_url():
     if session.get('USER_IMAGE'):
         return dict(user_image=session['USER_IMAGE'])
 
-    image_size: int = 45
-
-    gravatar_url: List[str] = []
-
-    gravatar_url.append(app.config.get('GRAVATAR_URL'))
-    gravatar_url.append(
-        hashlib.md5(
-            current_user.email.lower().encode(
-                app.config.get('APP_ENCODING_TYPE')
-            )
-        ).hexdigest()
-    )
-    gravatar_url.append('?')
-    gravatar_url.append(
-        urllib.parse.urlencode(
-            {
-                'd': 'retro',
-                's': str(image_size)
-            }
-        )
-    )
-
-    session['USER_IMAGE'] = ''.join(gravatar_url)
+    session['USER_IMAGE'] = ImageHelper.build_gavatar_image_url(current_user.email)
 
     return dict(user_image=session.get('USER_IMAGE'))

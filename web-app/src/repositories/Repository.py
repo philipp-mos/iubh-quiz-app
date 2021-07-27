@@ -58,4 +58,8 @@ class Repository(AbcRepository):
         """
         Commits Db-Session to Database
         """
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            app.logger.critical(e)
+            db.session.rollback()
