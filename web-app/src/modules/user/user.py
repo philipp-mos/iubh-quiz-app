@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, escape
+from flask import Blueprint, render_template, url_for, escape, flash
 from flask_login import login_required, current_user
 from werkzeug.utils import redirect
 
@@ -81,12 +81,16 @@ def save_highscore():
     viewmodel = UserProfileViewModel()
 
     if viewmodel.validate_on_submit():
-        user: User = UserRepository.find_by_id(current_user.get_id())
+        user: User = __userrepository.find_by_id(current_user.get_id())
         if not user.is_highscore_enabled:
             user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
 
-        user.highscore_alias = escape(viewmodel.highscore_alias.data)
+        user_highscore_alias: str = escape(viewmodel.highscore_alias.data)
+        if not __userservice.is_useralias_already_existing(user_highscore_alias):
+            user.highscore_alias = user_highscore_alias
+        else:
+            flash('Dieser Alias existiert bereits.')
 
-        UserRepository.commit()
+        __userrepository.commit()
 
     return redirect(url_for('user_controller.profile'))

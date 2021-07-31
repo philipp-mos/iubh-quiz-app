@@ -31,8 +31,8 @@ class HighscoreRank(db.Model):
 
     user_id = db.Column(
         db.Integer,
-        nullable=False,
-        unique=True
+        db.ForeignKey('users.id'),
+        nullable=False
     )
 
     amount_of_games_won = db.Column(
