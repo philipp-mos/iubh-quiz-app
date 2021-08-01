@@ -19,7 +19,7 @@ IuHttpRequest.getHttpRequest(getHistoricEndpoint, (error, requestData) => {
 
 const setupAndInitChart = (chartHistoricData) => {
     var resultChart = new Chart(chartCanvas, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
             datasets: [
@@ -27,11 +27,13 @@ const setupAndInitChart = (chartHistoricData) => {
                     label: 'Gewonnene Spiele',
                     data: chartHistoricData.won,
                     backgroundColor: '#75b798',
+                    borderColor: '#75b798',
                 },
                 {
                     label: 'Verlorene Spiele',
                     data: chartHistoricData.lost,
                     backgroundColor: '#ea868f',
+                    borderColor: '#ea868f',
                 }
             ]
         },
