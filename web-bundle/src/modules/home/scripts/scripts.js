@@ -41,6 +41,13 @@ const setupAndInitChart = (chartHistoricData) => {
                 legend: {
                     position: 'bottom',
                 }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
             }
         }
     });
