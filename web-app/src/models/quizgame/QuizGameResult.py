@@ -14,6 +14,10 @@ class QuizGameResult(db.Model):
         db.Boolean()
     )
 
+    is_finalized = db.Column(
+        db.Boolean()
+    )
+
     amount_of_questions = db.Column(
         db.Integer,
         nullable=False
