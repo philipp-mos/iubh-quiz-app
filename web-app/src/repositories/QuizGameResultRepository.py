@@ -53,7 +53,7 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         )
 
     @staticmethod
-    def get_quizgameresults_by_userid(user_id: int) -> List[QuizGameResult]:
+    def get_quizgameresults_by_userid_ytd(user_id: int) -> List[QuizGameResult]:
         """
         Returns all Items by UserId in current year
         """

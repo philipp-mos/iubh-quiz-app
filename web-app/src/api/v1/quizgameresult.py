@@ -29,7 +29,7 @@ def get_historic_ytd():
     Get Historic Data of games Won YTD
     """
 
-    quizgameresults = __quizgameresultrepository.get_quizgameresults_by_userid(current_user.get_id())
+    quizgameresults = __quizgameresultrepository.get_quizgameresults_by_userid_ytd(current_user.get_id())
 
     historicresults_dto = DashboardHistoricQuizResultsDto()
 

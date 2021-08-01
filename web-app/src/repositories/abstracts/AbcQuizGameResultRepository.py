@@ -20,5 +20,5 @@ class AbcQuizGameResultRepository(AbcRepository):
         raise NotImplementedError
 
     @abstractmethod
-    def get_quizgameresults_by_userid(user_id: int) -> List[QuizGameResult]:
+    def get_quizgameresults_by_userid_ytd(user_id: int) -> List[QuizGameResult]:
         raise NotImplementedError
