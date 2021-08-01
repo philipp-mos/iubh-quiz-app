@@ -1,6 +1,7 @@
 from sqlalchemy.sql import func
 from flask import current_app as app
 from typing import List
+from datetime import datetime
 
 from .. import db
 
@@ -49,4 +50,15 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
             QuizGameResult.is_won == True  # noqa: E712
         ).group_by(
             QuizGameResult.user_id
+        )
+
+    @staticmethod
+    def get_quizgameresults_by_userid(user_id: int) -> List[QuizGameResult]:
+        """
+        Returns all Items by UserId in current year
+        """
+        return QuizGameResult.query.filter(
+            QuizGameResult.user_id == user_id,
+            QuizGameResult.creation_date >= datetime(datetime.today().year, 1, 1),
+            QuizGameResult.creation_date <= datetime(datetime.today().year, 12, 31),
         )
