@@ -11,6 +11,11 @@ class DashboardHistoricQuizResultsDto:
         """
         Return Won / Lost as JSON
         """
+        counter: int = 0
+        for lost_item in self.lost:
+            self.lost[counter] = lost_item * -1
+            counter += 1
+
         return {
             'won': self.won,
             'lost': self.lost
