@@ -1,6 +1,6 @@
 {% extends 'base_layout.jinja2' %}
 {% set page_title = 'Dashboard' %}
-{% set bundle_name = '' %}
+{% set bundle_name = 'home.bundle' %}
 
 {% block content %}
 
@@ -73,5 +73,12 @@
         </div>
     </div>
 
+
+    <div class="row mt-4" id="dashobard-history">
+        <div class="col-12">
+            <h1 class="h4 mb-4">Übersicht gespielter Spiele</h1>
+              <canvas id="dashobard-history__chart"></canvas>
+        </div>
+    </div>
 
 {% endblock %}
