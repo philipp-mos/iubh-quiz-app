@@ -17,6 +17,10 @@ class UserProfileViewModel(FlaskForm):
 
     amount_played_games: int
 
+    amount_games_won: int
+
+    amount_games_lost: int
+
     # Highscore
     is_highscore_enabled = BooleanField('Zeige mich in der Highscore-Übersicht')
 

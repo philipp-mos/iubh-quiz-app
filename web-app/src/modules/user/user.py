@@ -60,6 +60,8 @@ def profile():
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
     viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
+    viewmodel.amount_games_won = 50
+    viewmodel.amount_games_lost = 10
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.highscore_alias.data = user.highscore_alias
     viewmodel.highscore_rank = __highscoreservice.get_rank_for_user(user.id)
