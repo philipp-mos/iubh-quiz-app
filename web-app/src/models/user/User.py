@@ -35,6 +35,16 @@ class User(UserMixin, db.Model):
         db.Boolean()
     )
 
+    is_highscore_enabled = db.Column(
+        db.Boolean()
+    )
+
+    highscore_alias = db.Column(
+        db.String(200),
+        unique=True,
+        nullable=True
+    )
+
     # Relations
     roles = db.relationship(
         'UserRole',

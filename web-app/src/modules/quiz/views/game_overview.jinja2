@@ -1,0 +1,43 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Spiele Übersicht' %}
+{% set bundle_name = '' %}
+
+{% block content %}    
+  <div class="row">
+    <div class="col-12">
+        <h1 class="h4 mb-4">Übersicht: Spiele gegen einen Gegner</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Gestartet am</th>
+                    <th scope="col">Modul</th>
+                    <th scope="col" class="text-center">Starten</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if viewmodel %}
+                    {% for game_list_item in viewmodel %}
+                        <tr>
+                            <td class="text-secondary">{{ game_list_item.date }}</td>
+                            <td>
+                                <a href="{{ url_for('quiz_controller.start_multiplayer', quizgame_id=game_list_item.id) }}">{{ game_list_item.subject_name }}</a>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('quiz_controller.start_multiplayer', quizgame_id=game_list_item.id) }}"><i class="fas fa-play"></i><a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">
+                            Es wurden keine Spiele gefunden. 
+                            <a href="{{ url_for('subjects_controller.overview') }}">Starten Sie ein neues.</a>
+                        </td>
+                    </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+  </div>
+{% endblock %}

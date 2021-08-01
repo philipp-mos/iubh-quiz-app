@@ -14,3 +14,7 @@
         border-radius: 25px;
     }
 }
+
+.img-rounded {
+    border-radius: helpers.px2rem(25px);
+}

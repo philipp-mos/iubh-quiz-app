@@ -1,7 +1,8 @@
 {% set navigation_items = [
   ('home_controller.index', 'Dashboard'),
   ('subjects_controller.overview', 'Modulauswahl'),
-  ('suggestquestion_controller.subjectselection', 'Frage vorschlagen')
+  ('suggestquestion_controller.subjectselection', 'Frage vorschlagen'),
+  ('highscore_controller.overview', 'Highscore')
 ] -%}
 
 
@@ -40,7 +41,7 @@
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="user-menu">
           <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ url_for('subjects_controller.overview') }}">
               <i class="fas fa-plus"></i> Neues Quiz
             </a>
           </li>
