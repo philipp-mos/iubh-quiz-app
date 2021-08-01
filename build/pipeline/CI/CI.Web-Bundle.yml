@@ -2,6 +2,7 @@ trigger:
 - main
 - release
 - feature/*
+- dependency-update
 
 pool:
   vmImage: ubuntu-latest
