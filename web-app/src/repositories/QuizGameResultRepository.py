@@ -59,6 +59,7 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         """
         return QuizGameResult.query.filter(
             QuizGameResult.user_id == user_id,
+            QuizGameResult.is_finalized == True,  # noqa: E712
             QuizGameResult.creation_date >= datetime(datetime.today().year, 1, 1),
             QuizGameResult.creation_date <= datetime(datetime.today().year, 12, 31),
         )
