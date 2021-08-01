@@ -35,10 +35,6 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         return QuizGameResult.query.filter(QuizGameResult.quizgame_id == quizgame_id)[:limit]
 
     @staticmethod
-    def count_by_user_id(user_id: int) -> int:
-        return QuizGameResult.query.filter(QuizGameResult.user_id == user_id).count()
-
-    @staticmethod
     def get_all_grouped_and_count_by_user() -> List[QuizGameResult]:
         """
         Return Values Grouped and Count by User_Id
@@ -53,7 +49,7 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
         )
 
     @staticmethod
-    def get_quizgameresults_by_userid(user_id: int) -> List[QuizGameResult]:
+    def get_quizgameresults_by_userid_ytd(user_id: int) -> List[QuizGameResult]:
         """
         Returns all Items by UserId in current year
         """
@@ -62,4 +58,14 @@ class QuizGameResultRepository(Repository, AbcQuizGameResultRepository):
             QuizGameResult.is_finalized == True,  # noqa: E712
             QuizGameResult.creation_date >= datetime(datetime.today().year, 1, 1),
             QuizGameResult.creation_date <= datetime(datetime.today().year, 12, 31),
+        )
+
+    @staticmethod
+    def get_all_finalized_by_userid(user_id: int) -> List[QuizGameResult]:
+        """
+        Returns all items by UserId
+        """
+        return QuizGameResult.query.filter(
+            QuizGameResult.user_id == user_id,
+            QuizGameResult.is_finalized
         )

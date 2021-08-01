@@ -15,7 +15,8 @@ module.exports = {
         suggestquestion: './src/modules/suggestquestion/scripts/scripts.js',
         quiz: './src/modules/quiz/scripts/scripts.js',
         quizresult: './src/modules/quizresult/scripts/scripts.js',
-        home: './src/modules/home/scripts/scripts.js'
+        home: './src/modules/home/scripts/scripts.js',
+        profile: './src/modules/profile/scripts/scripts.js'
     },
     output: {
         path: path.resolve(__dirname, destinationDirectory),
