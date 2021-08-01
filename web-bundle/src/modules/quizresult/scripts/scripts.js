@@ -21,8 +21,8 @@ var resultChart = new Chart(chartCanvas, {
                 (amountQuestions - amountCorrectQuestions)
             ],
             backgroundColor: [
-                'rgb(25, 135, 84)',
-                'rgb(220, 53, 69)'
+                '#75b798',
+                '#ea868f'
             ],
             hoverOffset: 4
         }]
