@@ -3,22 +3,19 @@ import Chart from 'chart.js/auto';
 
 import '../styles/styles.scss';
 
-const chartCanvas = document.querySelector('#dashobard-history__chart');
 
-const getHistoricEndpoint = '/quizgameresult/gethistoric-ytd';
-
-IuHttpRequest.getHttpRequest(getHistoricEndpoint, (error, requestData) => {
-    let historicData = requestData;
-    if (error !== null || historicData.length === 0) { }
-    else {
-        setupAndInitChart(historicData);
-    }
-});
-
-
+const getHistoricDataAndTriggerChartInit = () => {
+    IuHttpRequest.getHttpRequest('/quizgameresult/gethistoric-ytd', (error, requestData) => {
+        let historicData = requestData;
+        if (error !== null || historicData.length === 0) { }
+        else {
+            setupAndInitChart(historicData);
+        }
+    });
+}
 
 const setupAndInitChart = (chartHistoricData) => {
-    var resultChart = new Chart(chartCanvas, {
+    var resultChart = new Chart(document.querySelector('#dashobard-history__chart'), {
         type: 'line',
         data: {
             labels: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
@@ -55,3 +52,14 @@ const setupAndInitChart = (chartHistoricData) => {
     });
 }
 
+const setCurrentDateInHeadline = () => {
+    const dateHeadlineElement = document.querySelector('#dashboard-history__current-year');
+
+    dateHeadlineElement.innerHTML = new Date().getFullYear();
+}
+
+
+setTimeout(() => {
+    setCurrentDateInHeadline();
+    getHistoricDataAndTriggerChartInit();
+}, 250);
