@@ -8,7 +8,7 @@ const amountQuestions = chartCanvas.getAttribute('data-amount-questions');
 const amountCorrectQuestions = chartCanvas.getAttribute('data-amount-correct-questions');
 
 
-var resultChart = new Chart(chartCanvas, {
+new Chart(chartCanvas, {
     type: 'doughnut',
     data: {
         labels: [

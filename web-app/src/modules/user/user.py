@@ -1,8 +1,10 @@
+from typing import List
 from flask import Blueprint, render_template, url_for, escape, flash
 from flask_login import login_required, current_user
 from werkzeug.utils import redirect
 
 from ...models.user.User import User
+from ...models.quizgame.QuizGameResult import QuizGameResult
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
 from ...repositories.abstracts.AbcQuizGameResultRepository import AbcQuizGameResultRepository
@@ -56,15 +58,21 @@ def profile():
     elif __userservice.is_user_student(user):
         role_status = 'Student'
 
+    all_quizgames: List[QuizGameResult] = __quizgameresultrepository.get_all_finalized_by_userid(current_user.id)
+
     viewmodel = UserProfileViewModel()
+
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
-    viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
-    viewmodel.amount_games_won = 50
-    viewmodel.amount_games_lost = 10
+
+    viewmodel.amount_played_games = all_quizgames.count()
+    viewmodel.amount_games_won = sum(game.is_won for game in all_quizgames)
+    viewmodel.amount_games_lost = viewmodel.amount_played_games - viewmodel.amount_games_won
+
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.highscore_alias.data = user.highscore_alias
     viewmodel.highscore_rank = __highscoreservice.get_rank_for_user(user.id)
+
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)

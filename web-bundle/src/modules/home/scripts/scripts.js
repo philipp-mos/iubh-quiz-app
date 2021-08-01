@@ -15,7 +15,7 @@ const getHistoricDataAndTriggerChartInit = () => {
 }
 
 const setupAndInitChart = (chartHistoricData) => {
-    var resultChart = new Chart(document.querySelector('#dashobard-history__chart'), {
+    new Chart(document.querySelector('#dashobard-history__chart'), {
         type: 'line',
         data: {
             labels: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],

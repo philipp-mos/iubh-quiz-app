@@ -8,7 +8,7 @@ const amountWon = chartCanvas.getAttribute('data-amount-won');
 const amountLost = chartCanvas.getAttribute('data-amount-lost');
 
 
-var resultChart = new Chart(chartCanvas, {
+new Chart(chartCanvas, {
     type: 'doughnut',
     data: {
         labels: [
