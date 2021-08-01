@@ -21,7 +21,7 @@
     "chart.js": "^3.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
+    "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.7",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "autoprefixer": "^10.3.0",
