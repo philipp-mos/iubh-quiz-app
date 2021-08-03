@@ -37,6 +37,13 @@ class UserRepository(Repository, AbcUserRepository):
         return User.query.filter_by(is_active=True, email=user_email).first()
 
     @staticmethod
+    def find_by_useralias(user_alias: str) -> User:
+        """
+        Returns a User by given user_alias
+        """
+        return User.query.filter_by(highscore_alias=user_alias).first()
+
+    @staticmethod
     def is_tutor_by_userid(user_id) -> bool:
         """
         Checks, if a Tutor-Role is assigned to a specific user

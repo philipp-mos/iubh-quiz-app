@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, url_for, escape
+from typing import List
+from flask import Blueprint, render_template, url_for, escape, flash
 from flask_login import login_required, current_user
 from werkzeug.utils import redirect
 
 from ...models.user.User import User
+from ...models.quizgame.QuizGameResult import QuizGameResult
 
 from ...repositories.abstracts.AbcUserRepository import AbcUserRepository
 from ...repositories.abstracts.AbcQuizGameResultRepository import AbcQuizGameResultRepository
@@ -56,13 +58,21 @@ def profile():
     elif __userservice.is_user_student(user):
         role_status = 'Student'
 
+    all_quizgames: List[QuizGameResult] = __quizgameresultrepository.get_all_finalized_by_userid(current_user.id)
+
     viewmodel = UserProfileViewModel()
+
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
-    viewmodel.amount_played_games = __quizgameresultrepository.count_by_user_id(current_user.id)
+
+    viewmodel.amount_played_games = all_quizgames.count()
+    viewmodel.amount_games_won = sum(game.is_won for game in all_quizgames)
+    viewmodel.amount_games_lost = viewmodel.amount_played_games - viewmodel.amount_games_won
+
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
     viewmodel.highscore_alias.data = user.highscore_alias
     viewmodel.highscore_rank = __highscoreservice.get_rank_for_user(user.id)
+
     viewmodel.registered_since = user.creation_date.strftime("%d.%m.%Y")
     viewmodel.role_status = role_status
     viewmodel.user_profile_quiz_suggestion = __quizsuggestionservice.get_stat_values_for_user_profile_by_user_id(user.id)
@@ -81,12 +91,16 @@ def save_highscore():
     viewmodel = UserProfileViewModel()
 
     if viewmodel.validate_on_submit():
-        user: User = UserRepository.find_by_id(current_user.get_id())
+        user: User = __userrepository.find_by_id(current_user.get_id())
         if not user.is_highscore_enabled:
             user.is_highscore_enabled = viewmodel.is_highscore_enabled.data
 
-        user.highscore_alias = escape(viewmodel.highscore_alias.data)
+        user_highscore_alias: str = escape(viewmodel.highscore_alias.data)
+        if not __userservice.is_useralias_already_existing(user_highscore_alias):
+            user.highscore_alias = user_highscore_alias
+        else:
+            flash('Dieser Alias existiert bereits.')
 
-        UserRepository.commit()
+        __userrepository.commit()
 
     return redirect(url_for('user_controller.profile'))

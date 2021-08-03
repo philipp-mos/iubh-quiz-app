@@ -5,7 +5,7 @@
     "version": "v1"
   },
   "paths": {
-    "/api/v1/subjects/": {
+    "/api/v1/subjects": {
       "get": {
         "description": "Return all available Subjects",
         "tags": [
@@ -97,6 +97,47 @@
               "nullable": true
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/highscore/update": {
+      "get": {
+        "description": "Run the Highscore Calculation and Update all Entries",
+        "tags": [
+          "Highscore"
+        ],
+        "parameters": [
+          {
+            "name": "migrationkey",
+            "description": "String to verify triggering Highscore Update",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/quizgameresults/gethistoric-ytd": {
+      "get": {
+        "description": "Return all QuizGameResults of the current User in current Year",
+        "tags": [
+          "QuizGameResult"
         ],
         "responses": {
           "200": {

@@ -240,8 +240,8 @@ class QuizService(AbcQuizService):
         quizgame_result.user_id = int(current_user.get_id())
         quizgame_result.creation_date = datetime.now()
 
-        # TODO: Update as soon as opponent-mode is implemented
         quizgame_result.is_won = False
+        quizgame_result.is_finalized = False
 
         quizgame_result.amount_of_questions = 0
         quizgame_result.amount_of_correct_questions = 0
@@ -314,6 +314,7 @@ class QuizService(AbcQuizService):
 
         for quizgame_result in quizgame_results:
             quizgame_result.is_won = quizgame_result.amount_of_correct_questions == max_amount_correctquestions
+            quizgame_result.is_finalized = True
 
         QuizGameResultRepository.commit()
 

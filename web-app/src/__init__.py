@@ -37,9 +37,11 @@ def create_app():
     migrate = Migrate(app, db)  # noqa: F841
 
     login_manager.init_app(app)
-    login_manager.session_protection = "basic"
+    login_manager.session_protection = "strong"
 
     with app.app_context():
+        app.logger.info('Application started')
+
         from .services.UserService import UserService  # noqa: F401
 
         from .template_extensions import error_handlers, context_preprocessors  # noqa: F401

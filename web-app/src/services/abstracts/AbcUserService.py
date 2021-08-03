@@ -32,3 +32,7 @@ class AbcUserService(ABC):
     @abstractmethod
     def is_user_tutor(user: User) -> bool:
         raise NotImplementedError
+
+    @abstractmethod
+    def is_useralias_already_existing(user_alias: str) -> bool:
+        raise NotImplementedError

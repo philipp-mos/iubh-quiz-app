@@ -2,23 +2,23 @@ import Chart from 'chart.js/auto';
 
 import '../styles/styles.scss';
 
-const chartCanvas = document.querySelector('#result-chart');
+const chartCanvas = document.querySelector('#won-lost-chart');
 
-const amountQuestions = chartCanvas.getAttribute('data-amount-questions');
-const amountCorrectQuestions = chartCanvas.getAttribute('data-amount-correct-questions');
+const amountWon = chartCanvas.getAttribute('data-amount-won');
+const amountLost = chartCanvas.getAttribute('data-amount-lost');
 
 
 new Chart(chartCanvas, {
     type: 'doughnut',
     data: {
         labels: [
-            'Richtig beantwortet',
-            'Falsch beantwortet'
+            'Gewonnen',
+            'Verloren'
         ],
         datasets: [{
             data: [
-                amountCorrectQuestions,
-                (amountQuestions - amountCorrectQuestions)
+                amountWon,
+                amountLost
             ],
             backgroundColor: [
                 '#75b798',
