@@ -1,10 +1,23 @@
 {% extends 'base_layout.jinja2' %}
 {% set page_title = 'Mein Profil' %}
-{% set bundle_name = '' %}
+{% set bundle_name = 'profile.bundle' %}
 
 {% block content %}
     <h1>Mein Profil</h1>
 
+    <div class="row">
+        <div class="col-12">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-warning">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif%}
+            {% endwith %}
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-6 col-xs-12">
             <div class="card">
@@ -75,6 +88,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <h1 class="h4 mb-4">Daten</h1>
                             <div class="mb-4">
                                 <strong>Registriert seit:</strong>
                                 <span class="float-end">{{ viewmodel.registered_since }}</span>
@@ -106,6 +120,20 @@
                 </div>
             </div>
 
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h4 mb-4">Vergleich gewonnener / verlorener Spiele</h1>
+                            <canvas
+                                id="won-lost-chart"
+                                data-amount-won="{{ viewmodel.amount_games_won }}"
+                                data-amount-lost="{{ viewmodel.amount_games_lost }}"
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

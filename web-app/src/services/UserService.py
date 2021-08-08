@@ -87,3 +87,15 @@ class UserService(AbcUserService):
                 return True
 
         return False
+
+    @staticmethod
+    def is_useralias_already_existing(user_alias: str) -> bool:
+        """
+        Checks, if a given UserAlias is already in use
+        """
+        user: User = UserRepository.find_by_useralias(user_alias)
+
+        if user:
+            return True
+
+        return False
