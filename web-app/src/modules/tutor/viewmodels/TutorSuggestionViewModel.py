@@ -1,3 +1,7 @@
+from typing import List
+from .TutorSuggestionAnswerViewModel import TutorSuggestionAnswerViewModel
+
+
 class TutorSuggestionViewModel():
 
     id: int
@@ -7,3 +11,5 @@ class TutorSuggestionViewModel():
     question_text: str
 
     subject_name: str
+
+    answer_viewmodels: List[TutorSuggestionAnswerViewModel]
