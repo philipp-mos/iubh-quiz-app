@@ -120,20 +120,22 @@
                 </div>
             </div>
 
-            <div class="row mt-2">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="h4 mb-4">Vergleich gewonnener / verlorener Spiele</h1>
-                            <canvas
-                                id="won-lost-chart"
-                                data-amount-won="{{ viewmodel.amount_games_won }}"
-                                data-amount-lost="{{ viewmodel.amount_games_lost }}"
-                            ></canvas>
+            {% if viewmodel.amount_games_won > 0 %}
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="h4 mb-4">Vergleich gewonnener / verlorener Spiele</h1>
+                                <canvas
+                                    id="won-lost-chart"
+                                    data-amount-won="{{ viewmodel.amount_games_won }}"
+                                    data-amount-lost="{{ viewmodel.amount_games_lost }}"
+                                ></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 
