@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from flask_login import login_required
 
 from ...services.abstracts.AbcUserService import AbcUserService
@@ -37,4 +37,20 @@ def overview():
     return render_template(
         'tutor-overview.jinja2',
         viewmodel_list=__quizsuggestionservice.build_tutor_suggestion_overview_viewmodellist()
+    )
+
+
+# Tutor/Detail
+@tutor_controller.route('/detail/<int:suggest_number>', methods=['GET'])
+def detail(suggest_number: int):
+    """
+    Tutor Quiz-Suggestions Detail Page
+    """
+
+    if not __quizsuggestionservice.is_suggestion_available(suggest_number):
+        return redirect(url_for('tutor_controller.overview'))
+
+    return render_template(
+        'tutor-detail.jinja2',
+        viewmodel=__quizsuggestionservice.build_tutor_detail_viewmodel(suggest_number)
     )

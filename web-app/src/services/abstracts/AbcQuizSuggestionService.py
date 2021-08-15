@@ -18,3 +18,11 @@ class AbcQuizSuggestionService(ABC):
     @abstractmethod
     def build_tutor_suggestion_overview_viewmodellist() -> List[TutorSuggestionViewModel]:
         raise NotImplementedError
+
+    @abstractmethod
+    def build_tutor_detail_viewmodel(suggestion_id: int) -> TutorSuggestionViewModel:
+        raise NotImplementedError
+
+    @abstractmethod
+    def is_suggestion_available(suggestion_id: int) -> bool:
+        raise NotImplementedError
