@@ -24,5 +24,5 @@ class AbcQuizSuggestionService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def is_suggestion_available(suggestion_id: int) -> bool:
+    def is_invalid_suggestion_id(suggestion_id: int) -> bool:
         raise NotImplementedError

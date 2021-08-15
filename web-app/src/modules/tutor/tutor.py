@@ -47,7 +47,7 @@ def detail(suggest_number: int):
     Tutor Quiz-Suggestions Detail Page
     """
 
-    if not __quizsuggestionservice.is_suggestion_available(suggest_number):
+    if __quizsuggestionservice.is_invalid_suggestion_id(suggest_number):
         return redirect(url_for('tutor_controller.overview'))
 
     return render_template(

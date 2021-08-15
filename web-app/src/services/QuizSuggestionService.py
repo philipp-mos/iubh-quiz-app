@@ -100,9 +100,9 @@ class QuizSuggestionService(AbcQuizSuggestionService):
         return viewmodel
 
     @staticmethod
-    def is_suggestion_available(suggestion_id: int) -> bool:
+    def is_invalid_suggestion_id(suggestion_id: int) -> bool:
         """
-        Checks, if a QuizSuggestion is available
+        Checks, if a QuizSuggestion is invalide
         """
 
-        return True
+        return not QuizSuggestionRepository.find_by_id(suggestion_id)
