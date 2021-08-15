@@ -30,3 +30,13 @@ class QuizSuggestionRepository(Repository, AbcQuizSuggestionRepository):
         Returns the amount of elements created by specific user_id
         """
         return QuizSuggestion.query.filter_by(user_id=user_id).all()
+
+    @staticmethod
+    def get_all_active(limit=DEFAULT_RESULT_ITEM_MAX_COUNT) -> List[QuizSuggestion]:
+        """
+        Returns all not approved and not declied items
+        """
+        return QuizSuggestion.query.filter(
+            QuizSuggestion.is_approved == False,
+            QuizSuggestion.is_declined == False
+        )[:limit]

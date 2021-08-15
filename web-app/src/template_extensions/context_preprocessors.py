@@ -6,7 +6,13 @@ from os import path
 
 from ..helpers.ImageHelper import ImageHelper
 
+from ..services.abstracts.AbcUserService import AbcUserService
+from ..services.UserService import UserService
+
 from .. import cache_manager
+
+
+__userservice: AbcUserService = UserService()
 
 
 @app.context_processor
@@ -63,3 +69,19 @@ def inject_gravatar_url():
     session['USER_IMAGE'] = ImageHelper.build_gavatar_image_url(current_user.email)
 
     return dict(user_image=session.get('USER_IMAGE'))
+
+
+@app.context_processor
+def inject_is_tutor():
+    """
+    Injects Info about Tutor-Status to Views
+    """
+    if not current_user.is_authenticated:
+        return dict(user_is_tutor=False)
+
+    if session.get('USER_IS_TUTOR'):
+        return dict(user_is_tutor=session['USER_IS_TUTOR'])
+
+    session['USER_IS_TUTOR'] = __userservice.is_user_tutor(current_user)
+
+    return dict(user_is_tutor=session['USER_IS_TUTOR'])

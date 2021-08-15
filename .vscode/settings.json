@@ -2,6 +2,7 @@
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
+        "--ignore=E712",
         "--extend-exclude=logs/,env/,migrations/",
         "--max-line-length=140"
     ],

@@ -8,6 +8,7 @@ from .suggestquestion import suggestquestion
 from .user import user
 from .quiz import quiz
 from .highscore import highscore
+from .tutor import tutor
 
 
 app.register_blueprint(auth.auth_controller)
@@ -18,3 +19,4 @@ app.register_blueprint(suggestquestion.suggestquestion_controller)
 app.register_blueprint(user.user_controller)
 app.register_blueprint(quiz.quiz_controller)
 app.register_blueprint(highscore.highscore_controller)
+app.register_blueprint(tutor.tutor_controller)
