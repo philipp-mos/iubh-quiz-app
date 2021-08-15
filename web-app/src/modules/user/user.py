@@ -58,15 +58,20 @@ def profile():
     elif __userservice.is_user_student(user):
         role_status = 'Student'
 
-    all_quizgames: List[QuizGameResult] = __quizgameresultrepository.get_all_finalized_by_userid(current_user.id)
+    all_quizgameresults: List[QuizGameResult] = __quizgameresultrepository.get_all_finalized_by_userid(current_user.id)
 
     viewmodel = UserProfileViewModel()
 
     viewmodel.email = user.email
     viewmodel.is_email_verified = user.is_active
 
-    viewmodel.amount_played_games = all_quizgames.count()
-    viewmodel.amount_games_won = sum(game.is_won for game in all_quizgames)
+    viewmodel.amount_played_games = all_quizgameresults.count()
+
+    viewmodel.amount_games_won = 0
+    for quizgame in all_quizgameresults:
+        if quizgame.is_won:
+            viewmodel.amount_games_won += 1
+
     viewmodel.amount_games_lost = viewmodel.amount_played_games - viewmodel.amount_games_won
 
     viewmodel.is_highscore_enabled.data = user.is_highscore_enabled
