@@ -1,12 +1,15 @@
+from typing import List
 from flask import current_app as app
 
 from .abstracts.AbcQuizSuggestionService import AbcQuizSuggestionService
 
 from ..repositories.QuizSuggestionRepository import QuizSuggestionRepository
 from ..repositories.QuizSuggestionAnswerRepository import QuizSuggestionAnswerRepository
+from ..repositories.SubjectRepository import SubjectRepository
 
 from ..models.suggestquestion.QuizSuggestionAnswer import QuizSuggestionAnswer
 from ..modules.user.viewmodels.UserProfileQuizSuggestionViewModel import UserProfileQuizSuggestionViewModel
+from ..modules.tutor.viewmodels.TutorSuggestionViewModel import TutorSuggestionViewModel
 
 
 class QuizSuggestionService(AbcQuizSuggestionService):
@@ -43,3 +46,26 @@ class QuizSuggestionService(AbcQuizSuggestionService):
             len(quizsuggestions_by_user),
             amount_approved
         )
+
+    @staticmethod
+    def build_tutor_suggestion_overview_viewmodellist() -> List[TutorSuggestionViewModel]:
+        """
+        Builds and returns List of TUtorSuggestionViewModel with all active QuizSuggestions
+        """
+        viewmodel_list = []
+
+        all_quizsuggestions = QuizSuggestionRepository.get_all_active()
+
+        for quizsuggestion in all_quizsuggestions:
+            viewmodel = TutorSuggestionViewModel()
+
+            viewmodel.id = quizsuggestion.id
+            viewmodel.date = quizsuggestion.creation_date.strftime('%d.%m.%Y %H:%M')
+            viewmodel.question_text = quizsuggestion.question
+
+            subject = SubjectRepository.find_by_id(quizsuggestion.subject_id)
+            viewmodel.subject_name = subject.name
+
+            viewmodel_list.append(viewmodel)
+
+        return viewmodel_list
