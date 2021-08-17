@@ -2,6 +2,7 @@ trigger:
 - main
 - release
 - feature/*
+- hotfix/*
 - dependency-update
 
 pool:
