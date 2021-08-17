@@ -46,6 +46,14 @@
             </a>
           </li>
 
+          {% if user_is_tutor %}
+            <li>
+              <a class="dropdown-item" href="{{ url_for('tutor_controller.overview') }}">
+                <i class="fas fa-chalkboard-teacher"></i> Tutorbereich
+              </a>
+            </li>
+          {% endif %}
+
           <li>
             <a class="dropdown-item" href="{{ url_for('user_controller.profile') }}">
               <i class="fas fa-id-badge"></i> Mein Profil
