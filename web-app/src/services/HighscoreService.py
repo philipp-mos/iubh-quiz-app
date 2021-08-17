@@ -58,6 +58,9 @@ class HighscoreService(AbcHighscoreService):
 
         counter = 0
 
+        if len(results_sorted) > 0:
+            HighscoreService.__cleanup_highscore_entries()
+
         for result in results_sorted:
 
             user: User = UserRepository.find_by_id(result.user_id)
@@ -117,5 +120,19 @@ class HighscoreService(AbcHighscoreService):
 
         else:
             HighscoreRankRepository.add(highscore_rank)
+
+        HighscoreRankRepository.commit()
+
+    @staticmethod
+    def __cleanup_highscore_entries() -> None:
+        """
+        Cleans up all current Highscore Entries
+        """
+
+        highscore_ranks = HighscoreRankRepository.get_all(5000)
+
+        for highscore_rank in highscore_ranks:
+
+            HighscoreRankRepository.delete(highscore_rank)
 
         HighscoreRankRepository.commit()

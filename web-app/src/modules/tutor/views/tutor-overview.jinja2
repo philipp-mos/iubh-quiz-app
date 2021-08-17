@@ -1,0 +1,43 @@
+{% extends 'base_layout.jinja2' %}
+{% set page_title = 'Tutorbereich' %}
+{% set bundle_name = '' %}
+
+{% block content %}
+
+    <h1>Tutorbereich: Quizvorschläge</h1>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Quizfrage</th>
+                        <th>Modul</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for viewmodel in viewmodel_list %}
+                        <tr>
+                            <td>{{ viewmodel.date }}</td>
+                            <td>{{ viewmodel.question_text }}</td>
+                            <td>{{ viewmodel.subject_name }}</td>
+                            <td>
+                                <a href="{{ url_for('tutor_controller.detail', suggest_number=viewmodel.id) }}">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% if not viewmodel_list %}
+                        <tr>
+                            <td colspan="4">Es konnten keine Einträge gefunden werden</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
