@@ -7,9 +7,9 @@
 
 ---
 
-| Production | Staging |
-| :--- | :--- |
-| https://iuquiz.azurewebsites.net | https://iuquiz-staging.azurewebsites.net |
+| Production | Staging | Documentation |
+| :--- | :--- | :--- |
+| https://iuquiz.azurewebsites.net | https://iuquiz-staging.azurewebsites.net | https://iuquiz.gitbook.io/quickstart |
 
 ---
 
